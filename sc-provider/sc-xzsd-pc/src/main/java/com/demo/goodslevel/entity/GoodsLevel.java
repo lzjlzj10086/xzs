@@ -17,6 +17,10 @@ public class GoodsLevel {
      */
     private String userId;
     /**
+     * 登录用户角色
+     */
+    private int role;
+    /**
      * 分类编码
      */
     private String levelCode;
@@ -75,6 +79,14 @@ public class GoodsLevel {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public int getPageSize() {

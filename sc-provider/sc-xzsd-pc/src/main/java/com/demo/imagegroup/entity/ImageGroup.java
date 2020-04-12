@@ -17,6 +17,10 @@ public class ImageGroup {
      */
     private String userId;
     /**
+     * 登录用户角色
+     */
+    private int role;
+    /**
      * 轮播图排序
      */
     private String sort;
@@ -95,6 +99,14 @@ public class ImageGroup {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getSort() {

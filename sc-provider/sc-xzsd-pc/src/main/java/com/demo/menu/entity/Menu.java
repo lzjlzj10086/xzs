@@ -17,6 +17,10 @@ public class Menu {
      */
     private String userId;
     /**
+     * 登录用户角色
+     */
+    private int role;
+    /**
      * 菜单编号
      */
     private String menuCode;
@@ -84,6 +88,14 @@ public class Menu {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getMenuCode() {

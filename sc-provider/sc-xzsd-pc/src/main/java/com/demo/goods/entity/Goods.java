@@ -16,6 +16,10 @@ public class Goods {
      */
     private String userId;
     /**
+     * 登录用户角色
+     */
+    private int role;
+    /**
      * 商品编号
      */
     private String goodsCode;
@@ -162,6 +166,14 @@ public class Goods {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getGoodsCode() {
