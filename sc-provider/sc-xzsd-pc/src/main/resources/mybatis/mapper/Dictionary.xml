@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.dictionary.dao.DictionaryDao">
+    <select id="findprovinces" resultType="com.demo.dictionary.entity.Dictionary">
+        select
+            distinct provinces_no provincesNo,
+            provinces_name provincesName
+        from t_dictionary
+    </select>
+
+    <select id="findCity" parameterType="java.lang.String" resultType="com.demo.dictionary.entity.Dictionary">
+        select
+            distinct city_no cityNo,
+            city_name cityName
+        from t_dictionary
+        where provinces_no = #{provincesNo}
+    </select>
+
+    <select id="findCounty" parameterType="java.lang.String" resultType="com.demo.dictionary.entity.Dictionary">
+        select
+            distinct county_no countyNo,
+            county_name countyName
+        from t_dictionary
+        where city_no = #{cityNo}
+    </select>
+
+    <select id="findprovincesName" parameterType="java.lang.String" resultType="java.lang.String">
+         select
+            distinct provinces_name provincesName
+         from t_dictionary
+         where provinces_no = #{provincesNo}
+    </select>
+    <select id="findCityName" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+            distinct city_name cityName
+         from t_dictionary
+         where city_no = #{cityNo}
+    </select>
+    <select id="findCountyName" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+            distinct county_name countyName
+         from t_dictionary
+         where county_no = #{countyNo}
+    </select>
+
+
+</mapper>

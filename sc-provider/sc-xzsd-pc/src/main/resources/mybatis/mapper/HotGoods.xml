@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.hotgoods.dao.HotDao">
+    <!--检查是否存在该热门位商品-->
+    <select id="countHot" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="java.lang.Integer">
+        select count(*)
+        from t_hot
+        where is_deleted = 0
+        and (hot_sort = #{hotSort} or goods_code = #{goodsCode})
+    </select>
+    <!--添加热门位商品-->
+    <insert id="addHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">
+        insert into t_hot
+        (
+            hot_code,
+            hot_sort,
+            goods_code,
+            goods_name,
+            goods_price,
+            goods_notes,
+            is_deleted,
+            create_time,
+            create_user,
+            update_time,
+            update_user,
+            version
+        )
+        values
+        (
+            #{hotCode},
+            #{hotSort},
+            #{goodsCode},
+            #{goodsName},
+            #{goodsPrice},
+            #{goodsNotes},
+             0,
+            now(),
+            #{userId},
+            now(),
+            #{userId},
+            0
+        )
+    </insert>
+    <!--热门位商品列表查询-->
+    <select id="listHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="com.demo.hotgoods.entity.HotGoods">
+        select
+            hot_code hotCode,
+            hot_sort hotSort,
+            goods_code goodsCode,
+            goods_name goodsName,
+            goods_price goodsPrice,
+            goods_notes goodsNotes
+        from t_hot
+        where is_deleted = 0
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name = #{goodsName}
+        </if>
+        <if test="goodsCode != null and goodsCode != ''">
+            and goods_code = #{goodsCode}
+        </if>
+    </select>
+    <!--修改热门位商品-->
+    <update id="updateHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">
+        update t_hot
+        set
+            hot_sort = #{hotSort},
+            goods_code = #{hotCode},
+            goods_name = #{goodsName},
+            goods_price = #{goodsPrice},
+            goods_notes = #{goodsNotes},
+            update_time = now(),
+            update_user = #{userId},
+            version = version +1
+        where hot_code = #{hotCode}
+    </update>
+    <!--删除热门商品-->
+    <update id="deleteHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">
+        update t_hot
+        set
+            is_deleted = 1,
+            update_time = now(),
+            version = version +1
+        where hot_code in
+        <foreach collection="hotCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <!--设置热门商品展示数量-->
+    <update id="updateHotGoodsNumber" parameterType="java.lang.String">
+        update t_hot_number
+        set
+            num = #{number}
+    </update>
+</mapper>

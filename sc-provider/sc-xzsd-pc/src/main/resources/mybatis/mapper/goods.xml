@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.goods.dao.GoodsDao">
+    <select id="countGoods" resultType="java.lang.Integer">
+        select
+        count(book_id)
+        from t_goods
+        where
+        is_deleted = 0
+        and
+        book_id = #{bookId}
+        <if test="goodsCode != null and goodsCode !=' '">
+            and goods_code != #{goodsCode}
+        </if>
+    </select>
+    <insert id="saveGoods" parameterType="com.demo.goods.entity.Goods">
+        insert t_goods
+        (
+            goods_code,
+            goods_name,
+            book_id,
+            writer,
+            firstlevel_code,
+            firstlevel_name,
+            secondlevel_code,
+            secondlevel_name,
+            advertisement,
+            goods_notes,
+            shop_code,
+            shop_name,
+            price,
+            cost_price,
+            image,
+            goods_status,
+            stock,
+            up_time,
+            down_time,
+            is_deleted,
+            create_time,
+            create_user,
+            update_time,
+            update_user,
+            version
+        )
+        values
+        (
+            #{goodsCode},
+            #{goodsName},
+            #{bookId},
+            #{write},
+            #{firstLevelCode},
+            #{firstLevelName},
+            #{secondLevelCode},
+            #{secondLevelName},
+            #{advertisement},
+            #{goodsNotes},
+            #{shopCode},
+            #{shopName},
+            #{price},
+            #{costPrice},
+            #{goodsImage},
+            #{goodsStatus},
+            #{stock},
+            now(),
+            null,
+            0,
+            now(),
+            #{userId},
+            now(),
+            #{userId},
+            0
+        )
+    </insert>
+    <select id="listGoods" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
+        select
+            goods_code goodsCode,
+            goods_name goodsName,
+            cost_price costPrice,
+            price price,
+            firstlevel_name firstLevelName,
+            secondlevel_name secondLevelName,
+            advertisement advertisement,
+            goods_notes goodsNotes,
+            goods_status goodsStatus,
+            up_time upTime,
+            shop_name shopName,
+            stock stock,
+            book_id bookId
+        from t_goods
+        where is_deleted = 0
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name like concat('%', #{goodsName}, "%")
+        </if>
+        <if test="write != null and write !=''">
+            and writer like concat('%', #{write}, '%')
+        </if>
+        <if test="goodsStatus != null and goodsStatus != ''">
+            and goods_status like concat('%', #{goodsStatus}, '%')
+        </if>
+        <if test="advertisement != null and advertisement !=''">
+            and advertisement like concat('%', #{advertisement}, '%')
+        </if>
+    </select>
+    <select id="findGoodsById" parameterType="java.lang.String" resultType="com.demo.goods.entity.GoodsVo">
+        select
+            goods_name goodsName,
+            cost_price costPrice,
+            price price,
+            firstlevel_name firstLevelName,
+            secondlevel_name secondLevelName,
+            advertisement advertisement,
+            goods_notes goodsNotes,
+            goods_status goodsStatus,
+            up_time upTime,
+            shop_name shopName,
+            stock stock,
+            book_id bookId
+        from t_goods
+        where
+            goods_code = #{goodsCode}
+    </select>
+    <update id="updateGoods" parameterType="com.demo.goods.entity.Goods">
+        update t_goods
+        set
+            goods_name = #{goodsName},
+            book_id = #{bookId},
+            firstlevel_code = #{firstLevelCode},
+            secondlevel_code = #{secondLevelCode},
+            advertisement = #{advertisement},
+            goods_notes = #{goodsNotes},
+            shop_name = #{shopName},
+            stock = #{stock},
+            price = #{price},
+            cost_price = #{costPrice},
+            image = #{goodsImage},
+            version = version+1,
+            update_time =now(),
+            update_user =#{userId}
+        where goods_Code = #{goodsCode}
+    </update>
+    <delete id="deleteGoods" parameterType="com.demo.goods.entity.Goods">
+        update t_goods
+        set
+            is_deleted = 1,
+            update_time = now(),
+            update_user = #{userId},
+            version = version + 1
+        where goods_code in
+        <foreach collection="goodsCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <update id="upGoods" parameterType="com.demo.goods.entity.Goods">
+        update t_goods
+        set
+            goods_status = 0,
+            update_time = now(),
+            update_user = #{userId},
+            version = version + 1
+        where goods_code in
+        <foreach collection="goodsCode" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="downGoods" parameterType="com.demo.goods.entity.Goods">
+        update t_goods
+        set
+        goods_status = 1,
+        update_time = now(),
+        update_user = #{userId},
+        version = version + 1
+        where goods_code in
+        <foreach collection="goodsCode" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <select id="findFirstLevel" resultType="com.demo.goodslevel.entity.GoodsLevel">
+        select
+            level_code levelCode,
+            level_name levelName
+        from t_goodslevel
+        where is_parent = 0
+    </select>
+
+    <select id="findSecondLevel" parameterType="java.lang.String" resultType="com.demo.goodslevel.entity.GoodsLevel">
+        select
+            level_code levelCode,
+            level_name levelName
+        from t_goodslevel
+        where parent_level_code = #{firstLevelCode}
+        and is_parent = 1
+    </select>
+
+</mapper>

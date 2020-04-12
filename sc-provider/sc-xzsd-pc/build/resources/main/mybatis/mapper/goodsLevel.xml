@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.goodslevel.dao.GoodsLevelDao">
+    <select id="countLevelName" parameterType="com.demo.goodslevel.entity.GoodsLevel" resultType="java.lang.Integer">
+        select
+            count(level_name)
+        from t_goodslevel
+        where is_deleted = 0
+        and level_name = #{levelName}
+        <if test="levelCode != null and levelCode != ''">
+            and level_code != #{levelCode}
+        </if>
+    </select>
+    <insert id="saveGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
+        insert t_goodslevel
+        (
+            level_code,
+            level_name,
+            parent_level_code,
+            parent_level_name,
+            Level_notes,
+            is_parent,
+            is_deleted,
+            create_time,
+            create_user,
+            update_time,
+            update_user,
+            version
+        )
+        values
+        (
+            #{levelCode},
+            #{levelName},
+            #{parentLevelCode},
+            #{parentLeveLName},
+            #{levelNotes},
+            #{isParent},
+            #{isDelete},
+            now(),
+            #{createBy},
+            now(),
+            #{updateBy},
+            0
+        )
+    </insert>
+    <!--列表查询-->
+    <select id="listGoodsLevel" resultMap="ModuleResultMap">
+        select
+            a.level_code levelCode,
+            a.level_name levelName,
+            b.level_code levelCode1,
+            b.level_name levelName1
+        from
+            t_goodslevel a,
+            t_goodslevel b
+        where a.level_code = b.parent_level_code
+        and b.is_deleted = 0
+    </select>
+    <resultMap id="ModuleResultMap" type="com.demo.goodslevel.entity.GoodsLevel">
+        <id column="levelCode" property="levelCode"/>
+        <result column="levelName" property="levelName"/>
+        <collection property="secondGoodsLevel" ofType="com.demo.goodslevel.entity.GoodsLevel">
+            <id column="levelCode1" property="levelCode"/>
+            <result column="levelName1" property="levelName"/>
+        </collection>
+    </resultMap>
+    <!--详情查询-->
+    <select id="findGoodsLevelById" parameterType="java.lang.String" resultType="com.demo.goodslevel.entity.GoodsLevelVo">
+        select
+            level_name levelName,
+            Level_notes levelNotes
+        from
+            t_goodslevel
+        where
+            is_deleted = 0
+        and
+            level_code = #{levelCode}
+    </select>
+    <delete id="deleteGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
+        update t_goodslevel
+        set
+            is_deleted = 1,
+            update_time = now(),
+            update_user = #{userId},
+            version = version+1
+        where level_code in
+        <foreach collection="levelCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <update id="updateGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
+        update t_goodslevel
+        set
+            level_name  = #{levelName},
+            level_notes = #{levelNotes},
+            version = version + 1,
+            update_time = now(),
+            update_user = #{userId}
+        where
+            level_code = #{levelCode}
+    </update>
+</mapper>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.qcloud:cos_api:5.2.4">
+    <CLASSES>
+      <root url="jar://D:/gradle/gradle-6.0.1/caches/modules-2/files-2.1/com.qcloud/cos_api/5.2.4/8bb81db5cc5f5e5cb2038bf437072415bd83cf0e/cos_api-5.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/gradle/gradle-6.0.1/caches/modules-2/files-2.1/com.qcloud/cos_api/5.2.4/d8d3bf5cec3ab5f7b44e54f22e76a3b47a2f1211/cos_api-5.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

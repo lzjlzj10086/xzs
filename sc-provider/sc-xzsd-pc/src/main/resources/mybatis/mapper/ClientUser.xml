@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.clientuser.dao.ClientUserDao">
+    <select id="listClientUser" parameterType="com.demo.clientuser.entity.ClientUser" resultType="com.demo.clientuser.entity.ClientUser">
+        select
+            user_code userCode,
+            user_acct userAcct,
+            user_name userName,
+            sex sex,
+            phone phone,
+            email email,
+            id_card idCard
+        from t_clientuser
+        where is_deleted = 0
+        <if test="userName != null and userName !=''">
+            and user_name = #{userName}
+        </if>
+        <if test="userAcct != null and userAcct !=''">
+            and user_Acct = #{userAcct}
+        </if>
+        <if test="storesBossCode != null and storesBossCode !=''">
+            and stores_boss_code = #{storesBossCode}
+        </if>
+    </select>
+
+</mapper>

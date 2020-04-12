@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.stores.dao.StoresDao">
+    <select id="countStores" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
+        select
+            count(stores_code)
+        from t_stores
+        where is_deleted = 0
+        and stores_code = #{storesCode}
+
+    </select>
+
+    <insert id="addStores" parameterType="com.demo.stores.entity.Stores">
+        insert into t_stores
+        (
+            stores_code,
+            stores_name,
+            stores_address,
+            storesboss_code,
+            storesboss_name,
+            open_code,
+            stores_phone,
+            stores_invite_code,
+            stores_acct,
+            stores_provinces_no,
+            stores_city_no,
+            stores_county_no,
+            stores_provinces_name,
+            stores_city_name,
+            stores_county_name,
+            is_deleted,
+            create_time,
+            create_user,
+            update_time,
+            update_user,
+            version
+        )
+        values
+        (
+            #{storesCode},
+            #{storesName},
+            #{storesAddress},
+            #{storesBossCode},
+            #{storesBossName},
+            #{openCode},
+            #{storesPhone},
+            #{storesInviteCode},
+            #{storesAcct},
+            #{provincesNo},
+            #{cityNo},
+            #{countyNo},
+            #{prvincesName},
+            #{cityName},
+            #{countyName},
+              0,
+            now(),
+            #{userId},
+            now(),
+            #{userId},
+            0
+        )
+    </insert>
+    <select id="listStores" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
+        select
+            stores_code storesCode,
+            stores_name storesName,
+            stores_address storesAddress,
+            storesboss_name storesBossName,
+            stores_phone storesPhone,
+            stores_invite_code storesInviteCode,
+            stores_acct storesAcct
+        from t_stores
+        where is_deleted = 0
+        <if test="storesBossCode != null and storesBossCode !=''">
+            and storesboss_code = #{storesBossCode}
+        </if>
+        <if test="storesCode != null and storesCode !=''">
+            and stores_code = #{storesCode}
+        </if>
+        <if test="storesName != null and storesName !=''">
+            and stores_name = #{storesName}
+        </if>
+        <if test="storesBossName != null and storesBossName !=''">
+            and storesboss_name = #{storesBossName}
+        </if>
+        <if test="provincesNo != null and provincesNo !=''">
+            and stores_provinces_no = #{provincesNo}
+        </if>
+        <if test="cityNo != null and cityNo !=''">
+            and stores_city_no = #{cityNo}
+        </if>
+        <if test="countyNo != null and countyNo !=''">
+            and stores_county_no = #{countyNo}
+        </if>
+    </select>
+
+    <update id="updateStores" parameterType="com.demo.stores.entity.Stores">
+        update t_stores
+        set
+            stores_name = #{storesName},
+            storesboss_name = #{storesBossName},
+            open_code = #{openCode},
+            stores_phone =#{storesPhone},
+            stores_provinces_no = #{provincesNo},
+            stores_city_no = #{cityNo},
+            stores_county_no = #{countyNo},
+            stores_provinces_name =#{provincesName},
+            stores_city_name = #{cityName},
+            stores_county_name = #{countyName},
+            stores_address = #{storesAddress},
+            update_time = now(),
+            update_user = #{userId},
+            version = version + 1
+        where stores_code = #{storesCode}
+    </update>
+    <update id="deleteStores" parameterType="com.demo.stores.entity.Stores">
+        update t_stores
+        set
+        is_deleted = 1,
+        update_time = now(),
+        version = version + 1
+        where stores_code in
+        <foreach collection="storesCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

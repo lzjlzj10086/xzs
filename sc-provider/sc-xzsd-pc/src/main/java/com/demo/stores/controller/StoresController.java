@@ -1,0 +1,71 @@
+package com.demo.stores.controller;
+
+import com.demo.hotgoods.entity.HotGoods;
+import com.demo.stores.entity.Stores;
+import com.demo.stores.service.StoresService;
+import com.demo.util.AppResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+@RestController
+@RequestMapping("/stores")
+public class StoresController {
+
+    private static final Logger logger = LoggerFactory.getLogger(HotGoods.class);
+
+    @Resource
+    private StoresService storesService;
+
+    @PostMapping("addStores")
+    public AppResponse addStores(Stores stores){
+        try {
+            stores.setUserId("123456");
+            return storesService.addStores(stores);
+        }catch (Exception e) {
+            logger.error("新增失败", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    @PostMapping("listStores")
+    public AppResponse listStores(Stores stores){
+        try {
+            //stores.setUserId("123456");
+            //stores.setRole(2);
+            return storesService.listStores(stores);
+        }catch (Exception e) {
+            logger.error("查询失败", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    @PostMapping("updateStores")
+    public AppResponse updateStores(Stores stores){
+        try {
+            //stores.setUserId("123456");
+            return storesService.updateStores(stores);
+        }catch (Exception e) {
+            logger.error("修改失败", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    @PostMapping("deleteStores")
+    public AppResponse deleteStores(String storesCode){
+        try {
+            //stores.setUserId("123456");
+            return storesService.deletedStores(storesCode);
+        }catch (Exception e) {
+            logger.error("删除失败", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+}
