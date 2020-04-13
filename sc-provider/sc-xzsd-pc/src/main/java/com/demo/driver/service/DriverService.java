@@ -1,7 +1,6 @@
 package com.demo.driver.service;
 
 import com.demo.dictionary.dao.DictionaryDao;
-import com.demo.dictionary.entity.Dictionary;
 import com.demo.driver.dao.DriverDao;
 import com.demo.driver.entity.Driver;
 import com.demo.util.AppResponse;
