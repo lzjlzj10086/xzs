@@ -29,6 +29,7 @@ public interface MenuDao {
      */
     List<MenuVo> listMenu(Menu menu);
 
+    List<MenuVo> listMenuTwo(Menu menu);
     /**
      * 菜单详情查询
      * @param menuCode

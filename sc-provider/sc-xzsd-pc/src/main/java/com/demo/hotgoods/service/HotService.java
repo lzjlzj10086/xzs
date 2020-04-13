@@ -59,9 +59,6 @@ public class HotService {
      */
     public AppResponse listHotGoods(HotGoods hotGoods){
         PageHelper.startPage(hotGoods.getPageNum(),hotGoods.getPageSize());
-        if(hotGoods.getRole() == 2 || hotGoods.getRole() == 3){
-            return AppResponse.success("你不是管理员，没有权限");
-        }
         List<HotGoods> listhot = hotDao.listHotGoods(hotGoods);
         PageInfo<HotGoods> pageInfo = new PageInfo<HotGoods>(listhot);
         return AppResponse.success("热门商品列表查询成功",pageInfo);

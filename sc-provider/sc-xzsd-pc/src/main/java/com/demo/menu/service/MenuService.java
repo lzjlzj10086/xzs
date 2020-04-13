@@ -39,11 +39,15 @@ public class MenuService {
     }
 
     /**
-     * 菜单列表查询
+     * 首页菜单列表查询
      * @param menu
      * @return
      */
     public AppResponse listMenu(Menu menu){
+        if(menu.getRole() == 2){
+            List<MenuVo> listMenuTwo = menuDao.listMenuTwo(menu);
+            return AppResponse.success("店长菜单列表权限查询",listMenuTwo);
+        }
         List<MenuVo> listMenu= menuDao.listMenu(menu);
         return AppResponse.success("列表查询成功",listMenu);
     }
