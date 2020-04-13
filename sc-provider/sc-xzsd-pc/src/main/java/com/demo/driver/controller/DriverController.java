@@ -63,9 +63,9 @@ public class DriverController {
         }
     }
     @PostMapping("deleteDriver")
-    public AppResponse deleteDriver(String driverCode){
+    public AppResponse deleteDriver(String driverCode,String userId){
         try{
-            return  driverService.deleteDriver(driverCode);
+            return  driverService.deleteDriver(driverCode,userId);
         }catch (Exception e){
             logger.error("删除失败", e);
             System.out.println(e.toString());

@@ -58,6 +58,9 @@ public class DriverService {
 
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateDriver(Driver driver){
+        driver.setProvincesName(dictionaryDao.findprovincesName(driver.getProvincesNo()));
+        driver.setCityName(dictionaryDao.findCityName(driver.getCityNo()));
+        driver.setCountyName(dictionaryDao.findCountyName(driver.getCountyNo()));
         int count = driverDao.updateDriver(driver);
         if(count == 0){
             return AppResponse.bizError("修改失败");
@@ -65,9 +68,9 @@ public class DriverService {
         return AppResponse.success("修改成功");
     }
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteDriver(String driverCode){
+    public AppResponse deleteDriver(String driverCode,String userId){
         List<String> listCode = Arrays.asList(driverCode.split(","));
-        int count = driverDao.deleteDriver(listCode);
+        int count = driverDao.deleteDriver(listCode,userId);
         if(count == 0){
             return AppResponse.bizError("删除失败");
         }

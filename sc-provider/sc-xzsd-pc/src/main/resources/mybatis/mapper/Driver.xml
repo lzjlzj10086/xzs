@@ -3,8 +3,9 @@
 
 <mapper namespace="com.demo.driver.dao.DriverDao">
 
+    <!--检查是否存在-->
     <select id="countDriver" parameterType="com.demo.driver.entity.Driver" resultType="java.lang.Integer">
-        select count(*)
+        select count(user_acct)
         from t_user
         where user_acct = #{driverAcct}
         or user_code = #{driverCode}
@@ -55,4 +56,80 @@
          )
     </insert>
 
+    <select id="listDriver" parameterType="com.demo.driver.entity.Driver" resultType="com.demo.driver.entity.Driver">
+        select
+            user_code driverCode,
+            user_name driverName,
+            user_acct driverAcct,
+            phone phone,
+            id_card idCard
+        from t_user
+        where role = 3 and is_deleted = 0
+        <if test="storesBossCode != null and storesBossStores != ''">
+            and storesboss_code = #{storesBossCode}
+        </if>
+        <if test="driverName != null and driverName != ''">
+            and user_name = #{driverName}
+        </if>
+        <if test="driverCode != null and driverCode != ''">
+            and user_code = #{driverCode}
+        </if>
+        <if test="provincesNo != null and provincesNo != ''">
+            and provinces_no = #{provincesNo}
+        </if>
+        <if test="cityNo != null and cityNo != ''">
+            and city_no = #{cityNo}
+        </if>
+        <if test="countyNo != null and countyNo != ''">
+            and county_no = #{countyNo}
+        </if>
+    </select>
+
+    <select id="findDriverById" parameterType="java.lang.String" resultType="com.demo.driver.entity.Driver">
+        select
+            user_code driverCode,
+            user_name driverName,
+            user_acct driverAcct,
+            user_pwd driverPwd,
+            phone phone,
+            id_card idCard,
+            provinces_no provincesNo,
+            city_no cityNo,
+            county_no countyNo
+        from t_user
+        where is_deleted =0 and role = 3
+        and user_code = #{driverCode}
+    </select>
+
+    <update id="updateDriver" parameterType="com.demo.driver.entity.Driver">
+        update t_user
+        set
+         user_name = #{driverName},
+         user_acct = #{driverAcct},
+         user_pwd = #{driverPwd},
+         id_card = #{idCard},
+         phone = #{phone},
+         provinces_no = #{provincesNo},
+         city_no = #{cityNo},
+         county_no = #{countyNo},
+         provinces_name =#{provincesName},
+         city_name =#{cityName},
+         county_name = #{countyName},
+         update_time = now(),
+         update_user = #{userId},
+         version = version +1
+        where user_code = #{driverCode}
+    </update>
+    <update id="deleteDriver" parameterType="com.demo.driver.entity.Driver">
+        update t_user
+        set
+         is_deleted = 1,
+         update_time = now(),
+         update_user = #{userId},
+         version = version +1
+        where user_code in
+        <foreach collection="driverCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
 </mapper>

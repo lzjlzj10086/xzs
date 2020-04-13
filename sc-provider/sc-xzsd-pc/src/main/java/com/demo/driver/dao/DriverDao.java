@@ -49,5 +49,5 @@ public interface DriverDao {
      * @param driverCode
      * @return
      */
-    int deleteDriver(@Param("driverCode")List<String> driverCode);
+    int deleteDriver(@Param("driverCode")List<String> driverCode,@Param("userId") String userId);
 }
