@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.driver.dao.DriverDao">
+
+    <select id="countDriver" parameterType="com.demo.driver.entity.Driver" resultType="java.lang.Integer">
+        select count(*)
+        from t_user
+        where user_acct = #{driverAcct}
+        or user_code = #{driverCode}
+    </select>
+
+    <insert id="addDriver" parameterType="com.demo.driver.entity.Driver">
+        insert into t_user
+        (user_code,
+         user_name,
+         user_acct,
+         user_pwd,
+         id_card,
+         phone,
+         provinces_no,
+         city_no,
+         county_no,
+         provinces_name,
+         city_name,
+         county_name,
+         role,
+         is_deleted,
+         create_time,
+         create_user,
+         update_time,
+         update_user,
+         version
+         )
+         values
+         (  #{driverCode},
+            #{driverName},
+            #{driverAcct},
+            #{driverPwd},
+            #{idCard},
+            #{phone},
+            #{provincesNo},
+            #{cityNo},
+            #{countyNo},
+            #{provincesName},
+            #{cityName},
+            #{countyName},
+            3,
+            0,
+            now(),
+            #{userId},
+            now(),
+            #{userId},
+            0
+         )
+    </insert>
+
+</mapper>

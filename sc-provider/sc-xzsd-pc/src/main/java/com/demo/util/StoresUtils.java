@@ -28,4 +28,14 @@ public class StoresUtils {
         String storesCode = code+String.valueOf((int)((Math.random()*9+1)*1000));
         return storesCode;
     }
+
+    /**
+     * 得到司机编号
+     * @return
+     */
+    public static String getDriverCode(){
+        String code = "SJ";
+        String driverCode = code+String.valueOf((int)((Math.random()*9+1)*10000));
+        return driverCode;
+    }
 }
