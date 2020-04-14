@@ -95,6 +95,7 @@ public class Goods {
      * 下架时间
      */
     private Date donwTime;
+
     /**
      * 删除标志 0存在 1删除
      */

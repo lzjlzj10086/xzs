@@ -49,6 +49,10 @@ public class HotGoods {
      */
     private String goodsNotes;
     /**
+     * 商品图片
+     */
+    private String goodsImage;
+    /**
      * 删除标志 0存在 1删除
      */
     private int isDelete;

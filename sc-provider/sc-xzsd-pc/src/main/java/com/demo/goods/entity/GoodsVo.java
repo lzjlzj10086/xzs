@@ -52,11 +52,20 @@ public class GoodsVo {
      * 商品状态 0上架 1下架
      */
     private int goodsStatus;
+
+    private String image;
     /**
      * 上架时间
      */
     private Date upTime;
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getGoodsCode() {
         return goodsCode;

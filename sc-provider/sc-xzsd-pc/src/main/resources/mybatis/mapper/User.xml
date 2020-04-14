@@ -62,7 +62,7 @@
         a.phone,
         a.email
         from t_user a
-        where a.is_deleted = 0
+        where a.is_deleted = 0 and (role = 1 or role =2)
         <if test="userAcct != null and userAcct != ''">
             and a.user_acct like concat('%', #{userAcct}, '%')
         </if>
