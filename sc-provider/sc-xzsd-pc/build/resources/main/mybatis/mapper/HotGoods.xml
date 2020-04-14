@@ -59,6 +59,7 @@
         <if test="goodsCode != null and goodsCode != ''">
             and goods_code = #{goodsCode}
         </if>
+        order by create_time desc
     </select>
     <!--修改热门位商品-->
     <update id="updateHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">

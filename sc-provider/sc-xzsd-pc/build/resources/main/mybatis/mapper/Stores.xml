@@ -93,6 +93,7 @@
         <if test="countyNo != null and countyNo !=''">
             and stores_county_no = #{countyNo}
         </if>
+        order by create_time desc
     </select>
 
     <update id="updateStores" parameterType="com.demo.stores.entity.Stores">

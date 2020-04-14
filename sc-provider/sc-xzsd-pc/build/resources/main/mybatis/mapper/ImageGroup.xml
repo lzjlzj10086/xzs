@@ -78,7 +78,7 @@
         <if test="status != null and status != ''">
             and status = #{status}
         </if>
-        order by sort asc
+        order by create_time desc
     </select>
 
     <delete id="deleteImageGroup" parameterType="com.demo.imagegroup.entity.ImageGroup">

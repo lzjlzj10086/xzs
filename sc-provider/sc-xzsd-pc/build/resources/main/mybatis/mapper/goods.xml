@@ -86,6 +86,7 @@
             up_time upTime,
             shop_name shopName,
             stock stock,
+            image iamge,
             book_id bookId
         from t_goods
         where is_deleted = 0
@@ -101,6 +102,7 @@
         <if test="advertisement != null and advertisement !=''">
             and advertisement like concat('%', #{advertisement}, '%')
         </if>
+        order by create_time desc
     </select>
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.demo.goods.entity.GoodsVo">
         select
