@@ -1,6 +1,7 @@
 package com.demo.order.dao;
 
 import com.demo.order.entity.Order;
+import com.demo.order.entity.OrderNotes;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,8 +11,8 @@ public interface OrderDao {
 
     List<Order> listOrder(Order order);
 
-    Order findOrderById(String orderCode);
+    List<OrderNotes> findOrderById(String orderCode);
 
-    int updateOrderStatus(String orderCoder,String orderStatus);
+    int updateOrderStatus(Order order);
 
 }

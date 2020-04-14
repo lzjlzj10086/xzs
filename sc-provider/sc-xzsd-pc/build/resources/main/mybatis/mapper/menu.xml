@@ -51,6 +51,15 @@
         from t_menu
         where is_deleted = 0
     </select>
+    <!--店长菜单列表查询-->
+    <select id="listMenuTwo" parameterType="com.demo.menu.entity.Menu" resultType="com.demo.menu.entity.MenuVo">
+        select
+            menu_code menuCode,
+            menu_name menuName
+        from t_menu
+        where is_deleted = 0
+        and menu_name in ('客户管理','订单管理','门店信息管理','司机信息管理')
+    </select>
     <!--菜单详情查询-->
     <select id="findMenuById" parameterType="java.lang.String" resultType="com.demo.menu.entity.Menu">
         select

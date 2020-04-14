@@ -3,6 +3,7 @@ package com.demo.user.service;
 import com.demo.user.dao.UserDao;
 import com.demo.user.entity.User;
 import com.demo.util.AppResponse;
+import com.demo.util.PasswordUtils;
 import com.demo.util.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -33,6 +34,7 @@ public class UserService {
         }
         user.setUserCode(StringUtil.getCommonCode(2));
         user.setIsDelete(0);
+        user.setUserPwd(PasswordUtils.generatePassword(user.getUserPwd()));
         // 新增用户
         int count = userDao.addUser(user);
         if(0 == count) {

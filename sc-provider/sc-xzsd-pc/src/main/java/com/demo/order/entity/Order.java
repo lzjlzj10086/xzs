@@ -43,15 +43,15 @@ public class Order {
     /**
      *客户编码
      */
-    private String ClientUserCode;
+    private String clientUserCode;
     /**
      * 客户名称
      */
-    private String ClientUserName;
+    private String clientUserName;
     /**
      *客户电话
      */
-    private String ClientUserPhone;
+    private String clientUserPhone;
     /**
      * 门店店长编号
      */
@@ -162,27 +162,27 @@ public class Order {
     }
 
     public String getClientUserCode() {
-        return ClientUserCode;
+        return clientUserCode;
     }
 
     public void setClientUserCode(String clientUserCode) {
-        ClientUserCode = clientUserCode;
+        this.clientUserCode = clientUserCode;
     }
 
     public String getClientUserName() {
-        return ClientUserName;
+        return clientUserName;
     }
 
     public void setClientUserName(String clientUserName) {
-        ClientUserName = clientUserName;
+        this.clientUserName = clientUserName;
     }
 
     public String getClientUserPhone() {
-        return ClientUserPhone;
+        return clientUserPhone;
     }
 
     public void setClientUserPhone(String clientUserPhone) {
-        ClientUserPhone = clientUserPhone;
+        this.clientUserPhone = clientUserPhone;
     }
 
     public String getStoresBossCode() {

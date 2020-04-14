@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.order.dao.OrderDao">
+    <select id="listOrder" parameterType="com.demo.order.entity.Order" resultType="com.demo.order.entity.Order">
+        select
+            order_code orderCode,
+            order_allprice orderAllPrice,
+            order_status orderStatus,
+            pay_status payStatus,
+            order_stores_code storesCode,
+            order_clientuser_name clientUserName,
+            order_clientuser_phone clientUserPhone,
+            pay_time payTime
+        from t_sys_order
+        where is_deleted = 0
+        <if test="clientUserName != null and clientUserName !=''">
+            order_clientuser_name = #{clientUserName}
+        </if>
+        <if test="orderCode != null and orderCode !=''">
+            order_code = #{orderCode}
+        </if>
+        <if test="clientUserPhone != null and clientUserPhone !=''">
+            order_clientuser_phone = #{clirntUserName}
+        </if>
+        <if test="orderStatus != null and orderStatus !=''">
+            pay_status = #{orderStatus}
+        </if>
+        <if test="payTime != null and payTime !=''">
+            pay_time = #{payTime}
+        </if>
+    </select>
+
+    <select id="findOrderById" parameterType="java.lang.String" resultType="com.demo.order.entity.OrderNotes">
+        select
+            client_user_code clientUserCode,
+            order_code orderCode,
+            goods_code goodsCode,
+            goods_name goodsName,
+            amout amount,
+            allprice allPrice,
+            price
+        from t_sys_order_detaile
+        where order_code = #{orderCode}
+    </select>
+
+    <update id="updateOrderStatus" parameterType="com.demo.order.entity.OrderNotes">
+        update t_sys_order
+        set
+            order_status = #{orderStatus},
+            update_time = now(),
+            update_user = #{userId},
+            version = version + 1
+        where order_code = #{orderCode}
+    </update>
+</mapper>
