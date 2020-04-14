@@ -56,7 +56,7 @@
          )
     </insert>
 
-    <select id="listDriver" parameterType="com.demo.driver.entity.Driver" resultType="com.demo.driver.entity.Driver">
+    <select id="listDriverByPage" parameterType="com.demo.driver.entity.Driver" resultType="com.demo.driver.entity.Driver">
         select
             user_code driverCode,
             user_name driverName,
@@ -83,6 +83,7 @@
         <if test="countyNo != null and countyNo != ''">
             and county_no = #{countyNo}
         </if>
+        order by create_time desc
     </select>
 
     <select id="findDriverById" parameterType="java.lang.String" resultType="com.demo.driver.entity.Driver">

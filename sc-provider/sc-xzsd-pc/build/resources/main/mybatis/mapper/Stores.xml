@@ -61,7 +61,7 @@
             0
         )
     </insert>
-    <select id="listStores" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
+    <select id="listStoresByPage" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
         select
             stores_code storesCode,
             stores_name storesName,

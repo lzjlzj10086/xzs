@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class UserService {
 
@@ -50,11 +52,9 @@ public class UserService {
      */
     public AppResponse listUser(User user){
 
-        PageHelper.startPage(user.getPageNum(), user.getPageSize());
-        List<User> userInfoList = userDao.listUser(user);
-        // 包装Page对象
-        PageInfo<User> pageData = new PageInfo<User>(userInfoList);
-        return AppResponse.success("查询成功！",pageData);
+        List<User> userList = userDao.listUserByPage(user);
+
+        return AppResponse.success("查询成功！",getPageInfo(userList));
     }
 
     /**

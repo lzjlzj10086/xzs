@@ -19,6 +19,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class HotService {
 
@@ -58,10 +60,10 @@ public class HotService {
      * @return
      */
     public AppResponse listHotGoods(HotGoods hotGoods){
-        PageHelper.startPage(hotGoods.getPageNum(),hotGoods.getPageSize());
-        List<HotGoods> listhot = hotDao.listHotGoods(hotGoods);
-        PageInfo<HotGoods> pageInfo = new PageInfo<HotGoods>(listhot);
-        return AppResponse.success("热门商品列表查询成功",pageInfo);
+
+        List<HotGoods> hotGoodsList = hotDao.listHotGoodsByPage(hotGoods);
+        ;
+        return AppResponse.success("热门商品列表查询成功",getPageInfo(hotGoodsList));
     }
 
     /**

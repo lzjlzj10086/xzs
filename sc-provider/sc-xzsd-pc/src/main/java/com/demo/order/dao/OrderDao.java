@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface OrderDao {
 
-    List<Order> listOrder(Order order);
+    List<Order> listOrderByPage(Order order);
 
     List<OrderNotes> findOrderById(String orderCode);
 

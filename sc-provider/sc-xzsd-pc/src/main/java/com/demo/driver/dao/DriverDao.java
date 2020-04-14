@@ -28,7 +28,7 @@ public interface DriverDao {
      * @param driver
      * @return
      */
-    List<Driver> listDriver(Driver driver);
+    List<Driver> listDriverByPage(Driver driver);
 
     /**
      * 司机详情

@@ -45,7 +45,7 @@
             title
         );
     </insert>
-    <select id="listGoods" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
+    <select id="listGoodsByPage" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
         select
         goods_code goodsCode,
         goods_name goodsName,
@@ -65,7 +65,7 @@
         </if>
     </select>
 
-    <select id="listImageGroup" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="com.demo.imagegroup.entity.ImageGroup">
+    <select id="listImageGroupByPage" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="com.demo.imagegroup.entity.ImageGroup">
         select
             banner_code bannerCode,
             sort,

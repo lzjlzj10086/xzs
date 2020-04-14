@@ -30,14 +30,14 @@ public interface ImageGroupDao {
      * @param goods
      * @return
      */
-    List<GoodsVo> listGoods(Goods goods);
+    List<GoodsVo> listGoodsByPage(Goods goods);
 
     /**
      * 轮播图列表查询
      * @param imageGroup
      * @return
      */
-    List<ImageGroup> listImageGroup(ImageGroup imageGroup);
+    List<ImageGroup> listImageGroupByPage(ImageGroup imageGroup);
 
     /**
      * 删除轮播图

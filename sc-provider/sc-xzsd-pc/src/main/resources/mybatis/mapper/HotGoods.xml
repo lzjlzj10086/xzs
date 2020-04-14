@@ -43,7 +43,7 @@
         )
     </insert>
     <!--热门位商品列表查询-->
-    <select id="listHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="com.demo.hotgoods.entity.HotGoods">
+    <select id="listHotGoodsByPage" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="com.demo.hotgoods.entity.HotGoods">
         select
             hot_code hotCode,
             hot_sort hotSort,
@@ -59,6 +59,7 @@
         <if test="goodsCode != null and goodsCode != ''">
             and goods_code = #{goodsCode}
         </if>
+        order by create_time desc
     </select>
     <!--修改热门位商品-->
     <update id="updateHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">

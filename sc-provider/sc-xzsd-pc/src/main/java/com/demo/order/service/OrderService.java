@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class OrderService {
 
@@ -22,10 +24,10 @@ public class OrderService {
         if (order.getRole() == 2){
             order.setStoresBossCode(order.getUserId());
         }
-        PageHelper.startPage(order.getPageNum(),order.getPageSize());
-        List<Order> listOrder = orderDao.listOrder(order);
-        PageInfo<Order> pageInfo =new PageInfo<Order>(listOrder);
-        return AppResponse.success("分页列表成功",pageInfo);
+
+        List<Order> orderList = orderDao.listOrderByPage(order);
+
+        return AppResponse.success("分页列表成功",getPageInfo(orderList));
     }
 
     public AppResponse findOrderById(String orderCode){

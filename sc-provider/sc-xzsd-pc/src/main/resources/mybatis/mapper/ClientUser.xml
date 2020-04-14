@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.clientuser.dao.ClientUserDao">
-    <select id="listClientUser" parameterType="com.demo.clientuser.entity.ClientUser" resultType="com.demo.clientuser.entity.ClientUser">
+    <select id="listClientUserByPage" parameterType="com.demo.clientuser.entity.ClientUser" resultType="com.demo.clientuser.entity.ClientUser">
         select
             user_code userCode,
             user_acct userAcct,
@@ -22,6 +22,7 @@
         <if test="storesBossCode != null and storesBossCode !=''">
             and stores_boss_code = #{storesBossCode}
         </if>
+        order by create_time desc
     </select>
 
 </mapper>

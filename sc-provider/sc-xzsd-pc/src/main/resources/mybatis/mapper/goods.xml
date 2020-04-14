@@ -72,7 +72,7 @@
             0
         )
     </insert>
-    <select id="listGoods" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
+    <select id="listGoodsByPage" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
         select
             goods_code goodsCode,
             goods_name goodsName,
@@ -101,6 +101,7 @@
         <if test="advertisement != null and advertisement !=''">
             and advertisement like concat('%', #{advertisement}, '%')
         </if>
+        order by create_time desc
     </select>
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.demo.goods.entity.GoodsVo">
         select

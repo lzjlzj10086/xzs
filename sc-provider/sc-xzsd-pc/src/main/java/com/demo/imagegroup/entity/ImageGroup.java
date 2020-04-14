@@ -45,7 +45,7 @@ public class ImageGroup {
      */
     private String goodsCode;
     /**
-     *状态（
+     *状态
      */
     private int status;
     /**

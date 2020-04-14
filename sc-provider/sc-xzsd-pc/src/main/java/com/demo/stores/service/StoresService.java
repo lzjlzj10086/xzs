@@ -18,6 +18,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class StoresService {
 
@@ -54,10 +56,10 @@ public class StoresService {
             stores.setStoresBossCode(stores.getUserId());
         }
 
-        PageHelper.startPage(stores.getPageNum(),stores.getPageSize());
-        List<Stores> listStores = storesDao.listStores(stores);
-        PageInfo<Stores> pageInfo = new PageInfo<Stores>(listStores);
-        return AppResponse.success("列表查询成功",pageInfo);
+
+        List<Stores> storesList = storesDao.listStoresByPage(stores);
+        ;
+        return AppResponse.success("列表查询成功",getPageInfo(storesList));
     }
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateStores(Stores stores){

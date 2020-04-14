@@ -35,7 +35,7 @@ public interface UserDao {
      * @param user
      * @return
      */
-    List<User> listUser(User user);
+    List<User> listUserByPage(User user);
 
     /**
      * 用户详情查询

@@ -61,7 +61,7 @@
             0
         )
     </insert>
-    <select id="listStores" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
+    <select id="listStoresByPage" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
         select
             stores_code storesCode,
             stores_name storesName,
@@ -93,6 +93,7 @@
         <if test="countyNo != null and countyNo !=''">
             and stores_county_no = #{countyNo}
         </if>
+        order by create_time desc
     </select>
 
     <update id="updateStores" parameterType="com.demo.stores.entity.Stores">

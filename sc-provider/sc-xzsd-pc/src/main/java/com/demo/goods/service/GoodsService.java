@@ -17,6 +17,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class GoodsService {
 
@@ -54,10 +56,8 @@ public class GoodsService {
      * @return
      */
     public AppResponse listGoods(Goods goods){
-        PageHelper.startPage(goods.getPageNum(),goods.getPageSize());
-        List<GoodsVo> listgoods=goodsDao.listGoods(goods);
-        PageInfo<GoodsVo> pageInfo=new PageInfo<GoodsVo>(listgoods);
-        return AppResponse.success("查询成功",pageInfo);
+        List<GoodsVo> goodsList=goodsDao.listGoodsByPage(goods);
+        return AppResponse.success("查询成功",getPageInfo(goodsList));
     }
 
     /**

@@ -43,7 +43,7 @@
         )
     </insert>
     <!--热门位商品列表查询-->
-    <select id="listHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="com.demo.hotgoods.entity.HotGoods">
+    <select id="listHotGoodsByPage" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="com.demo.hotgoods.entity.HotGoods">
         select
             hot_code hotCode,
             hot_sort hotSort,

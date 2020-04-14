@@ -2,15 +2,14 @@ package com.demo.clientuser.service;
 
 import com.demo.clientuser.dao.ClientUserDao;
 import com.demo.clientuser.entity.ClientUser;
-import com.demo.user.dao.UserDao;
-import com.demo.user.entity.User;
+import com.demo.user.dao.UserDao;;
 import com.demo.util.AppResponse;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.neusoft.core.page.PageUtils.getPageInfo;
 
 @Service
 public class ClientUserService {
@@ -32,9 +31,7 @@ public class ClientUserService {
         if(clientUser.getRole() == 2){
             clientUser.setStoresBossCode(clientUser.getUserId());
         }
-        PageHelper.startPage(clientUser.getPageNum(),clientUser.getPageSize());
-        List<ClientUser> listClient = clientUserDao.listClientUser(clientUser);
-        PageInfo<ClientUser> pageInfo = new PageInfo<ClientUser>(listClient);
-        return AppResponse.success("查询成功",pageInfo);
+        List<ClientUser> clientList = clientUserDao.listClientUserByPage(clientUser);
+        return AppResponse.success("查询成功",getPageInfo(clientList));
     }
 }

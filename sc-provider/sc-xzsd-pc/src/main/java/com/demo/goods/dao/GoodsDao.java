@@ -28,7 +28,7 @@ public interface GoodsDao {
      * @param goods
      * @return
      */
-    List<GoodsVo> listGoods(Goods goods);
+    List<GoodsVo> listGoodsByPage(Goods goods);
 
     /**
      * 商品详情查询

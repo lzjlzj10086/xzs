@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.order.dao.OrderDao">
-    <select id="listOrder" parameterType="com.demo.order.entity.Order" resultType="com.demo.order.entity.Order">
+    <select id="listOrderByPage" parameterType="com.demo.order.entity.Order" resultType="com.demo.order.entity.Order">
         select
             order_code orderCode,
             order_allprice orderAllPrice,
@@ -29,6 +29,7 @@
         <if test="payTime != null and payTime !=''">
             pay_time = #{payTime}
         </if>
+        order by create_time desc
     </select>
 
     <select id="findOrderById" parameterType="java.lang.String" resultType="com.demo.order.entity.OrderNotes">

@@ -15,6 +15,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class ImageGroupService {
 
@@ -36,17 +38,16 @@ public class ImageGroupService {
     }
 
     public AppResponse listGoods(Goods goods){
-        PageHelper.startPage(goods.getPageNum(),goods.getPageSize());
-        List<GoodsVo> listgoods=imageGroupDao.listGoods(goods);
-        PageInfo<GoodsVo> pageInfo=new PageInfo<GoodsVo>(listgoods);
-        return AppResponse.success("查询成功",pageInfo);
+
+        List<GoodsVo> goodsList=imageGroupDao.listGoodsByPage(goods);
+
+        return AppResponse.success("查询成功",getPageInfo(goodsList));
     }
 
     public AppResponse listImageGroup(ImageGroup imageGroup){
-        PageHelper.startPage(imageGroup.getPageNum(),imageGroup.getPageSize());
-        List<ImageGroup> listImageGroup=imageGroupDao.listImageGroup(imageGroup);
-        PageInfo<ImageGroup> pageInfo=new PageInfo<ImageGroup>(listImageGroup);
-        return AppResponse.success("查询成功",pageInfo);
+        List<ImageGroup> imageGroupList=imageGroupDao.listImageGroupByPage(imageGroup);
+
+        return AppResponse.success("查询成功",getPageInfo(imageGroupList));
     }
 
     @Transactional(rollbackFor = Exception.class)

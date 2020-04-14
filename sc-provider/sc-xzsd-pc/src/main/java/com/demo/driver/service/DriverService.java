@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class DriverService {
 
@@ -44,10 +46,10 @@ public class DriverService {
         if(driver.getRole() == 2){
             driver.setStoresBossCode(driver.getUserId());
         }
-        PageHelper.startPage(driver.getPageNum(),driver.getPageSize());
-        List<Driver> listDriver = driverDao.listDriver(driver);
-        PageInfo<Driver> pageInfo = new PageInfo<Driver>(listDriver);
-        return AppResponse.success("分页查询成功",pageInfo);
+
+        List<Driver> driverList = driverDao.listDriverByPage(driver);
+
+        return AppResponse.success("分页查询成功",getPageInfo(driverList));
     }
 
     public AppResponse findDriverById(String driverCode){

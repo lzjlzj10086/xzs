@@ -29,7 +29,7 @@ public interface HotDao {
      * @param hotGoods
      * @return
      */
-    List<HotGoods> listHotGoods(HotGoods hotGoods);
+    List<HotGoods> listHotGoodsByPage(HotGoods hotGoods);
 
     /**
      * 修改热门商品

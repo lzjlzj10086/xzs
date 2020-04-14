@@ -52,7 +52,7 @@
     </insert>
 
     <!--用户列表查询-->
-    <select id="listUser" parameterType="com.demo.user.entity.User" resultType="com.demo.user.entity.UserVo">
+    <select id="listUserByPage" parameterType="com.demo.user.entity.User" resultType="com.demo.user.entity.UserVo">
         select
         a.user_code userCode,
         a.user_name userName,

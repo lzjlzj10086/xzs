@@ -28,7 +28,7 @@ public interface StoresDao {
      * @param stores
      * @return
      */
-    List<Stores> listStores(Stores stores);
+    List<Stores> listStoresByPage(Stores stores);
 
     /**
      * 门店修改

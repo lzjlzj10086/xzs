@@ -13,7 +13,7 @@ public interface ClientUserDao {
      * @param clientUser
      * @return
      */
-    List<ClientUser> listClientUser(ClientUser clientUser);
+    List<ClientUser> listClientUserByPage(ClientUser clientUser);
 
 
 }
