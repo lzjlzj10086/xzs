@@ -15,6 +15,13 @@ public interface GoodsLevelDao {
      * @return
      */
     int countLevelName(GoodsLevel goodsLevel);
+
+    /**
+     * 检查商品是否有二级
+     * @param levelCode
+     * @return
+     */
+    int countSecondLevel(@Param("levelCode") String levelCode);
     /**
      * 商品分类新增
      */
@@ -30,7 +37,7 @@ public interface GoodsLevelDao {
     /**
      * 商品分类删除
      */
-    int deleteGoodsLevel(@Param("levelCode") List<String> levelCode, @Param("userId") String userId);
+    int deleteGoodsLevel(@Param("levelCode") String levelCode, @Param("userId") String userId);
     /**
      * 商品修改
      */

@@ -70,8 +70,11 @@ public class GoodsLevelService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteGoodsLevel(String levelCode, String userId){
-        List<String> listLevelCode= Arrays.asList(levelCode.split(","));
-        int count=goodsLevelDao.deleteGoodsLevel(listLevelCode,userId);
+        int countSecond = goodsLevelDao.countSecondLevel(levelCode);
+        if(countSecond !=0){
+            return AppResponse.bizError("存在二级目录，不能删除");
+        }
+        int count=goodsLevelDao.deleteGoodsLevel(levelCode,userId);
         if(count == 0){
             return AppResponse.bizError("删除异常");
         }

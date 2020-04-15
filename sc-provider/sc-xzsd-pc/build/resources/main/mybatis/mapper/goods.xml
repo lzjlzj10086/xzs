@@ -153,6 +153,30 @@
             #{item}
         </foreach>
     </delete>
+    <delete id="deleteImageGroup" parameterType="com.demo.goods.entity.Goods">
+        update t_imagegroup
+        set
+        is_deleted = 1,
+        update_time = now(),
+        update_user = #{userId},
+        version = version + 1
+        where goods_code in
+        <foreach collection="goodsCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <delete id="deleteHotGoods" parameterType="com.demo.goods.entity.Goods">
+        update t_hotgoods
+        set
+        is_deleted = 1,
+        update_time = now(),
+        update_user = #{userId},
+        version = version + 1
+        where goods_code in
+        <foreach collection="goodsCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
     <update id="upGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set

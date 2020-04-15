@@ -60,9 +60,7 @@ public class HotService {
      * @return
      */
     public AppResponse listHotGoods(HotGoods hotGoods){
-
         List<HotGoods> hotGoodsList = hotDao.listHotGoodsByPage(hotGoods);
-        ;
         return AppResponse.success("热门商品列表查询成功",getPageInfo(hotGoodsList));
     }
 

@@ -52,6 +52,21 @@ public interface GoodsDao {
     int deleteGoods(@Param("goodsCode") List<String> goodsCode, @Param("userId") String userId);
 
     /**
+     * 根据商品编号删除热门商品
+     * @param goodsCode
+     * @param userId
+     * @return
+     */
+    void deleteHotGoods(@Param("goodsCode") List<String> goodsCode, @Param("userId") String userId);
+
+    /**
+     * 删除轮播图
+     * @param goodsCode
+     * @param userId
+     * @return
+     */
+    void deleteImageGroup(@Param("goodsCode") List<String> goodsCode, @Param("userId") String userId);
+    /**
      * 上架商品
      * @param goodsCode
      * @return

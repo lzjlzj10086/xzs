@@ -83,11 +83,15 @@
             update_time = now(),
             update_user = #{userId},
             version = version+1
-        where level_code in
-        <foreach collection="levelCode" item="item" index="index" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+        where level_code = #{levelCode}
     </delete>
+    <select id="countSecondLevel" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        count(*)
+        from t_goodslevel a,t_goodslevel b
+        WHERE a.level_code = b.parent_level_code and a.is_deleted = 0 and b.is_deleted = 0
+        and a.level_code = #{levelCode}
+    </select>
     <update id="updateGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
         update t_goodslevel
         set

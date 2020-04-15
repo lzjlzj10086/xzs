@@ -110,6 +110,8 @@ public class GoodsService {
     public AppResponse upGoods(String goodsCode,String userId){
         List<String> listCode = Arrays.asList(goodsCode.split(","));
         int count = goodsDao.upGoods(listCode,userId);
+        goodsDao.deleteHotGoods(listCode,userId);
+        goodsDao.deleteImageGroup(listCode,userId);
         if(count == 0){
             return AppResponse.bizError("上架失败");
         }
