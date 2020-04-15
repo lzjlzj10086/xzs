@@ -57,6 +57,10 @@ public class ClientUser {
      */
     private String inviteCode;
     /**
+     * 客户头像路径
+     */
+    private String image;
+    /**
      * 删除标志 0存在 1删除
      */
     private int isDelete;
@@ -82,6 +86,14 @@ public class ClientUser {
     private String version;
 
     private String storesBossCode;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getStoresBossCode() {
         return storesBossCode;

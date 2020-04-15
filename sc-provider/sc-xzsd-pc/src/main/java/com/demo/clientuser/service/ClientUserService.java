@@ -27,10 +27,6 @@ public class ClientUserService {
      * @return
      */
     public AppResponse listClientUser(ClientUser clientUser){
-        //根据判断是否为店长
-        if(clientUser.getRole() == 2){
-            clientUser.setStoresBossCode(clientUser.getUserId());
-        }
         List<ClientUser> clientList = clientUserDao.listClientUserByPage(clientUser);
         return AppResponse.success("查询成功",getPageInfo(clientList));
     }

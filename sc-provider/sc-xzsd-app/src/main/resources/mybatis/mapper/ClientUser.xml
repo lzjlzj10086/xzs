@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xzsd.app.register.dao.RegisterDao">
+    <!--统计用户账号数量-->
+    <select id="countAcct" parameterType="com.xzsd.app.register.entity.ClientUser" resultType="java.lang.Integer">
+        select count(user_acct)
+        from t_user
+        where is_deleted = 0
+        and user_acct = #{userAcct}
+        <if test="userCode != null and userCode != ''">
+            and user_code != #{userCode}
+        </if>
+    </select>
+    <insert id="clientRegister" parameterType="com.xzsd.app.register.entity.ClientUser">
+        insert t_user
+        (user_code,
+         user_name,
+         user_acct,
+         user_pwd,
+         id_card,
+         sex,
+         role,
+         phone,
+         email,
+         invite_code,
+         image,
+         is_deleted,
+         create_time,
+         update_time,
+         version
+         )
+        values
+           (#{userCode},
+            #{userName},
+            #{userAcct},
+            #{userPwd},
+            #{idCard},
+            #{sex},
+            4,
+            #{phone},
+            #{email},
+            #{inviteCode},
+            #{image},
+            0,
+            now(),
+            now(),
+            0)
+    </insert>
+</mapper>
