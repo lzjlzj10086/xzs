@@ -15,19 +15,19 @@
         from t_sys_order
         where is_deleted = 0
         <if test="clientUserName != null and clientUserName !=''">
-            order_clientuser_name = #{clientUserName}
+            and order_clientuser_name like concat('%', #{clientUserName}, '%')
         </if>
         <if test="orderCode != null and orderCode !=''">
-            order_code = #{orderCode}
+            and order_code like concat('%', #{orderCode}, '%')
         </if>
         <if test="clientUserPhone != null and clientUserPhone !=''">
-            order_clientuser_phone = #{clirntUserName}
+            and order_clientuser_phone like concat('%', #{clirntUserName}, '%')
         </if>
         <if test="orderStatus != null and orderStatus !=''">
-            pay_status = #{orderStatus}
+            and pay_status = #{orderStatus}
         </if>
         <if test="payTime != null and payTime !=''">
-            pay_time = #{payTime}
+            and pay_time = #{payTime}
         </if>
         order by create_time desc
     </select>

@@ -14,10 +14,10 @@
         from t_user
         where is_deleted = 0 and role = 4
         <if test="userName != null and userName !=''">
-            and user_name = #{userName}
+            and user_name like concat('%', #{userName}, '%')
         </if>
         <if test="userAcct != null and userAcct !=''">
-            and user_Acct = #{userAcct}
+            and user_Acct like concat('%', #{userAcct}, '%')
         </if>
         <if test="role != null and role !=''">
             <if test="role = 2">

@@ -66,13 +66,13 @@
         from t_user
         where role = 3 and is_deleted = 0
         <if test="storesBossCode != null and storesBossStores != ''">
-            and storesboss_code = #{storesBossCode}
+            and storesboss_code like concat('%', #{storesboss_code}, '%')
         </if>
         <if test="driverName != null and driverName != ''">
-            and user_name = #{driverName}
+            and user_name like concat('%', #{driverName}, '%')
         </if>
         <if test="driverCode != null and driverCode != ''">
-            and user_code = #{driverCode}
+            and user_code like concat('%', #{driverCode}, '%')
         </if>
         <if test="provincesNo != null and provincesNo != ''">
             and provinces_no = #{provincesNo}

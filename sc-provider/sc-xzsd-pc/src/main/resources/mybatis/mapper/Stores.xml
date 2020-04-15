@@ -73,16 +73,16 @@
         from t_stores
         where is_deleted = 0
         <if test="storesBossCode != null and storesBossCode !=''">
-            and storesboss_code = #{storesBossCode}
+            and storesboss_code like concat('%', #{storesBossCode}, '%')
         </if>
         <if test="storesCode != null and storesCode !=''">
-            and stores_code = #{storesCode}
+            and stores_code like concat('%', #{storesCode}, '%')
         </if>
         <if test="storesName != null and storesName !=''">
-            and stores_name = #{storesName}
+            and stores_name like concat('%', #{storesName}, '%')
         </if>
         <if test="storesBossName != null and storesBossName !=''">
-            and storesboss_name = #{storesBossName}
+            and storesboss_name like concat('%', #{storesBossName}, '%')
         </if>
         <if test="provincesNo != null and provincesNo !=''">
             and stores_provinces_no = #{provincesNo}

@@ -54,10 +54,10 @@
         from t_hot
         where is_deleted = 0
         <if test="goodsName != null and goodsName != ''">
-            and goods_name = #{goodsName}
+            and goods_name like concat('%', #{goodsName}, '%')
         </if>
         <if test="goodsCode != null and goodsCode != ''">
-            and goods_code = #{goodsCode}
+            and goods_code like concat('%', #{goodsCode}, '%')
         </if>
         order by create_time desc
     </select>

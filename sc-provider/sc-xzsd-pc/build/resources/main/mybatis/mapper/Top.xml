@@ -6,7 +6,8 @@
         select
             user_name userName,
             user_code userCode,
-            role role
+            role role,
+            image image
         from t_user
         where user_acct = #{useracct}
     </select>
