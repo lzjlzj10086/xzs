@@ -1,8 +1,9 @@
-package com.demo.hotgoods.entity;
+package com.xzsd.app.index.entity;
 
 import java.util.Date;
 
-public class HotGoods {
+public class ImageGroup {
+
     /**
      * 页码
      */
@@ -12,46 +13,45 @@ public class HotGoods {
      */
     private int pageNum;
     /**
-     * 登录用户ID
+     * 登录用户id
      */
     private String userId;
     /**
      * 登录用户角色
      */
-    private  int role;
+    private int role;
     /**
-     * 热门位编号
+     * 轮播图排序
      */
-    private String hotCode;
-
+    private String sort;
     /**
-     * 展示数量
+     * 轮播图编号
      */
-    private String number;
+    private String bannerCode;
     /**
-     * 排序
+     *轮播图照片路径
      */
-    private String hotSort;
+    private String imageUrl;
     /**
-     *热门商品编号
+     *开始时间
+     */
+    private String startTime;
+    /**
+     *停止时间
+     */
+    private String stopTime;
+    /**
+     *连接的商品编号
      */
     private String goodsCode;
     /**
-     *商品名称
+     *状态
      */
-    private String goodsName;
+    private int status;
     /**
-     *商品价格
+     * 轮播图标题
      */
-    private Double goodsPrice;
-    /**
-     *商品介绍
-     */
-    private String goodsNotes;
-    /**
-     * 商品图片
-     */
-    private String goodsImage;
+    private String title;
     /**
      * 删除标志 0存在 1删除
      */
@@ -76,14 +76,6 @@ public class HotGoods {
      * 版本号
      */
     private String version;
-
-    public String getGoodsImage() {
-        return goodsImage;
-    }
-
-    public void setGoodsImage(String goodsImage) {
-        this.goodsImage = goodsImage;
-    }
 
     public int getPageSize() {
         return pageSize;
@@ -117,28 +109,44 @@ public class HotGoods {
         this.role = role;
     }
 
-    public String getNumber() {
-        return number;
+    public String getSort() {
+        return sort;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 
-    public String getHotCode() {
-        return hotCode;
+    public String getBannerCode() {
+        return bannerCode;
     }
 
-    public void setHotCode(String hotCode) {
-        this.hotCode = hotCode;
+    public void setBannerCode(String bannerCode) {
+        this.bannerCode = bannerCode;
     }
 
-    public String getHotSort() {
-        return hotSort;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setHotSort(String hotSort) {
-        this.hotSort = hotSort;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(String stopTime) {
+        this.stopTime = stopTime;
     }
 
     public String getGoodsCode() {
@@ -149,28 +157,20 @@ public class HotGoods {
         this.goodsCode = goodsCode;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public int getStatus() {
+        return status;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public Double getGoodsPrice() {
-        return goodsPrice;
+    public String getTitle() {
+        return title;
     }
 
-    public void setGoodsPrice(Double goodsPrice) {
-        this.goodsPrice = goodsPrice;
-    }
-
-    public String getGoodsNotes() {
-        return goodsNotes;
-    }
-
-    public void setGoodsNotes(String goodsNotes) {
-        this.goodsNotes = goodsNotes;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getIsDelete() {

@@ -117,7 +117,8 @@
             up_time upTime,
             shop_name shopName,
             stock stock,
-            book_id bookId
+            book_id bookId,
+            image image
         from t_goods
         where
             goods_code = #{goodsCode}

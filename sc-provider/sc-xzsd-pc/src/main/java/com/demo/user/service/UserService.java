@@ -74,6 +74,12 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateUser(User user){
+        // 校验账号是否存在
+        int countUserAcct = userDao.usercount(user);
+        if(0 != countUserAcct) {
+            return AppResponse.bizError("用户账号已存在，请重新输入！");
+        }
+        user.setUserPwd(PasswordUtils.generatePassword(user.getUserPwd()));
         int count = userDao.updateUser(user);
         if(count == 0){
             return AppResponse.bizError("数据发生变化");

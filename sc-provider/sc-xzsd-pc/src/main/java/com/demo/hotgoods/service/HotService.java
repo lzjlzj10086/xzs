@@ -47,6 +47,7 @@ public class HotService {
         hotGoods.setGoodsName(goodsvo.getGoodsName());
         hotGoods.setGoodsPrice(goodsvo.getPrice());
         hotGoods.setGoodsNotes(goodsvo.getGoodsNotes());
+        hotGoods.setGoodsImage(goodsvo.getImage());
         int count = hotDao.addHotGoods(hotGoods);
         if( count == 0){
             return AppResponse.bizError("添加失败");
@@ -86,6 +87,7 @@ public class HotService {
         hotGoods.setGoodsName(goodsvo.getGoodsName());
         hotGoods.setGoodsPrice(goodsvo.getPrice());
         hotGoods.setGoodsNotes(goodsvo.getGoodsNotes());
+        hotGoods.setGoodsImage(goodsvo.getImage());
         int count = hotDao.updateHotGoods(hotGoods);
         if( count == 0){
             return AppResponse.bizError("修改失败");

@@ -19,6 +19,7 @@
             goods_name,
             goods_price,
             goods_notes,
+            goods_image,
             is_deleted,
             create_time,
             create_user,
@@ -34,6 +35,7 @@
             #{goodsName},
             #{goodsPrice},
             #{goodsNotes},
+            #{goodsImage},
              0,
             now(),
             #{userId},
@@ -70,6 +72,7 @@
             goods_name = #{goodsName},
             goods_price = #{goodsPrice},
             goods_notes = #{goodsNotes},
+            goods_iamge = #{goodsImage},
             update_time = now(),
             update_user = #{userId},
             version = version +1

@@ -46,7 +46,7 @@ public class UploadController {
      *
      * @return
      */
-    @RequestMapping(value = "/tengxun", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     @ResponseBody
     public Object Upload(@RequestParam(value = "file") MultipartFile file, HttpSession session) {
         if (file == null) {
@@ -79,8 +79,7 @@ public class UploadController {
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
             PutObjectResult putObjectResult = cosclient.putObject(putObjectRequest);
             UploadMsg uploadMsg = new UploadMsg(1, "上传成功", this.path + putObjectRequest.getKey());
-            System.out.println(uploadMsg.getPath());
-            return  uploadMsg;
+            return  uploadMsg.getPath();
         } catch (IOException e) {
             return new UploadMsg(-1, e.getMessage(), null);
         } finally {

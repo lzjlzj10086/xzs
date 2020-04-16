@@ -1,4 +1,4 @@
-package com.demo.hotgoods.entity;
+package com.xzsd.app.index.entity;
 
 import java.util.Date;
 
