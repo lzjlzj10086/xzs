@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xzsd.app.goods.dao.GoodsDao">
+    <select id="findGoodsById" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
+        select
+            g.goods_code goodsCode,
+            g.goods_Name goodsName,
+            g.book_id bookId,
+            g.goods_notes goodsNotes,
+            g.price price,
+            g.image goodsImage,
+            g.writer writer,
+            g.goods_notes goodsNotes,
+            s.stores_name storesName,
+            s.stores_address storesAddress
+        from t_goods g,t_stores s
+        where g.goods_code = #{goodsCode} and s.stores_invite_code = (SELECT invite_code FROM t_user WHERE user_code = #{userId})
+    </select>
+</mapper>

@@ -51,9 +51,7 @@ public class UserService {
      * @return
      */
     public AppResponse listUser(User user){
-
         List<User> userList = userDao.listUserByPage(user);
-
         return AppResponse.success("查询成功！",getPageInfo(userList));
     }
 

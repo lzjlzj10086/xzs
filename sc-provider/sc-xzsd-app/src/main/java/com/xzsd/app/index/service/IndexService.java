@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class IndexService {
 
@@ -36,6 +38,6 @@ public class IndexService {
         if (hotGoodsList == null){
             return AppResponse.bizError("首页热门商品异常");
         }
-        return AppResponse.success("首页热门商品查询成功",hotGoodsList);
+        return AppResponse.success("首页热门商品查询成功",getPageInfo(hotGoodsList));
     }
 }
