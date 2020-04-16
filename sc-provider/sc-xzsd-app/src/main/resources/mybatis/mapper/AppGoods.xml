@@ -17,4 +17,30 @@
         from t_goods g,t_stores s
         where g.goods_code = #{goodsCode} and s.stores_invite_code = (SELECT invite_code FROM t_user WHERE user_code = #{userId})
     </select>
+    <select id="listGoodsJudgeByPage" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.GoodsJudge">
+        select
+            user_acct userAcct,
+            content content,
+            star_level starLevel,
+            judge_time judgeTime,
+            image_url imageUrl
+        from t_sys_judge
+        where is_deleted = 0 and goods_code = #{goodsCode}
+    </select>
+    <select id="listFirstLeveL" resultType="com.xzsd.app.goods.entity.GoodsLevel">
+        select
+            level_code levelCode,
+            level_name levelName
+        from t_goodslevel
+        where is_deleted = 0
+    </select>
+    <select id="listSecondLevelAndGoodsByPage" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
+        select
+            goods_code goodsCode,
+            goods_name goodsName,
+            image goodsImage,
+            price price
+        from t_goods
+        where is_deleted = 0 and firstlevel_code = #{firstLevelCode}
+    </select>
 </mapper>
