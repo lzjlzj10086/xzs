@@ -4,6 +4,7 @@ import com.demo.dictionary.dao.DictionaryDao;
 import com.demo.driver.dao.DriverDao;
 import com.demo.driver.entity.Driver;
 import com.demo.util.AppResponse;
+import com.demo.util.PasswordUtils;
 import com.demo.util.StoresUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,6 +32,7 @@ public class DriverService {
         if(countDriver != 0){
             return AppResponse.bizError("已存在该账号");
         }
+        driver.setDriverPwd(PasswordUtils.generatePassword(driver.getDriverPwd()));
         driver.setProvincesName(dictionaryDao.findprovincesName(driver.getProvincesNo()));
         driver.setCityName(dictionaryDao.findCityName(driver.getCityNo()));
         driver.setCountyName(dictionaryDao.findCountyName(driver.getCountyNo()));

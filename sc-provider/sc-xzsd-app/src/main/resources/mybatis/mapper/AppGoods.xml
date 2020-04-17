@@ -26,6 +26,7 @@
             image_url imageUrl
         from t_sys_judge
         where is_deleted = 0 and goods_code = #{goodsCode}
+        order by create_time desc
     </select>
     <select id="listFirstLeveL" resultType="com.xzsd.app.goods.entity.GoodsLevel">
         select

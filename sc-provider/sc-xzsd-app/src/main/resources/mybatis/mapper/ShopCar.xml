@@ -41,6 +41,7 @@
         from t_sys_shopcar sc,t_goods g
         where sc.goods_code = g.goods_code
         and sc.is_deleted = 0
+        order by create_time desc
     </select>
     <update id="updateShopCar" parameterType="com.xzsd.app.shopcar.entity.ShopCar">
         update t_sys_shopcar
