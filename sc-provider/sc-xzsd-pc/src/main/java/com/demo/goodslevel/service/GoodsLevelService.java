@@ -39,7 +39,6 @@ public class GoodsLevelService {
         }
         goodsLevel.setLevelCode(StringUtil.getCommonCode(2));
         goodsLevel.setIsDelete(0);
-
         int count=goodsLevelDao.saveGoodsLevel(goodsLevel);
         if(count == 0){
             return AppResponse.bizError("新增失败，请重试！");

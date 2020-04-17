@@ -48,17 +48,13 @@ public class DriverService {
         if(driver.getRole() == 2){
             driver.setStoresBossCode(driver.getUserId());
         }
-
         List<Driver> driverList = driverDao.listDriverByPage(driver);
-
         return AppResponse.success("分页查询成功",getPageInfo(driverList));
     }
-
     public AppResponse findDriverById(String driverCode){
         Driver driver = driverDao.findDriverById(driverCode);
         return AppResponse.success("详情查询成功",driver);
     }
-
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateDriver(Driver driver){
         driver.setProvincesName(dictionaryDao.findprovincesName(driver.getProvincesNo()));
