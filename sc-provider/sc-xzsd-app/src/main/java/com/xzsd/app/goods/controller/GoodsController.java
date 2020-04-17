@@ -39,7 +39,7 @@ public class GoodsController {
             AppResponse appResponse = goodsService.listGoodsJudge(goodsCode);
             return appResponse;
         } catch (Exception e) {
-            logger.error("查询商品评价列表失败", e);
+            logger1.error("查询商品评价列表失败", e);
             System.out.println(e.toString());
             throw e;
         }
@@ -50,7 +50,7 @@ public class GoodsController {
             AppResponse appResponse = goodsService.listFirstLeveL();
             return appResponse;
         } catch (Exception e) {
-            logger.error("一级列表查询失败", e);
+            logger2.error("一级列表查询失败", e);
             System.out.println(e.toString());
             throw e;
         }

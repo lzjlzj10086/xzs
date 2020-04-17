@@ -52,6 +52,9 @@
             update_time = now(),
             update_user = #{userId},
             version = version + 1
-        where order_code = #{orderCode}
+        where order_code in
+        <foreach collection="listcode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </update>
 </mapper>

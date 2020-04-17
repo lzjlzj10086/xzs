@@ -27,8 +27,6 @@ public class HotService {
     @Resource
     private HotDao hotDao;
     @Resource
-    private GoodsDao goodsDao;
-    @Resource
     private ImageGroupService imageGroupService;
 
     /**
@@ -43,11 +41,6 @@ public class HotService {
             return AppResponse.bizError("该排序重复或者该商品存在");
         }
         hotGoods.setHotCode(StringUtil.getCommonCode(2));
-        GoodsVo goodsvo = goodsDao.findGoodsById(hotGoods.getGoodsCode());
-        hotGoods.setGoodsName(goodsvo.getGoodsName());
-        hotGoods.setGoodsPrice(goodsvo.getPrice());
-        hotGoods.setGoodsNotes(goodsvo.getGoodsNotes());
-        hotGoods.setGoodsImage(goodsvo.getImage());
         int count = hotDao.addHotGoods(hotGoods);
         if( count == 0){
             return AppResponse.bizError("添加失败");
@@ -82,12 +75,6 @@ public class HotService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateHotGoods(HotGoods hotGoods){
-        int countSort = hotDao.countHot(hotGoods);
-        GoodsVo goodsvo = goodsDao.findGoodsById(hotGoods.getGoodsCode());
-        hotGoods.setGoodsName(goodsvo.getGoodsName());
-        hotGoods.setGoodsPrice(goodsvo.getPrice());
-        hotGoods.setGoodsNotes(goodsvo.getGoodsNotes());
-        hotGoods.setGoodsImage(goodsvo.getImage());
         int count = hotDao.updateHotGoods(hotGoods);
         if( count == 0){
             return AppResponse.bizError("修改失败");

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.neusoft.core.page.PageUtils.getPageInfo;
@@ -24,9 +25,7 @@ public class OrderService {
         if (order.getRole() == 2){
             order.setStoresBossCode(order.getUserId());
         }
-
         List<Order> orderList = orderDao.listOrderByPage(order);
-
         return AppResponse.success("分页列表成功",getPageInfo(orderList));
     }
 
@@ -36,8 +35,9 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateOrderStatus(Order order){
-        int count = orderDao.updateOrderStatus(order);
+    public AppResponse updateOrderStatus(String orderCode){
+        List<String> listcode = Arrays.asList(orderCode.split(","));
+        int count = orderDao.updateOrderStatus(listcode);
         if(count == 0){
             AppResponse.bizError("修改失败");
         }
