@@ -49,16 +49,12 @@ public class StoresService {
         }
         return AppResponse.success("门店添加成功");
     }
-
     public AppResponse listStores(Stores stores){
         //设置店长权限只能查询自己店面的
         if(stores.getRole() == 2){
             stores.setStoresBossCode(stores.getUserId());
         }
-
-
         List<Stores> storesList = storesDao.listStoresByPage(stores);
-        ;
         return AppResponse.success("列表查询成功",getPageInfo(storesList));
     }
     @Transactional(rollbackFor = Exception.class)
