@@ -33,11 +33,11 @@ public class GoodsService {
 
     /**
      * 查询商品评价列表
-     * @param goodsCode
+     * @param goodsCode,starLevel
      * @return
      */
-    public AppResponse listGoodsJudge(String goodsCode){
-        List<GoodsJudge> goodsJudgeList = goodsDao.listGoodsJudgeByPage(goodsCode);
+    public AppResponse listGoodsJudge(GoodsJudge goodsJudge){
+        List<GoodsJudge> goodsJudgeList = goodsDao.listGoodsJudgeByPage(goodsJudge);
         return AppResponse.success("该商品评价列表查询成功",getPageInfo(goodsJudgeList));
     }
 

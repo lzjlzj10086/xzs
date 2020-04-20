@@ -26,6 +26,17 @@
             image_url imageUrl
         from t_sys_judge
         where is_deleted = 0 and goods_code = #{goodsCode}
+        <if test="starLevel != null and starLevel != ''">
+            <if test="starLevel == 1">
+                and star_level = #{starLevel}
+            </if>
+            <if test="starLevel == 3">
+                and star_level in(2,3)
+            </if>
+            <if test="starLevel == 5">
+                and star_level in(5,4)
+            </if>
+        </if>
         order by create_time desc
     </select>
     <select id="listFirstLeveL" resultType="com.xzsd.app.goods.entity.GoodsLevel">

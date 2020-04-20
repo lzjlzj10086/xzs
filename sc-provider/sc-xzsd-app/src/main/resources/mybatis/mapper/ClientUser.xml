@@ -12,6 +12,7 @@
             and user_code != #{userCode}
         </if>
     </select>
+    <!--注册-->
     <insert id="clientRegister" parameterType="com.xzsd.app.register.entity.ClientUser">
         insert t_user
         (user_code,

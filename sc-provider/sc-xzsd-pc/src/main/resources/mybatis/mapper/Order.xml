@@ -38,7 +38,7 @@
             order_code orderCode,
             goods_code goodsCode,
             goods_name goodsName,
-            amout amount,
+            amount amount,
             allprice allPrice,
             price
         from t_sys_order_detaile

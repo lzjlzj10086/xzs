@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xzsd.app.order.dao.AppOrderDao">
+    <select id="findStoresByUserId" parameterType="java.lang.String" resultType="com.xzsd.app.order.entity.Stores">
+        select
+            stores_provinces_name provincesName,
+            stores_city_name cityName,
+            stores_county_name countyName,
+            stores_code storesCode,
+            stores_name storesName,
+            stores_address storesAddress,
+            storesboss_code storesBosscode
+        from t_stores
+        where stores_invite_code =(select invite_code from t_user where user_code = #{userId})
+    </select>
+    <select id="findClientUserById" parameterType="java.lang.String" resultType="com.xzsd.app.register.entity.ClientUser">
+        select
+            user_name userName,
+            phone phone
+        from t_user
+        where user_code = #{userId}
+    </select>
+    <select id="findGoodsById" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
+        select
+            goods_name goodsName,
+            price price,
+            goods_notes goodsNotes,
+            image goodsImage
+        from t_goods
+        where goods_code = #{goodsCode}
+    </select>
+    <insert id="addOrderNotes" parameterType="com.xzsd.app.order.entity.OrderNotes">
+        insert into t_sys_order_detaile
+        (
+            order_notes_code,
+            order_code,
+            goods_code,
+            goods_name,
+            imagepath,
+            price,
+            amount,
+            allprice,
+            goods_notes,
+            is_deleted,
+            create_time,
+            update_time,
+            version
+        )
+        values
+        (
+            #{orderNotesCode},
+            #{orderCode},
+            #{goodsCode},
+            #{goodsName},
+            #{IamgePath},
+            #{price},
+            #{amount},
+            #{allPrice},
+            #{goodsNotes},
+            0,
+            now(),
+            now(),
+            0
+        )
+    </insert>
+    <insert id="addOrder" parameterType="com.xzsd.app.order.entity.Order">
+        insert into t_sys_order
+        (
+            order_code,
+            order_stores_code,
+            stores_address,
+            stores_name,
+            stores_boss_code,
+            order_clientuser_phone,
+            order_clientuser_name,
+            order_clientuser_code,
+            pay_status,
+            order_status,
+            order_allprice,
+            pay_time,
+            is_deleted,
+            create_time,
+            update_time,
+            version
+        )
+        values
+        (
+            #{orderCode},
+            #{storesCode},
+            #{storesAddress},
+            #{storesName},
+            #{storesBossCode},
+            #{clientUserPhone},
+            #{clientUserName},
+            #{clientUserCode},
+            #{payStatus},
+            1,
+            #{orderAllPrice},
+            now(),
+            0,
+            now(),
+            now(),
+            0
+        )
+    </insert>
+</mapper>

@@ -54,7 +54,7 @@
         <if test="goodsCode != null and goodsCode != ''">
             and h.goods_code like concat('%', #{goodsCode}, '%')
         </if>
-        order by h.create_time desc
+        order by h.hot_sort asc
     </select>
     <!--修改热门位商品-->
     <update id="updateHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">

@@ -19,10 +19,10 @@ public interface GoodsDao {
 
     /**
      * 查询商品评价列表
-     * @param goodsCode
+     * @param goodsJudge
      * @return
      */
-    List<GoodsJudge> listGoodsJudgeByPage(String goodsCode);
+    List<GoodsJudge> listGoodsJudgeByPage(GoodsJudge goodsJudge);
 
     /**
      * 查询一级商品分类

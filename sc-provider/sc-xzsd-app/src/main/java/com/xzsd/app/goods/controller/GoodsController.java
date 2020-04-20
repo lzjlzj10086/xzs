@@ -34,9 +34,9 @@ public class GoodsController {
         }
     }
     @PostMapping("listGoodsJudge")
-    public AppResponse listGoodsJudge(String goodsCode){
+    public AppResponse listGoodsJudge(GoodsJudge goodsJudge){
         try {
-            AppResponse appResponse = goodsService.listGoodsJudge(goodsCode);
+            AppResponse appResponse = goodsService.listGoodsJudge(goodsJudge);
             return appResponse;
         } catch (Exception e) {
             logger1.error("查询商品评价列表失败", e);

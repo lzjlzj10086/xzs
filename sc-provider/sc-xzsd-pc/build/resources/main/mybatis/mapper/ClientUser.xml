@@ -20,7 +20,7 @@
             and user_Acct like concat('%', #{userAcct}, '%')
         </if>
         <if test="role != null and role !=''">
-            <if test="role = 2">
+            <if test="role == 2">
                 and invite_code in (select stores_invite_code from t_stores where storesboss_code = #{userId})
             </if>
         </if>
