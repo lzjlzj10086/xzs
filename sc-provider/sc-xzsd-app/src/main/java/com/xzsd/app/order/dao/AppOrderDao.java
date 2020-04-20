@@ -7,6 +7,8 @@ import com.xzsd.app.order.entity.Stores;
 import com.xzsd.app.register.entity.ClientUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface AppOrderDao {
     /**
@@ -28,5 +30,12 @@ public interface AppOrderDao {
     ClientUser findClientUserById(String userId);
 
     Goods findGoodsById(String goodsCode);
+
+    /**
+     * 订单列表
+     * @param orderStatus
+     * @return
+     */
+    List<Order> listOrderByPage(String orderStatus);
 
 }

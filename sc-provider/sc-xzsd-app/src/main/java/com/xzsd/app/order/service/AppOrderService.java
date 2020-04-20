@@ -1,5 +1,6 @@
 package com.xzsd.app.order.service;
 
+import com.github.pagehelper.PageHelper;
 import com.neusoft.core.restful.AppResponse;
 import com.neusoft.util.StringUtil;
 import com.xzsd.app.goods.entity.Goods;
@@ -15,12 +16,21 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.neusoft.core.page.PageUtils.getPageInfo;
+
 @Service
 public class AppOrderService {
 
     @Resource
     private AppOrderDao appOrderDao;
 
+    /**
+     * 订单添加和订单详情添加
+     * @param goodsCode
+     * @param amount
+     * @param userId
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addOrder(String goodsCode,String amount,String userId){
         List<String> goodsCodeList = Arrays.asList(goodsCode.split(","));
@@ -56,5 +66,15 @@ public class AppOrderService {
         order.setOrderAllPrice(String.valueOf(sum));
         appOrderDao.addOrder(order);
         return AppResponse.success("新增订单成功");
+    }
+
+    /**
+     * app订单列表查询
+     * @param orderStatus
+     * @return
+     */
+    public AppResponse listOrder(String orderStatus){
+        List<Order> orderList = appOrderDao.listOrderByPage(orderStatus);
+        return AppResponse.success("订单列表查询成功",getPageInfo(orderList));
     }
 }

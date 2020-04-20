@@ -1,6 +1,7 @@
 package com.xzsd.app.order.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -72,6 +73,7 @@ public class Order {
      * 商品总数
      */
     private int goodsSum;
+    private List<OrderNotes> orderNotesList;
     /**
      * 删除标志 0存在 1删除
      */
@@ -96,6 +98,14 @@ public class Order {
      * 版本号
      */
     private String version;
+
+    public List<OrderNotes> getOrderNotesList() {
+        return orderNotesList;
+    }
+
+    public void setOrderNotesList(List<OrderNotes> orderNotesList) {
+        this.orderNotesList = orderNotesList;
+    }
 
     public String getStoresName() {
         return storesName;
