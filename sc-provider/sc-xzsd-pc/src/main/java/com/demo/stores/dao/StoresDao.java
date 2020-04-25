@@ -14,7 +14,14 @@ public interface StoresDao {
      * @param stores
      * @return
      */
-    int countStores(Stores stores);
+    int countStoresAcct(Stores stores);
+
+    /**
+     * 查询是否存在改邀请码
+     * @param stores
+     * @return
+     */
+    int countStoresInviteCode(Stores stores);
 
     /**
      * 添加门店
@@ -43,4 +50,6 @@ public interface StoresDao {
      * @return
      */
     int deleteStores(@Param("storesCode") List<String> storesCode);
+
+    Stores findStoresById(Stores stores);
 }

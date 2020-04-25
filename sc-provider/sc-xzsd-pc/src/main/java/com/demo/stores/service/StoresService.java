@@ -34,9 +34,13 @@ public class StoresService {
     public AppResponse addStores(Stores stores){
         stores.setStoresCode(StoresUtils.getStoresCode());
         stores.setStoresInviteCode(StoresUtils.getStoresInviteCode());
-        int countSores = storesDao.countStores(stores);
-        if(countSores != 0){
-            AppResponse.bizError("由于新增随机门店编号或邀请码存在，请重新输入");
+        int countSoresAcct= storesDao.countStoresAcct(stores);
+        if(countSoresAcct != 0){
+            AppResponse.bizError("由于新增随机门店编号存在，请重新输入");
+        }
+        int countSoresInvite = storesDao.countStoresInviteCode(stores);
+        if(countSoresInvite != 0){
+            AppResponse.bizError("该邀请码已存在，请重新输入");
         }
         stores.setStoresAcct(StoresUtils.getStoresAcct());
         stores.setStoresBossName(userDao.findUserById(stores.getStoresBossCode()).getUserName());
@@ -77,5 +81,18 @@ public class StoresService {
             return AppResponse.bizError("删除失败");
         }
         return AppResponse.success("门店删除成功");
+    }
+
+    /**
+     * 门店详情查询
+     * @param stores
+     * @return
+     */
+    public AppResponse findStoresById(Stores stores){
+        Stores stores1 = storesDao.findStoresById(stores);
+        if(stores1 == null){
+            return AppResponse.bizError("详情查询失败");
+        }
+        return AppResponse.success("详情查询成功",stores1);
     }
 }

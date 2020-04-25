@@ -10,7 +10,12 @@
         where user_acct = #{driverAcct}
         or user_code = #{driverCode}
     </select>
-
+    <select id="countPhone" parameterType="com.demo.driver.entity.Driver" resultType="java.lang.Integer">
+        select count(user_acct)
+        from t_user
+        where phone = #{phone}
+        or user_code = #{driverCode}
+    </select>
     <insert id="addDriver" parameterType="com.demo.driver.entity.Driver">
         insert into t_user
         (user_code,
@@ -26,6 +31,7 @@
          city_name,
          county_name,
          role,
+         image,
          is_deleted,
          create_time,
          create_user,
@@ -47,6 +53,7 @@
             #{cityName},
             #{countyName},
             3,
+            #{image},
             0,
             now(),
             #{userId},
@@ -96,7 +103,10 @@
             id_card idCard,
             provinces_no provincesNo,
             city_no cityNo,
-            county_no countyNo
+            county_no countyNo,
+            provinces_name provincesName,
+            city_name cityName,
+            county_name countyName
         from t_user
         where is_deleted =0 and role = 3
         and user_code = #{driverCode}
@@ -110,6 +120,7 @@
          user_pwd = #{driverPwd},
          id_card = #{idCard},
          phone = #{phone},
+         image = #{image},
          provinces_no = #{provincesNo},
          city_no = #{cityNo},
          county_no = #{countyNo},

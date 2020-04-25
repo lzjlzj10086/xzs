@@ -93,4 +93,27 @@ public class HotController {
             throw e;
         }
     }
+    @PostMapping("findNum")
+    public AppResponse findNum(){
+        try {
+            //hotGoods.setUserId("123456");
+            return hotService.findNum();
+        }catch (Exception e) {
+            logger.error("设置查询成功", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+    @PostMapping("findHotGoodsById")
+    public AppResponse findHotGoodsById(String hotCode){
+        try {
+            //hotGoods.setUserId("123456");
+            //hotGoods.setRole(2);
+            return hotService.findHotGoodsById(hotCode);
+        }catch (Exception e) {
+            logger.error("查询失败", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 }

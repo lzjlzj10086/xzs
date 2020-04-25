@@ -42,4 +42,11 @@ public interface GoodsLevelDao {
      * 商品修改
      */
     int updateGoodsLevel(GoodsLevel goodsLevel);
+
+    /**
+     * 查询二级分类是否存在商品
+     * @param levelCode
+     * @return
+     */
+    int countSecondGoods(String levelCode);
 }

@@ -39,6 +39,7 @@ public class Driver {
      *账号密码
      */
     private String driverPwd;
+    private String image;
     /**
      *店长编号
      */
@@ -95,6 +96,14 @@ public class Driver {
      * 版本号
      */
     private String version;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public int getPageSize() {
         return pageSize;

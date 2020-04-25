@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.stores.dao.StoresDao">
-    <select id="countStores" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
+    <select id="countStoresAcct" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
         select
             count(stores_code)
         from t_stores
         where is_deleted = 0
         and stores_code = #{storesCode}
-
+    </select>
+    <select id="countStoresInviteCode" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
+        select
+            count(stores_invite_code)
+        from t_stores
+        where is_deleted = 0
+        and stores_invite_code = #{storesInviteCode}
     </select>
 
     <insert id="addStores" parameterType="com.demo.stores.entity.Stores">
@@ -44,13 +50,13 @@
             #{storesBossCode},
             #{storesBossName},
             #{openCode},
-            #{storesPhone},
+            #{phone},
             #{storesInviteCode},
             #{storesAcct},
             #{provincesNo},
             #{cityNo},
             #{countyNo},
-            #{prvincesName},
+            #{provincesName},
             #{cityName},
             #{countyName},
               0,
@@ -102,7 +108,7 @@
             stores_name = #{storesName},
             storesboss_name = #{storesBossName},
             open_code = #{openCode},
-            stores_phone =#{storesPhone},
+            stores_phone =#{phone},
             stores_provinces_no = #{provincesNo},
             stores_city_no = #{cityNo},
             stores_county_no = #{countyNo},
@@ -126,4 +132,19 @@
             #{item}
         </foreach>
     </update>
+    <select id="findStoresById" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
+        select
+        stores_code storesCode,
+        stores_name storesName,
+        stores_address storesAddress,
+        storesboss_name storesBossName,
+        stores_phone phone,
+        stores_invite_code storesInviteCode,
+        stores_acct storesAcct,
+        stores_provinces_name storesProvincesName,
+        stores_city_name storesCityName,
+        stores_county_name storesCountyName
+        from t_stores
+        where stores_code = #{storesCode}
+    </select>
 </mapper>

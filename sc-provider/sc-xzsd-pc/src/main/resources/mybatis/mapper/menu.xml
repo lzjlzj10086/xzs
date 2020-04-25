@@ -47,7 +47,8 @@
     <select id="listMenu" parameterType="com.demo.menu.entity.Menu" resultType="com.demo.menu.entity.MenuVo">
         select
             menu_code menuCode,
-            menu_name menuName
+            menu_name menuName,
+            menu_url menuUrl
         from t_menu
         where is_deleted = 0
     </select>
@@ -55,7 +56,8 @@
     <select id="listMenuTwo" parameterType="com.demo.menu.entity.Menu" resultType="com.demo.menu.entity.MenuVo">
         select
             menu_code menuCode,
-            menu_name menuName
+            menu_name menuName,
+            menu_url menuUrl
         from t_menu
         where is_deleted = 0
         and menu_name in ('客户管理','订单管理','门店信息管理','司机信息管理')

@@ -22,9 +22,7 @@
             book_id,
             writer,
             firstlevel_code,
-            firstlevel_name,
             secondlevel_code,
-            secondlevel_name,
             advertisement,
             goods_notes,
             shop_code,
@@ -50,9 +48,7 @@
             #{bookId},
             #{write},
             #{firstLevelCode},
-            #{firstLevelName},
             #{secondLevelCode},
-            #{secondLevelName},
             #{advertisement},
             #{goodsNotes},
             #{shopCode},
@@ -74,35 +70,35 @@
     </insert>
     <select id="listGoodsByPage" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
         select
-            goods_code goodsCode,
-            goods_name goodsName,
-            cost_price costPrice,
-            price price,
-            firstlevel_name firstLevelName,
-            secondlevel_name secondLevelName,
-            advertisement advertisement,
-            goods_notes goodsNotes,
-            goods_status goodsStatus,
-            up_time upTime,
-            shop_name shopName,
-            stock stock,
-            image iamge,
-            book_id bookId
-        from t_goods
-        where is_deleted = 0
+            a.goods_code goodsCode,
+            a.goods_name goodsName,
+            a.cost_price costPrice,
+            a.price price,
+            b.parent_level_name firstLevelName,
+            b.level_name secondLevelName,
+            a.advertisement advertisement,
+            a.goods_notes goodsNotes,
+            a.goods_status goodsStatus,
+            a.up_time upTime,
+            a.shop_name shopName,
+            a.stock stock,
+            a.image image,
+            a.book_id bookId
+        from t_goods a,t_goodslevel b
+        where a.is_deleted = 0 and a.secondlevel_code = b.level_code
         <if test="goodsName != null and goodsName != ''">
-            and goods_name like concat('%', #{goodsName}, "%")
+            and a.goods_name like concat('%', #{goodsName}, "%")
         </if>
         <if test="write != null and write !=''">
-            and writer like concat('%', #{write}, '%')
+            and a.writer like concat('%', #{write}, '%')
         </if>
         <if test="goodsStatus != null and goodsStatus != ''">
-            and goods_status like concat('%', #{goodsStatus}, '%')
+            and a.goods_status = #{goodsStatus}
         </if>
         <if test="advertisement != null and advertisement !=''">
-            and advertisement like concat('%', #{advertisement}, '%')
+            and a.advertisement like concat('%', #{advertisement}, '%')
         </if>
-        order by create_time desc
+        order by a.create_time desc
     </select>
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.demo.goods.entity.GoodsVo">
         select
@@ -167,7 +163,7 @@
         </foreach>
     </delete>
     <delete id="deleteHotGoods" parameterType="com.demo.goods.entity.Goods">
-        update t_hotgoods
+        update t_goods
         set
         is_deleted = 1,
         update_time = now(),

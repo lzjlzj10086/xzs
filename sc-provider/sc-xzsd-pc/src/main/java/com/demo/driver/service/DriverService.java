@@ -32,6 +32,10 @@ public class DriverService {
         if(countDriver != 0){
             return AppResponse.bizError("已存在该账号");
         }
+        int countPhone = driverDao.countPhone(driver);
+        if(countPhone != 0){
+            return AppResponse.bizError("已有司机绑定该手机号，请重新输入");
+        }
         driver.setDriverPwd(PasswordUtils.generatePassword(driver.getDriverPwd()));
         driver.setProvincesName(dictionaryDao.findprovincesName(driver.getProvincesNo()));
         driver.setCityName(dictionaryDao.findCityName(driver.getCityNo()));

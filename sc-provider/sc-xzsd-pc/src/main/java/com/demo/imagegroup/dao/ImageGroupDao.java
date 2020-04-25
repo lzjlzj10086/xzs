@@ -19,6 +19,13 @@ public interface ImageGroupDao {
     int countSort(ImageGroup imageGroup);
 
     /**
+     * 检查是否存在该商品
+     * @param imageGroup
+     * @return
+     */
+    int countGoods(ImageGroup imageGroup);
+
+    /**
      * 添加轮播图
      * @param imageGroup
      * @return

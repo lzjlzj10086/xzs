@@ -17,6 +17,13 @@ public interface DriverDao {
     int countDriver(Driver driver);
 
     /**
+     * 查询是否存在相同手机号
+     * @param driver
+     * @return
+     */
+    int countPhone(Driver driver);
+
+    /**
      * 添加司机
      * @param driver
      * @return

@@ -5,6 +5,7 @@ import com.xzsd.app.goods.entity.Goods;
 import com.xzsd.app.goods.entity.GoodsJudge;
 import com.xzsd.app.goods.entity.GoodsLevel;
 import com.xzsd.app.goods.service.GoodsService;
+import com.xzsd.app.order.entity.JudgeMgeList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,13 +34,19 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 商品评价列表查询
+     * @param judgeMgeList
+     * @return
+     */
     @PostMapping("listGoodsJudge")
-    public AppResponse listGoodsJudge(GoodsJudge goodsJudge){
+    public AppResponse listGoodsJudge(JudgeMgeList judgeMgeList){
         try {
-            AppResponse appResponse = goodsService.listGoodsJudge(goodsJudge);
+            AppResponse appResponse = goodsService.listGoodsJudge(judgeMgeList);
             return appResponse;
         } catch (Exception e) {
-            logger1.error("查询商品评价列表失败", e);
+            logger.error("app商品评价列表查询失败", e);
             System.out.println(e.toString());
             throw e;
         }
@@ -55,10 +62,10 @@ public class GoodsController {
             throw e;
         }
     }
-    @PostMapping("listSecondLevelAndGoodsS")
-    public AppResponse listSecondLevelAndGoodsS(String firstLevel){
+    @PostMapping("listSecondLevelAndGoods")
+    public AppResponse listSecondLevelAndGoods(String firstLevelCode){
         try {
-            AppResponse appResponse = goodsService.listSecondLevelAndGoods(firstLevel);
+            AppResponse appResponse = goodsService.listSecondLevelAndGoods(firstLevelCode);
             return appResponse;
         } catch (Exception e) {
             logger.error("二级列表及商品失败", e);

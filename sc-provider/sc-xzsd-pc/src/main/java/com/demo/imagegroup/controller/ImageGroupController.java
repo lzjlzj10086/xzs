@@ -66,7 +66,7 @@ public class ImageGroupController {
         }
     }
 
-    @PostMapping("startIamgeGroup")
+    @PostMapping("startImageGroup")
     public AppResponse startIamgeGroup(String bannerCode){
         try {
             return imageGroupService.startIamgeGroup(bannerCode);

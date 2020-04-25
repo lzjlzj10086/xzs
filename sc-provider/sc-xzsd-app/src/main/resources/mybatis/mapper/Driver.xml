@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xzsd.app.driver.dao.AppDriver">
+    <select id="getUser" parameterType="java.lang.String" resultType="com.xzsd.app.driver.entity.Driver">
+        select
+            user_name driverName,
+            phone phone,
+            image image
+        from t_user
+        where user_code = #{userId}
+    </select>
+    <select id="listDriverStores" parameterType="java.lang.String" resultType="com.xzsd.app.storesBoss.entity.Stores">
+        select
+        a.user_name storesBossName,
+        a.phone phone,
+        b.stores_code storesCode,
+        b.stores_name storesName,
+        b.stores_Address storesAddress
+        from t_user a, t_stores b
+        where a.user_code = b.storesboss_code
+        and b.stores_county_no = (select county_no from t_user where user_code = #{userId})
+    </select>
+</mapper>

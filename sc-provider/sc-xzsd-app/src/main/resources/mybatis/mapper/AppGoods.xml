@@ -17,28 +17,6 @@
         from t_goods g,t_stores s
         where g.goods_code = #{goodsCode} and s.stores_invite_code = (SELECT invite_code FROM t_user WHERE user_code = #{userId})
     </select>
-    <select id="listGoodsJudgeByPage" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.GoodsJudge">
-        select
-            user_acct userAcct,
-            content content,
-            star_level starLevel,
-            judge_time judgeTime,
-            image_url imageUrl
-        from t_sys_judge
-        where is_deleted = 0 and goods_code = #{goodsCode}
-        <if test="starLevel != null and starLevel != ''">
-            <if test="starLevel == 1">
-                and star_level = #{starLevel}
-            </if>
-            <if test="starLevel == 3">
-                and star_level in(2,3)
-            </if>
-            <if test="starLevel == 5">
-                and star_level in(5,4)
-            </if>
-        </if>
-        order by create_time desc
-    </select>
     <select id="listFirstLeveL" resultType="com.xzsd.app.goods.entity.GoodsLevel">
         select
             level_code levelCode,
@@ -46,13 +24,53 @@
         from t_goodslevel
         where is_deleted = 0
     </select>
-    <select id="listSecondLevelAndGoodsByPage" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
+    <select id="listSecondLevelAndGoodsByPage" resultMap="secondAndGoods">
         select
-            goods_code goodsCode,
-            goods_name goodsName,
-            image goodsImage,
-            price price
-        from t_goods
-        where is_deleted = 0 and firstlevel_code = #{firstLevelCode}
+            a.level_code levelCode,
+            a.level_name levelName,
+            b.goods_code goodsCode,
+            b.goods_name goodsName,
+            b.image goodsImage,
+            b.price price
+        from t_goodslevel a
+        left join t_goods b
+        on a.level_code = b.secondlevel_code
+        where a.is_parent = 1 and a.is_deleted = 0 and a.parent_level_code = #{parentLevelCode}
     </select>
+    <resultMap id="secondAndGoods" type="com.xzsd.app.goods.entity.GoodsLeveltwo" autoMapping="true">
+        <result column="levelCode" property="levelCode"/>
+        <result column="levelName" property="levelName"/>
+        <collection property="goodsList" ofType="com.xzsd.app.goods.entity.Goods" autoMapping="true">
+            <result column="goodsCode" property="goodsCode"/>
+            <result column="goodsName" property="goodsName"/>
+            <result column="goodsImage" property="goodsImage"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+    <!--商品评价列表查询-->
+    <select id="listGoodsJudgeByPage" resultMap="judgeGoodsList">
+        select
+        a.user_code userCode,
+        a.judge_content judgeContent,
+        a.judge_Level judgeLevel,
+        a.create_time judgeTime,
+        b.image_path imagePath
+        from t_sys_judge a
+        left join t_sys_judge_image b
+        on a.judge_code = b.judge_code
+        where a.goods_code = #{goodsCode}
+        <if test="judgeGoodsLevel != null and judgeGoodsLevel != ''">
+            and a.judge_goods_level = #{judgeGoodsLevel}
+        </if>
+    </select>
+    <resultMap id="judgeGoodsList" type="com.xzsd.app.order.entity.JudgeMgeList">
+        <result column="userCode" property="userCode"/>
+        <result column="judgeContent" property="judgeContent"/>
+        <result column="judgeLevel" property="judgeLevel"/>
+        <result column="judgeTime" property="judgeTime"/>
+        <result column="judgeGoodsLevel" property="judgeGoodsLevel"/>
+        <collection property="judgeImages" ofType="com.xzsd.app.order.entity.JudgeImage">
+            <result column="imagePath" property="imagePath"/>
+        </collection>
+    </resultMap>
 </mapper>

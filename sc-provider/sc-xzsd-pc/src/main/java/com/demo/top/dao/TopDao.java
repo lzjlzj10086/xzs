@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface TopDao {
     /**
      * 顶部栏查询
-     * @param useracct
+     * @param userId
      * @return
      */
-    User getTop(String useracct);
+    User getTop(String userId);
 }

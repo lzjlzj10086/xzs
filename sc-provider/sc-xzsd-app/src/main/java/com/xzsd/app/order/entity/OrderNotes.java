@@ -39,7 +39,7 @@ public class OrderNotes {
     /**
      *商品图片路径
      */
-    private String IamgePath;
+    private String imagePath;
     /**
      *商品总数
      */
@@ -169,12 +169,12 @@ public class OrderNotes {
         this.goodsName = goodsName;
     }
 
-    public String getIamgePath() {
-        return IamgePath;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setIamgePath(String iamgePath) {
-        IamgePath = iamgePath;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getAmount() {

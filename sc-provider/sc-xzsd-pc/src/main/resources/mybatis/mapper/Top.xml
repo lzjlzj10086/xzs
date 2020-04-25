@@ -9,7 +9,7 @@
             role role,
             image image
         from t_user
-        where user_acct = #{useracct}
+        where user_acct = #{userId}
     </select>
 
 </mapper>

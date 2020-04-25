@@ -3,6 +3,7 @@ package com.demo.menu.dao;
 import com.demo.menu.entity.Menu;
 import com.demo.menu.entity.MenuVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -49,5 +50,5 @@ public interface MenuDao {
      * @param menuCode
      * @return
      */
-    int deleteMenu(String menuCode, String userId);
+    int deleteMenu(@Param("menuCode") String menuCode, @Param("userId") String userId);
 }

@@ -3,12 +3,20 @@
 
 <mapper namespace="com.demo.imagegroup.dao.ImageGroupDao">
     <select id="countSort" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="java.lang.Integer">
-        select count(sort)
+        select count(*)
         from t_imagegroup
         where
         is_deleted = 0
         and
         sort = #{sort}
+    </select>
+    <select id="countGoods" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="java.lang.Integer">
+        select count(*)
+        from t_imagegroup
+        where
+        is_deleted = 0
+        and
+        goods_code = #{goodsCode}
     </select>
     <insert id="addImageGroup" parameterType="com.demo.imagegroup.entity.ImageGroup">
         insert into t_imagegroup
@@ -35,7 +43,7 @@
             #{startTime},
             #{stopTime},
             #{goodsCode},
-            0,
+            1,
             0,
             now(),
             #{userId},

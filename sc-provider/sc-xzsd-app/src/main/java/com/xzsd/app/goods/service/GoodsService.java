@@ -5,6 +5,8 @@ import com.xzsd.app.goods.dao.GoodsDao;
 import com.xzsd.app.goods.entity.Goods;
 import com.xzsd.app.goods.entity.GoodsJudge;
 import com.xzsd.app.goods.entity.GoodsLevel;
+import com.xzsd.app.goods.entity.GoodsLeveltwo;
+import com.xzsd.app.order.entity.JudgeMgeList;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,15 +34,14 @@ public class GoodsService {
     }
 
     /**
-     * 查询商品评价列表
-     * @param goodsCode,starLevel
+     * 商品评价列表查询
+     * @param judgeMgeList
      * @return
      */
-    public AppResponse listGoodsJudge(GoodsJudge goodsJudge){
-        List<GoodsJudge> goodsJudgeList = goodsDao.listGoodsJudgeByPage(goodsJudge);
-        return AppResponse.success("该商品评价列表查询成功",getPageInfo(goodsJudgeList));
+    public AppResponse listGoodsJudge(JudgeMgeList judgeMgeList){
+        List<JudgeMgeList> judgeMgeLists =goodsDao.listGoodsJudgeByPage(judgeMgeList);
+        return AppResponse.success("商品评价列表",getPageInfo(judgeMgeLists));
     }
-
     /**
      * 查询一级商品分类列表
      * @return
@@ -56,7 +57,9 @@ public class GoodsService {
      * @return
      */
     public AppResponse listSecondLevelAndGoods(String firstLevelCode){
-        List<Goods> goodsList = goodsDao.listSecondLevelAndGoodsByPage(firstLevelCode);
-        return AppResponse.success("查询二级以下的商品列表成功",goodsList);
+        GoodsLeveltwo goodsLeveltwo = new GoodsLeveltwo();
+        goodsLeveltwo.setParentLevelCode(firstLevelCode);
+        List<GoodsLeveltwo> secondLevelAndGoodslist = goodsDao.listSecondLevelAndGoodsByPage(goodsLeveltwo);
+        return AppResponse.success("查询二级名称以及以下的商品列表成功",getPageInfo(secondLevelAndGoodslist));
     }
 }

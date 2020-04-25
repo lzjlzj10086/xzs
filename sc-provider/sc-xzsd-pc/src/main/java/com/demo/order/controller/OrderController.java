@@ -43,9 +43,9 @@ public class OrderController {
     }
 
     @PostMapping("updateOrderStatus")
-    public AppResponse updateOrderStatus(String orderCode){
+    public AppResponse updateOrderStatus(String orderCode,String orderStatus,String userId){
         try {
-            return orderService.updateOrderStatus(orderCode);
+            return orderService.updateOrderStatus(orderCode,orderStatus,userId);
         }catch (Exception e){
             logger.error("订单修改失败", e);
             System.out.println(e.toString());

@@ -37,15 +37,16 @@
 
     <select id="findOrderById" parameterType="java.lang.String" resultType="com.demo.order.entity.OrderNotes">
         select
-            client_user_code clientUserCode,
-            order_code orderCode,
-            goods_code goodsCode,
-            goods_name goodsName,
-            amount amount,
-            allprice allPrice,
-            price
-        from t_sys_order_detaile
-        where order_code = #{orderCode}
+            a.order_code orderCode,
+            a.goods_code goodsCode,
+            b.order_clientuser_code clientUserCode,
+            a.goods_name goodsName,
+            a.amount amount,
+            a.allprice allPrice,
+            a.price
+        from t_sys_order_detaile a,t_sys_order b
+        where a.order_code = b.order_code
+        and b.order_code = #{orderCode}
     </select>
 
     <update id="updateOrderStatus" parameterType="com.demo.order.entity.OrderNotes">
@@ -56,7 +57,7 @@
             update_user = #{userId},
             version = version + 1
         where order_code in
-        <foreach collection="listcode" item="item" index="index" open="(" separator="," close=")">
+        <foreach collection="listCode" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
     </update>

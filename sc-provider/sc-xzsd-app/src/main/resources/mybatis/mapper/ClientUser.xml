@@ -12,6 +12,13 @@
             and user_code != #{userCode}
         </if>
     </select>
+    <!--统计邀请码-->
+    <select id="countInvite" parameterType="com.xzsd.app.register.entity.ClientUser" resultType="java.lang.Integer">
+        select count(stores_invite_code)
+        from t_stores
+        where is_deleted = 0
+        and stores_invite_code = #{inviteCode}
+    </select>
     <!--注册-->
     <insert id="clientRegister" parameterType="com.xzsd.app.register.entity.ClientUser">
         insert t_user

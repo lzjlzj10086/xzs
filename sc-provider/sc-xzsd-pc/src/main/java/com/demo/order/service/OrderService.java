@@ -35,9 +35,9 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateOrderStatus(String orderCode){
+    public AppResponse updateOrderStatus(String orderCode,String orderStatus,String userId){
         List<String> listcode = Arrays.asList(orderCode.split(","));
-        int count = orderDao.updateOrderStatus(listcode);
+        int count = orderDao.updateOrderStatus(listcode,orderStatus,userId);
         if(count == 0){
             AppResponse.bizError("修改失败");
         }

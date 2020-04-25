@@ -29,6 +29,10 @@ public class ImageGroupService {
         if(countsort != 0){
             return AppResponse.bizError("排序序号已经存在，请重新输入");
         }
+        int countGoods = imageGroupDao.countGoods(imageGroup);
+        if(countGoods != 0){
+            return AppResponse.bizError("该商品已经存在，请重新输入");
+        }
         imageGroup.setBannerCode(StringUtil.getCommonCode(2));
         int count = imageGroupDao.addImageGroup(imageGroup);
         if(count == 0){
@@ -38,15 +42,12 @@ public class ImageGroupService {
     }
 
     public AppResponse listGoods(Goods goods){
-
         List<GoodsVo> goodsList=imageGroupDao.listGoodsByPage(goods);
-
         return AppResponse.success("查询成功",getPageInfo(goodsList));
     }
 
     public AppResponse listImageGroup(ImageGroup imageGroup){
         List<ImageGroup> imageGroupList=imageGroupDao.listImageGroupByPage(imageGroup);
-
         return AppResponse.success("查询成功",getPageInfo(imageGroupList));
     }
 

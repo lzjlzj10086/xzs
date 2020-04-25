@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RegisterDao {
 
+    int countInvite(ClientUser clientUser);
     int countAcct(ClientUser clientUser);
     /**
      * 客户注册

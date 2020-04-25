@@ -2,12 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.hotgoods.dao.HotDao">
-    <!--检查是否存在该热门位商品-->
-    <select id="countHot" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="java.lang.Integer">
+    <!--检查是否存在该热门位商品序号-->
+    <select id="countHotSort" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="java.lang.Integer">
         select count(*)
         from t_hot
         where is_deleted = 0
-        and (hot_sort = #{hotSort} or goods_code = #{goodsCode})
+        and hot_sort = #{hotSort}
+    </select>
+    <!--检查是否存在该热门位商品-->
+    <select id="countHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods" resultType="java.lang.Integer">
+        select count(*)
+        from t_hot
+        where is_deleted = 0
+        and goods_code = #{goodsCode}
     </select>
     <!--添加热门位商品-->
     <insert id="addHotGoods" parameterType="com.demo.hotgoods.entity.HotGoods">
@@ -64,7 +71,7 @@
             goods_code = #{goodsCode},
             update_time = now(),
             update_user = #{userId},
-            version = version +1
+            version = version + 1
         where hot_code = #{hotCode}
     </update>
     <!--删除热门商品-->
@@ -85,4 +92,24 @@
         set
             num = #{number}
     </update>
+    <select id="findNum" resultType="java.lang.String">
+        select
+            num number
+        from t_hot_number
+    </select>
+    <select id="findHotGoodsById" parameterType="java.lang.String" resultType="com.demo.hotgoods.entity.HotGoods">
+    select
+    h.hot_code hotCode,
+    h.hot_sort hotSort,
+    h.create_time create_time,
+    g.goods_code goodsCode,
+    g.goods_name goodsName,
+    g.price goodsPrice,
+    g.image goodsImage,
+    g.goods_notes goodsNotes
+    from t_hot h,t_goods g
+    where h.goods_code = g.goods_code
+    and h.is_deleted = 0
+    and h.hot_code = #{hotCode}
+    </select>
 </mapper>

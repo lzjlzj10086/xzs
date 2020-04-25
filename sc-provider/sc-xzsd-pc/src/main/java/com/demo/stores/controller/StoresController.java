@@ -68,4 +68,19 @@ public class StoresController {
         }
     }
 
+    /**
+     * 门店详情查询
+     * @param stores
+     * @return
+     */
+    @PostMapping("findStoresById")
+    public AppResponse findStoresById(Stores stores){
+        try {
+            return storesService.findStoresById(stores);
+        }catch (Exception e) {
+            logger.error("详情查询失败", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 }

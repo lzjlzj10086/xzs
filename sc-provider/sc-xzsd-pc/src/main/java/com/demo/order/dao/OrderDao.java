@@ -14,6 +14,6 @@ public interface OrderDao {
 
     List<OrderNotes> findOrderById(String orderCode);
 
-    int updateOrderStatus(@Param("listCode")List<String> listcode);
+    int updateOrderStatus(@Param("listCode")List<String> listCode,@Param("orderStatus") String orderStatus,@Param("userId") String userId);
 
 }

@@ -11,11 +11,17 @@ import java.util.List;
 public interface HotDao {
 
     /**
+     * 先看是否存在该商品在热门位序号
+     * @param hotGoods
+     * @return
+     */
+    int countHotSort(HotGoods hotGoods);
+    /**
      * 先看是否存在该商品在热门位
      * @param hotGoods
      * @return
      */
-    int countHot(HotGoods hotGoods);
+    int countHotGoods(HotGoods hotGoods);
 
     /**
      * 添加热门商品
@@ -52,5 +58,12 @@ public interface HotDao {
      */
     int updateHotGoodsNumber(String number);
 
+    HotGoods findHotGoodsById(String hotGoods);
+
+    /**
+     * 设置查询展示商品
+     * @return
+     */
+    String findNum();
 
 }

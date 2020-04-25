@@ -3,6 +3,9 @@ package com.xzsd.app.goods.dao;
 import com.xzsd.app.goods.entity.Goods;
 import com.xzsd.app.goods.entity.GoodsJudge;
 import com.xzsd.app.goods.entity.GoodsLevel;
+import com.xzsd.app.goods.entity.GoodsLeveltwo;
+import com.xzsd.app.order.entity.Judge;
+import com.xzsd.app.order.entity.JudgeMgeList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,13 +21,6 @@ public interface GoodsDao {
     Goods findGoodsById(@Param("goodsCode") String goodsCode,@Param("userId") String userId);
 
     /**
-     * 查询商品评价列表
-     * @param goodsJudge
-     * @return
-     */
-    List<GoodsJudge> listGoodsJudgeByPage(GoodsJudge goodsJudge);
-
-    /**
      * 查询一级商品分类
      * @return
      */
@@ -32,8 +28,15 @@ public interface GoodsDao {
 
     /**
      * 查询二级及以下的商品列表
-     * @param firstLevelCode
+     * @param goodsLeveltwo
      * @return
      */
-    List<Goods> listSecondLevelAndGoodsByPage(String firstLevelCode);
+    List<GoodsLeveltwo> listSecondLevelAndGoodsByPage(GoodsLeveltwo goodsLeveltwo);
+
+    /**
+     * 商品评价列表查询
+     * @param judgeMgeList
+     * @return
+     */
+    List<JudgeMgeList> listGoodsJudgeByPage(JudgeMgeList judgeMgeList);
 }

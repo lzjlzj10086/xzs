@@ -1,5 +1,6 @@
 package com.xzsd.app.goods.entity;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class GoodsLevel {
     /**
      * 列表子节点
      */
-    private List<GoodsLevel> secondGoodsLevel;
+    private List<GoodsLeveltwo> secondGoodsLevel;
     /**
      * 上级编码
      */
@@ -121,11 +122,11 @@ public class GoodsLevel {
         this.levelName = levelName;
     }
 
-    public List<GoodsLevel> getSecondGoodsLevel() {
+    public List<GoodsLeveltwo> getSecondGoodsLevel() {
         return secondGoodsLevel;
     }
 
-    public void setSecondGoodsLevel(List<GoodsLevel> secondGoodsLevel) {
+    public void setSecondGoodsLevel(List<GoodsLeveltwo> secondGoodsLevel) {
         this.secondGoodsLevel = secondGoodsLevel;
     }
 

@@ -20,6 +20,16 @@ public class SysUser {
 
     private String locked;
 
+    private String userImage;
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
     public String getClientId() {
         return clientId;
     }

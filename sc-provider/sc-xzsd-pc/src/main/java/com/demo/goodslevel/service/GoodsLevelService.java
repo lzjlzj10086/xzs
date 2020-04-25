@@ -73,6 +73,10 @@ public class GoodsLevelService {
         if(countSecond !=0){
             return AppResponse.bizError("存在二级目录，不能删除");
         }
+        int countSecondGoods = goodsLevelDao.countSecondGoods(levelCode);
+        if(countSecondGoods != 0){
+            return AppResponse.bizError("该二级分类存在商品，不能删除");
+        }
         int count=goodsLevelDao.deleteGoodsLevel(levelCode,userId);
         if(count == 0){
             return AppResponse.bizError("删除异常");

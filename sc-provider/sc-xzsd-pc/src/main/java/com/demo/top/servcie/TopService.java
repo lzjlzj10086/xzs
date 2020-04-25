@@ -13,8 +13,8 @@ public class TopService {
     @Resource
     private TopDao topDao;
 
-    public AppResponse getTop(String useracct){
-        User user = topDao.getTop(useracct);
+    public AppResponse getTop(String userId){
+        User user = topDao.getTop(userId);
         if(user == null){
             return AppResponse.bizError("顶部栏查询失败");
         }

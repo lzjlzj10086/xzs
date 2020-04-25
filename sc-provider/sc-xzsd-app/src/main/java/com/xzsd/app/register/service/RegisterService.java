@@ -22,6 +22,10 @@ public class RegisterService {
         if(countAcct != 0){
             return AppResponse.bizError("该账号已存在");
         }
+        int countInvite = registerDao.countInvite(clientUser);
+        if(countInvite == 0){
+            return AppResponse.bizError("该店铺邀请码不存在，请重新输入");
+        }
         clientUser.setUserCode(StringUtil.getCommonCode(2));
         clientUser.setIsDelete(0);
         clientUser.setUserPwd(PasswordUtils.generatePassword(clientUser.getUserPwd()));

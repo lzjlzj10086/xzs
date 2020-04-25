@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.xzsd.app.order.dao.AppOrderDao">
+    <!--查询该用户是否存在邀请码-->
+    <select id="countInviteCode" parameterType="java.lang.String" resultType="java.lang.String">
+        select invite_code
+        from t_user
+        where user_code = #{userId}
+    </select>
     <select id="findStoresByUserId" parameterType="java.lang.String" resultType="com.xzsd.app.order.entity.Stores">
         select
             stores_provinces_name provincesName,
@@ -30,6 +36,22 @@
         from t_goods
         where goods_code = #{goodsCode}
     </select>
+    <update id="updateGoodsStock">
+        update t_goods
+        set stock = stock - #{stock}
+        where goods_code = #{goodsCode}
+    </update>
+    <update id="deleteShopCar" parameterType="java.lang.String">
+        update t_sys_shopcar
+        set
+        is_deleted = 1,
+        update_time = now(),
+        version = version + 1
+        where goods_code in
+        <foreach collection="goodsCode" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
     <insert id="addOrderNotes" parameterType="com.xzsd.app.order.entity.OrderNotes">
         insert into t_sys_order_detaile
         (
@@ -53,7 +75,7 @@
             #{orderCode},
             #{goodsCode},
             #{goodsName},
-            #{IamgePath},
+            #{imagePath},
             #{price},
             #{amount},
             #{allPrice},
@@ -78,6 +100,7 @@
             pay_status,
             order_status,
             order_allprice,
+            goods_sum,
             pay_time,
             is_deleted,
             create_time,
@@ -97,6 +120,7 @@
             #{payStatus},
             1,
             #{orderAllPrice},
+            #{goodsSum},
             now(),
             0,
             now(),
@@ -104,4 +128,147 @@
             0
         )
     </insert>
+    <!--order列表查询-->
+    <select id="listOrderByPage" resultMap="orderlist">
+        select
+        a.order_code orderCode,
+        a.order_status orderStatus,
+        a.order_allprice orderAllPrice,
+        b.goods_name goodsName,
+        b.imagepath ImagePath,
+        b.goods_notes goodsNotes,
+        b.price price,
+        b.amount amount,
+        b.goods_code goodsCode
+        from t_sys_order a
+        left join t_sys_order_detaile b
+        on a.order_code = b.order_code
+        where a.order_clientuser_code = #{userId}
+        order by a.create_time desc
+    </select>
+    <resultMap id="orderlist" type="com.xzsd.app.order.entity.Order">
+        <result column="orderCode" property="orderCode"/>
+        <result column="orderStatus" property="orderStatus"/>
+        <result column="orderAllPrice" property="orderAllPrice"/>
+        <collection property="orderNotesList" ofType="com.xzsd.app.order.entity.OrderNotes" autoMapping="true">
+            <result column="goodsName" property="goodsName"/>
+            <result column="ImagePath" property="imagePath"/>
+            <result column="goodsNotes" property="goodsNotes"/>
+            <result column="price" property="price"/>
+            <result column="amount" property="amount"/>
+            <result column="goodsCode" property="goodsCode"/>
+        </collection>
+    </resultMap>
+    <update id="updateOrderStatus" parameterType="com.xzsd.app.order.entity.Order">
+        update t_sys_order
+        set
+            order_status = #{orderStatus},
+            update_time = now(),
+            update_user = #{userId},
+            version = version + 1
+        where order_code = #{orderCode}
+    </update>
+    <select id="findOrderById" resultMap="order">
+        select
+        a.order_status orderStatus,
+        a.order_allprice orderAllPrice,
+        a.goods_sum goodsSum,
+        a.order_code orderCode,
+        a.create_time createTime,
+        a.stores_name storesName,
+        a.stores_address storesAddress,
+        b.goods_name goodsName,
+        b.imagepath ImagePath,
+        b.goods_notes goodsNotes,
+        b.price price,
+        b.amount amount,
+        b.goods_code goodsCode
+        from t_sys_order a
+        left join t_sys_order_detaile b
+        on a.order_code = b.order_code
+        where a.order_code = #{orderCode}
+    </select>
+    <resultMap id="order" type="com.xzsd.app.order.entity.Order">
+        <result column="orderCode" property="orderCode"/>
+        <result column="orderStatus" property="orderStatus"/>
+        <result column="orderAllPrice" property="orderAllPrice"/>
+        <result column="goodsSum" property="goodsSum"/>
+        <result column="createTime" property="createTime"/>
+        <result column="storesName" property="storesName"/>
+        <result column="storesAddress" property="storesAddress"/>
+        <collection property="orderNotesList" ofType="com.xzsd.app.order.entity.OrderNotes" autoMapping="true">
+            <result column="goodsName" property="goodsName"/>
+            <result column="ImagePath" property="imagePath"/>
+            <result column="goodsNotes" property="goodsNotes"/>
+            <result column="price" property="price"/>
+            <result column="amount" property="amount"/>
+            <result column="goodsCode" property="goodsCode"/>
+        </collection>
+    </resultMap>
+    <insert id="addJudge" parameterType="com.xzsd.app.order.entity.Judge">
+        insert into t_sys_judge
+        (
+            judge_code,
+            order_code,
+            goods_code,
+            user_code,
+            judge_content,
+            judge_level,
+            judge_goods_level,
+            is_deleted,
+            create_time,
+            update_time,
+            version
+        )values
+        <foreach collection="judgeMgeLists" index="index" item="item" open="" separator="," close="">
+        (
+            #{item.judgeCode},
+            #{orderCode},
+            #{item.goodsCode},
+            #{userId},
+            #{item.judgeContent},
+            #{item.judgeLevel},
+            #{item.judgeGoodsLevel},
+            0,
+            now(),
+            now(),
+            0
+        )
+        </foreach>
+    </insert>
+    <insert id="addJudgeImage" parameterType="com.xzsd.app.order.entity.JudgeImage">
+        insert into t_sys_judge_image
+        (
+            judge_code,
+            image_code,
+            image_sort,
+            image_path,
+            is_deleted,
+            create_time,
+            update_time,
+            version
+        )values
+        <foreach collection="judgeImageList" index="index" item="item" open="" separator="," close="">
+        (
+            #{item.judgeCode},
+            #{item.imageCode},
+            #{item.imageSort},
+            #{item.imagePath},
+            0,
+            now(),
+            now(),
+            0
+        )
+        </foreach>
+    </insert>
+    <!--查询订单评价商品信息-->
+    <select id="listGoodsToJudge" resultMap="order">
+        select
+        b.goods_code goodsCode,
+        b.imagePath ImagePath
+        from t_sys_order a,t_sys_order_detaile b
+        where a.order_code = b.order_code and a.order_status = 4 and a.order_clientuser_code = #{userId}
+        and a.order_code = #{orderCode}
+        order by a.create_time desc
+    </select>
 </mapper>

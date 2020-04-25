@@ -41,8 +41,6 @@ public class GoodsService {
         goods.setIsDelete(0);
         goods.setGoodsStatus(0);
         goods.setGoodsCode(StringUtil.getCommonCode(2));
-        goods.setFirstLevelName(goodsLevelDao.findGoodsLevelById(goods.getFirstLevelCode()).getLevelName());
-        goods.setSecondLevelName(goodsLevelDao.findGoodsLevelById(goods.getSecondLevelCode()).getLevelName());
         int countsave=goodsDao.saveGoods(goods);
         if(countsave == 0){
             return AppResponse.bizError("添加失败，请重新输入");
@@ -110,8 +108,6 @@ public class GoodsService {
     public AppResponse upGoods(String goodsCode,String userId){
         List<String> listCode = Arrays.asList(goodsCode.split(","));
         int count = goodsDao.upGoods(listCode,userId);
-        goodsDao.deleteHotGoods(listCode,userId);
-        goodsDao.deleteImageGroup(listCode,userId);
         if(count == 0){
             return AppResponse.bizError("上架失败");
         }

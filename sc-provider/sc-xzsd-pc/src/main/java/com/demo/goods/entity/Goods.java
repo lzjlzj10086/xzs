@@ -90,11 +90,11 @@ public class Goods {
     /**
      * 上架时间
      */
-    private Date upTime;
+    private String upTime;
     /**
      * 下架时间
      */
-    private Date donwTime;
+    private String donwTime;
 
     /**
      * 删除标志 0存在 1删除
@@ -289,19 +289,19 @@ public class Goods {
         this.goodsStatus = goodsStatus;
     }
 
-    public Date getUpTime() {
+    public String getUpTime() {
         return upTime;
     }
 
-    public void setUpTime(Date upTime) {
+    public void setUpTime(String upTime) {
         this.upTime = upTime;
     }
 
-    public Date getDonwTime() {
+    public String getDonwTime() {
         return donwTime;
     }
 
-    public void setDonwTime(Date donwTime) {
+    public void setDonwTime(String donwTime) {
         this.donwTime = donwTime;
     }
 

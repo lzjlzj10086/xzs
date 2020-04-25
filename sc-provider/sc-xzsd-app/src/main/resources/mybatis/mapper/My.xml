@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.xzsd.app.my.dao.MyDao">
+    <!--查询原密码-->
+    <select id="findUserById" parameterType="java.lang.String" resultType="com.xzsd.app.register.entity.ClientUser">
+        select
+            user_pwd userPwd
+        from t_user
+        where user_code = #{userId}
+        and role = 4
+    </select>
+    <update id="updatePwd" parameterType="java.lang.String">
+        update t_user
+        set user_pwd = #{userNewPwd}
+        where user_code = #{userId}
+    </update>
+    <update id="updateClientInvite" parameterType="java.lang.String">
+        update t_user
+        set invite_code = #{inviteCode}
+        where user_code = #{userId}
+        and role = 4
+    </update>
+    <select id="getUser" parameterType="java.lang.String" resultType="com.xzsd.app.register.entity.ClientUser">
+        select
+            user_name userName,
+            image image,
+            invite_code inviteCode
+        from t_user
+        where user_code = #{userId}
+    </select>
+</mapper>

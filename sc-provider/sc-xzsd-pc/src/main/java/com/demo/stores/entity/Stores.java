@@ -48,6 +48,7 @@ public class Stores {
      *门店电话
      */
     private String storesPhone;
+    private String phone;
     /**
      *门店邀请码
      */
@@ -56,6 +57,9 @@ public class Stores {
      *门店账号
      */
     private String storesAcct;
+    private String storesProvincesName;
+    private String storesCityName;
+    private String storesCountyName;
     /**
      * 删除标志 0存在 1删除
      */
@@ -105,6 +109,38 @@ public class Stores {
      */
     private String countyName;
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getStoresProvincesName() {
+        return storesProvincesName;
+    }
+
+    public void setStoresProvincesName(String storesProvincesName) {
+        this.storesProvincesName = storesProvincesName;
+    }
+
+    public String getStoresCityName() {
+        return storesCityName;
+    }
+
+    public void setStoresCityName(String storesCityName) {
+        this.storesCityName = storesCityName;
+    }
+
+    public String getStoresCountyName() {
+        return storesCountyName;
+    }
+
+    public void setStoresCountyName(String storesCountyName) {
+        this.storesCountyName = storesCountyName;
+    }
+
     public int getPageSize() {
         return pageSize;
     }
@@ -152,6 +188,8 @@ public class Stores {
     public void setStoresName(String storesName) {
         this.storesName = storesName;
     }
+
+
 
     public String getStoresAddress() {
         return storesAddress;
