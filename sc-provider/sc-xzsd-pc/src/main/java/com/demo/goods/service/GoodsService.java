@@ -34,10 +34,12 @@ public class GoodsService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse saveGoods(Goods goods){
+        //校验商品是否存在
         int count = goodsDao.countGoods(goods);
         if(count != 0){
             return AppResponse.bizError("商品已存在，请重新输入");
         }
+        //设置商品信息
         goods.setIsDelete(0);
         goods.setGoodsStatus(0);
         goods.setGoodsCode(StringUtil.getCommonCode(2));
@@ -130,10 +132,20 @@ public class GoodsService {
         return AppResponse.success("下架成功");
     }
 
+    /**
+     * 商品一级下拉分级查询
+     * @return
+     */
     public AppResponse findFirstLevel(){
         List<GoodsLevel> listLevel = goodsDao.findFirstLevel();
         return AppResponse.success("一级查询成功",listLevel);
     }
+
+    /**
+     * 商品二级分类下拉查询
+     * @param firstLevelCode
+     * @return
+     */
     public AppResponse findSecondLevel(String firstLevelCode){
         List<GoodsLevel> listLevel = goodsDao.findSecondLevel(firstLevelCode);
         return AppResponse.success("二级查询成功",listLevel);

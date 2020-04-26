@@ -24,7 +24,6 @@ public class StoresController {
     @PostMapping("addStores")
     public AppResponse addStores(Stores stores){
         try {
-            stores.setUserId("123456");
             return storesService.addStores(stores);
         }catch (Exception e) {
             logger.error("新增失败", e);

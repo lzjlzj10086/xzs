@@ -13,6 +13,11 @@ public class TopService {
     @Resource
     private TopDao topDao;
 
+    /**
+     * 顶部栏查询
+     * @param userId
+     * @return
+     */
     public AppResponse getTop(String userId){
         User user = topDao.getTop(userId);
         if(user == null){

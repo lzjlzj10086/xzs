@@ -21,19 +21,32 @@ public class OrderService {
     @Resource
     private OrderDao orderDao;
 
+    /**
+     * 订单列表分页查询
+     * @param order
+     * @return
+     */
     public AppResponse listOrder(Order order){
+        //判断是否为店长
         if (order.getRole() == 2){
             order.setStoresBossCode(order.getUserId());
         }
         List<Order> orderList = orderDao.listOrderByPage(order);
         return AppResponse.success("分页列表成功",getPageInfo(orderList));
     }
-
+    //订单详情
     public AppResponse findOrderById(String orderCode){
         List<OrderNotes> orderNotes = orderDao.findOrderById(orderCode);
         return AppResponse.success("订单详情",orderNotes);
     }
 
+    /**
+     * 修改订单状态
+     * @param orderCode
+     * @param orderStatus
+     * @param userId
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateOrderStatus(String orderCode,String orderStatus,String userId){
         List<String> listcode = Arrays.asList(orderCode.split(","));

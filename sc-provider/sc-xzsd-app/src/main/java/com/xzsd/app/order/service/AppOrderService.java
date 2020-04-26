@@ -59,6 +59,10 @@ public class AppOrderService {
         //设置商品到订单详细
         for(int i=0;i<goodsCodeList.size();i++){
             Goods goods = appOrderDao.findGoodsById(goodsCodeList.get(i));
+            //判断是否有库存
+            if(goods.getStock()<Integer.parseInt(goodsNum.get(i))){
+                return AppResponse.bizError("库存不足");
+            }
             OrderNotes orderNotes = new OrderNotes();
             orderNotes.setOrderNotesCode(StringUtil.getCommonCode(2));
             orderNotes.setOrderCode(order.getOrderCode());

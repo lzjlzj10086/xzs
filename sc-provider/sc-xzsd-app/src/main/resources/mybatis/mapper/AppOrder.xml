@@ -32,6 +32,7 @@
             goods_name goodsName,
             price price,
             goods_notes goodsNotes,
+            stock stock,
             image goodsImage
         from t_goods
         where goods_code = #{goodsCode}

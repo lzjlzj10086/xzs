@@ -63,8 +63,8 @@ public class MyService {
      * @param userId
      * @return
      */
-    public AppResponse getUser(String userId){
-        ClientUser clientUser = myDao.getUser(userId);
+    public AppResponse getUserOrDriver(String userId){
+        ClientUser clientUser = myDao.getUserOrDriver(userId);
         return AppResponse.success("查询成功",clientUser);
     }
 }

@@ -106,6 +106,7 @@
         update t_stores
         set
             stores_name = #{storesName},
+            storesboss_code =#{storesBossCode},
             storesboss_name = #{storesBossName},
             open_code = #{openCode},
             stores_phone =#{phone},
@@ -137,10 +138,15 @@
         stores_code storesCode,
         stores_name storesName,
         stores_address storesAddress,
+        storesboss_code storesBossCode,
+        open_code open_code,
         storesboss_name storesBossName,
         stores_phone phone,
         stores_invite_code storesInviteCode,
         stores_acct storesAcct,
+        stores_provinces_no provincesNo,
+        stores_city_no cityNo,
+        stores_county_no countyNo,
         stores_provinces_name storesProvincesName,
         stores_city_name storesCityName,
         stores_county_name storesCountyName

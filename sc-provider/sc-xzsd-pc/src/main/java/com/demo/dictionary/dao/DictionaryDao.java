@@ -27,9 +27,24 @@ public interface DictionaryDao {
      */
     List<Dictionary> findCounty(String cityNo);
 
+    /**
+     * 省名称查询
+     * @param provincesNo
+     * @return
+     */
     String findprovincesName(String provincesNo);
 
+    /**
+     * 市名称查询
+     * @param cityNo
+     * @return
+     */
     String findCityName(String cityNo);
 
+    /**
+     * 区名称查询
+     * @param countyNo
+     * @return
+     */
     String findCountyName(String countyNo);
 }

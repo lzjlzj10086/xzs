@@ -44,7 +44,6 @@ public class UserService {
         }
         return AppResponse.success("新增成功！");
     }
-
     /**
      * 用户列表查询
      * @param user
@@ -54,7 +53,6 @@ public class UserService {
         List<User> userList = userDao.listUserByPage(user);
         return AppResponse.success("查询成功！",getPageInfo(userList));
     }
-
     /**
      * 用户详情查询
      * @param userCode
@@ -64,7 +62,6 @@ public class UserService {
         User user = userDao.findUserById(userCode);
         return AppResponse.success("查询成功",user);
     }
-
     /**
      * 用户修改
      * @param user
@@ -80,7 +77,6 @@ public class UserService {
         }
         return AppResponse.success("修改成功");
     }
-
     /**
      * 用户删除
      * @param userCode

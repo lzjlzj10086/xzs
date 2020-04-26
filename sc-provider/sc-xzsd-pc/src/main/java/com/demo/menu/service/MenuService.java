@@ -26,9 +26,11 @@ public class MenuService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addMenu(Menu menu){
         int countmenu = menuDao.countMenu(menu);
+        //校验是否存在该菜单呢
         if(countmenu !=0){
             return AppResponse.bizError("该菜单已存在，请重新输入");
         }
+        //设置菜单信息
         menu.setIsDelete(0);
         menu.setMenuCode(StringUtil.getCommonCode(2));
         int count = menuDao.addMenu(menu);
@@ -44,6 +46,7 @@ public class MenuService {
      * @return
      */
     public AppResponse listMenu(Menu menu){
+        //判断权限
         if(menu.getRole() == 2){
             List<MenuVo> listMenuTwo = menuDao.listMenuTwo(menu);
             return AppResponse.success("店长菜单列表权限查询",listMenuTwo);

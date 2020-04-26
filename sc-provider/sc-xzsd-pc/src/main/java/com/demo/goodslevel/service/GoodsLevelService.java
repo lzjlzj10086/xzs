@@ -27,16 +27,19 @@ public class GoodsLevelService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse saveGoodsLevel(GoodsLevel goodsLevel, String parentLevelCode){
+        //校验分类名称是否存在
         int countName=goodsLevelDao.countLevelName(goodsLevel);
         if(countName!=0){
             return AppResponse.bizError("分类名称已存在，请重新输入！");
         }
+        //判断是否有父级编码，有则是添加二级分类，无就添加一级分类
         if(parentLevelCode != null){
             goodsLevel.setIsParent(1);
             goodsLevel.setParentLeveLName(goodsLevelDao.findGoodsLevelById(parentLevelCode).getLevelName());
         }else{
             goodsLevel.setIsParent(0);
         }
+        //设置分类信息
         goodsLevel.setLevelCode(StringUtil.getCommonCode(2));
         goodsLevel.setIsDelete(0);
         int count=goodsLevelDao.saveGoodsLevel(goodsLevel);
@@ -70,10 +73,12 @@ public class GoodsLevelService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deleteGoodsLevel(String levelCode, String userId){
         int countSecond = goodsLevelDao.countSecondLevel(levelCode);
+        //判断删除的是否有二级
         if(countSecond !=0){
             return AppResponse.bizError("存在二级目录，不能删除");
         }
         int countSecondGoods = goodsLevelDao.countSecondGoods(levelCode);
+        //判断是否存在该二级的商品
         if(countSecondGoods != 0){
             return AppResponse.bizError("该二级分类存在商品，不能删除");
         }

@@ -46,7 +46,7 @@ public interface AppOrderDao {
     ClientUser findClientUserById(String userId);
 
     /**
-     * 查询所下订单的详情
+     * 查询所下订单商品的详情
      * @param goodsCode
      * @return
      */

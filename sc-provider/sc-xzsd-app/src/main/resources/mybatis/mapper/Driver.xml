@@ -6,7 +6,8 @@
         select
             user_name driverName,
             phone phone,
-            image image
+            image image,
+            role role
         from t_user
         where user_code = #{userId}
     </select>

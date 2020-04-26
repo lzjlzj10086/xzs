@@ -35,10 +35,16 @@ public class MyController {
             throw e;
         }
     }
-    @PostMapping("getUser")
+
+    /**
+     * 查询客户或者司机信息详情
+     * @param userId
+     * @return
+     */
+    @PostMapping("getUserOrDriver")
     public AppResponse getUser(String userId){
         try {
-            AppResponse appResponse = myService.getUser(userId);
+            AppResponse appResponse = myService.getUserOrDriver(userId);
             return appResponse;
         } catch (Exception e) {
             System.out.println(e.toString());

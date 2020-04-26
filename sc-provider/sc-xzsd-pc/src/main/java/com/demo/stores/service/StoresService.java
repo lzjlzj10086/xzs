@@ -32,16 +32,21 @@ public class StoresService {
 
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addStores(Stores stores){
+        //设置门店随机编号
         stores.setStoresCode(StoresUtils.getStoresCode());
+        //设置门店随机邀请码
         stores.setStoresInviteCode(StoresUtils.getStoresInviteCode());
         int countSoresAcct= storesDao.countStoresAcct(stores);
+        //校验编号是否存在
         if(countSoresAcct != 0){
             AppResponse.bizError("由于新增随机门店编号存在，请重新输入");
         }
         int countSoresInvite = storesDao.countStoresInviteCode(stores);
+        //校验邀请码是否存在
         if(countSoresInvite != 0){
             AppResponse.bizError("该邀请码已存在，请重新输入");
         }
+        //设置门店信息
         stores.setStoresAcct(StoresUtils.getStoresAcct());
         stores.setStoresBossName(userDao.findUserById(stores.getStoresBossCode()).getUserName());
         stores.setProvincesName(dictionaryDao.findprovincesName(stores.getProvincesNo()));
@@ -53,6 +58,12 @@ public class StoresService {
         }
         return AppResponse.success("门店添加成功");
     }
+
+    /**
+     * 门店列表查询
+     * @param stores
+     * @return
+     */
     public AppResponse listStores(Stores stores){
         //设置店长权限只能查询自己店面的
         if(stores.getRole() == 2){
@@ -61,6 +72,12 @@ public class StoresService {
         List<Stores> storesList = storesDao.listStoresByPage(stores);
         return AppResponse.success("列表查询成功",getPageInfo(storesList));
     }
+
+    /**
+     * 修改门店
+     * @param stores
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateStores(Stores stores){
         stores.setStoresBossName(userDao.findUserById(stores.getStoresBossCode()).getUserName());
@@ -73,6 +90,12 @@ public class StoresService {
         }
         return AppResponse.success("门店修改成功");
     }
+
+    /**
+     * 删除门店
+     * @param storesCode
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse deletedStores(String storesCode){
         List<String> listcode = Arrays.asList(storesCode.split(","));

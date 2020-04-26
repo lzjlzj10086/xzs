@@ -117,6 +117,8 @@ public class Stores {
         this.phone = phone;
     }
 
+
+
     public String getStoresProvincesName() {
         return storesProvincesName;
     }

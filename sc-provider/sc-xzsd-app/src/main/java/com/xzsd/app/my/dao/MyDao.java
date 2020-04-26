@@ -27,5 +27,5 @@ public interface MyDao {
      * 查询个人信息接口
      * @return
      */
-    ClientUser getUser(String userId);
+    ClientUser getUserOrDriver(String userId);
 }
