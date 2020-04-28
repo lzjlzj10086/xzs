@@ -109,4 +109,8 @@ public interface AppOrderDao {
      * @return
      */
     List<OrderNotes> listGoodsToJudge(@Param("orderCode")String orderCode,@Param("userId") String userId);
+
+    int countGoodsSum(String goodsCode);
+
+    int countGoodsLevelSum(String goodsCode);
 }

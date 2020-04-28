@@ -6,7 +6,7 @@
     <select id="getTop" parameterType="java.lang.String" resultType="com.demo.user.entity.User">
         select
             user_name userName,
-            user_code userCode,
+            user_code userId,
             role role,
             image image
         from t_user

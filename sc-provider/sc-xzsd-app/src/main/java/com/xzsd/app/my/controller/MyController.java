@@ -38,10 +38,10 @@ public class MyController {
 
     /**
      * 查询客户或者司机信息详情
-     * @param userId
+     * @param userAcct
      * @return
      */
-    @PostMapping("getUserOrDriver")
+    @PostMapping("getUser")
     public AppResponse getUser(String userAcct){
         try {
             AppResponse appResponse = myService.getUserOrDriver(userAcct);

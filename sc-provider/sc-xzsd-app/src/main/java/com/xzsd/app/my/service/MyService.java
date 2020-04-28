@@ -60,7 +60,7 @@ public class MyService {
 
     /**
      * 获取当前用户详细信息
-     * @param userId
+     * @param userAcct
      * @return
      */
     public AppResponse getUserOrDriver(String userAcct){

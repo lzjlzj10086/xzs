@@ -145,6 +145,9 @@
         left join t_sys_order_detaile b
         on a.order_code = b.order_code
         where a.order_clientuser_code = #{userId}
+        <if test="orderStatus != null and orderStatus !=''">
+            and a.order_status = #{orderStatus}
+        </if>
         order by a.create_time desc
     </select>
     <resultMap id="orderlist" type="com.xzsd.app.order.entity.Order">

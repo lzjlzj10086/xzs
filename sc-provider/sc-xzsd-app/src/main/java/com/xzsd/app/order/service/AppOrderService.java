@@ -61,7 +61,7 @@ public class AppOrderService {
             Goods goods = appOrderDao.findGoodsById(goodsCodeList.get(i));
             //判断是否有库存
             if(goods.getStock()<Integer.parseInt(goodsNum.get(i))){
-                return AppResponse.bizError("库存不足");
+                return AppResponse.bizError(goods.getGoodsName()+"库存不足");
             }
             OrderNotes orderNotes = new OrderNotes();
             orderNotes.setOrderNotesCode(StringUtil.getCommonCode(2));
@@ -162,6 +162,7 @@ public class AppOrderService {
             }else if(judge.getJudgeMgeLists().get(i).getJudgeLevel() == 4 || judge.getJudgeMgeLists().get(i).getJudgeLevel() == 5){
                 judge.getJudgeMgeLists().get(i).setJudgeGoodsLevel(5);
             }
+            //计算商品评价的平均星级
         }
         //添加商品信息
         int addJudgeCount = appOrderDao.addJudge(judge);
