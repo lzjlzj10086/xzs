@@ -15,7 +15,8 @@
             g.goods_code goodsCode,
             g.goods_name goodsName,
             g.price goodsPrice,
-            g.goods_notes goodsNotes
+            g.goods_notes goodsNotes,
+            g.image goodsImage
         from t_hot h,t_goods g
         where h.goods_code = g.goods_code
         and h.is_deleted = 0

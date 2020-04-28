@@ -24,6 +24,13 @@ public interface StoresDao {
     int countStoresInviteCode(Stores stores);
 
     /**
+     * 查询店长个数
+     * @param stores
+     * @return
+     */
+    int countBoss(Stores stores);
+
+    /**
      * 添加门店
      * @param stores
      * @return

@@ -29,6 +29,6 @@
             role role,
             phone phone
         from t_user
-        where user_code = #{userId}
+        where user_acct = #{userAcct}
     </select>
 </mapper>

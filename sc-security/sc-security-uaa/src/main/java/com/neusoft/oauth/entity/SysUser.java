@@ -22,6 +22,16 @@ public class SysUser {
 
     private String userImage;
 
+    private int role;
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     public String getUserImage() {
         return userImage;
     }

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.goodslevel.dao.GoodsLevelDao">
+    <!--查询分类是否重复-->
     <select id="countLevelName" parameterType="com.demo.goodslevel.entity.GoodsLevel" resultType="java.lang.Integer">
         select
             count(level_name)
@@ -12,6 +13,7 @@
             and level_code != #{levelCode}
         </if>
     </select>
+    <!--调价热门商品-->
     <insert id="saveGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
         insert t_goodslevel
         (
@@ -76,6 +78,7 @@
         and
             level_code = #{levelCode}
     </select>
+    <!--删除热门商品-->
     <delete id="deleteGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
         update t_goodslevel
         set
@@ -85,6 +88,7 @@
             version = version+1
         where level_code = #{levelCode}
     </delete>
+    <!--查询一级分类是否有二级-->
     <select id="countSecondLevel" parameterType="java.lang.String" resultType="java.lang.Integer">
         select
         count(*)
@@ -92,6 +96,7 @@
         WHERE a.level_code = b.parent_level_code and a.is_deleted = 0 and b.is_deleted = 0
         and a.level_code = #{levelCode}
     </select>
+    <!--修改热门商品-->
     <update id="updateGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">
         update t_goodslevel
         set
@@ -103,6 +108,7 @@
         where
             level_code = #{levelCode}
     </update>
+    <!--查询二级分类是否有商品-->
     <select id="countSecondGoods" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(*)
         from t_goods

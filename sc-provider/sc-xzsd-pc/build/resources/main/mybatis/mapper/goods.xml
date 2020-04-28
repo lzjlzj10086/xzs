@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.goods.dao.GoodsDao">
+    <!--计算书号是否存在-->
     <select id="countGoods" resultType="java.lang.Integer">
         select
         count(book_id)
@@ -14,6 +15,7 @@
             and goods_code != #{goodsCode}
         </if>
     </select>
+    <!--添加商品-->
     <insert id="saveGoods" parameterType="com.demo.goods.entity.Goods">
         insert t_goods
         (
@@ -68,6 +70,7 @@
             0
         )
     </insert>
+    <!--商品列表查询-->
     <select id="listGoodsByPage" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
         select
             a.goods_code goodsCode,
@@ -100,6 +103,7 @@
         </if>
         order by a.create_time desc
     </select>
+    <!--商品详情-->
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.demo.goods.entity.GoodsVo">
         select
             goods_name goodsName,
@@ -138,6 +142,7 @@
             update_user =#{userId}
         where goods_Code = #{goodsCode}
     </update>
+    <!--删除该商品-->
     <delete id="deleteGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
@@ -174,6 +179,7 @@
             #{item}
         </foreach>
     </delete>
+    <!--上架商品-->
     <update id="upGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
@@ -186,6 +192,7 @@
             #{item}
         </foreach>
     </update>
+    <!--下架商品-->
     <update id="downGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
@@ -203,7 +210,7 @@
             level_code levelCode,
             level_name levelName
         from t_goodslevel
-        where is_parent = 0
+        where is_parent = 0 and is_deleted = 0
     </select>
 
     <select id="findSecondLevel" parameterType="java.lang.String" resultType="com.demo.goodslevel.entity.GoodsLevel">
@@ -212,7 +219,7 @@
             level_name levelName
         from t_goodslevel
         where parent_level_code = #{firstLevelCode}
-        and is_parent = 1
+        and is_parent = 1 and is_deleted = 0
     </select>
 
 </mapper>

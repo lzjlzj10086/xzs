@@ -22,7 +22,7 @@
             level_code levelCode,
             level_name levelName
         from t_goodslevel
-        where is_deleted = 0
+        where is_deleted = 0 and is_parent = 0
     </select>
     <select id="listSecondLevelAndGoodsByPage" resultMap="secondAndGoods">
         select

@@ -7,15 +7,17 @@
     <select id="countDriver" parameterType="com.demo.driver.entity.Driver" resultType="java.lang.Integer">
         select count(user_acct)
         from t_user
-        where user_acct = #{driverAcct}
+        where user_acct = #{driverAcct} and is_deleted = 0
         or user_code = #{driverCode}
     </select>
+    <!--查询司机电话个数-->
     <select id="countPhone" parameterType="com.demo.driver.entity.Driver" resultType="java.lang.Integer">
         select count(user_acct)
         from t_user
-        where phone = #{phone}
+        where phone = #{phone} and is_deleted = 0
         or user_code = #{driverCode}
     </select>
+    <!--添加司机-->
     <insert id="addDriver" parameterType="com.demo.driver.entity.Driver">
         insert into t_user
         (user_code,
@@ -62,7 +64,7 @@
             0
          )
     </insert>
-
+    <!--司机列表查询-->
     <select id="listDriverByPage" parameterType="com.demo.driver.entity.Driver" resultType="com.demo.driver.entity.Driver">
         select
             user_code driverCode,
@@ -72,8 +74,8 @@
             id_card idCard
         from t_user
         where role = 3 and is_deleted = 0
-        <if test="storesBossCode != null and storesBossStores != ''">
-            and storesboss_code like concat('%', #{storesboss_code}, '%')
+        <if test="role == 2">
+            and county_no in (select stores_county_no from t_stores where storesboss_code = #{userId})
         </if>
         <if test="driverName != null and driverName != ''">
             and user_name like concat('%', #{driverName}, '%')
@@ -92,7 +94,7 @@
         </if>
         order by create_time desc
     </select>
-
+    <!--司机详情-->
     <select id="findDriverById" parameterType="java.lang.String" resultType="com.demo.driver.entity.Driver">
         select
             user_code driverCode,
@@ -111,7 +113,7 @@
         where is_deleted =0 and role = 3
         and user_code = #{driverCode}
     </select>
-
+    <!--修改司机-->
     <update id="updateDriver" parameterType="com.demo.driver.entity.Driver">
         update t_user
         set
@@ -132,6 +134,7 @@
          version = version +1
         where user_code = #{driverCode}
     </update>
+    <!--删除司机-->
     <update id="deleteDriver" parameterType="com.demo.driver.entity.Driver">
         update t_user
         set

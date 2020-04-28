@@ -42,9 +42,9 @@ public class MyController {
      * @return
      */
     @PostMapping("getUserOrDriver")
-    public AppResponse getUser(String userId){
+    public AppResponse getUser(String userAcct){
         try {
-            AppResponse appResponse = myService.getUserOrDriver(userId);
+            AppResponse appResponse = myService.getUserOrDriver(userAcct);
             return appResponse;
         } catch (Exception e) {
             System.out.println(e.toString());

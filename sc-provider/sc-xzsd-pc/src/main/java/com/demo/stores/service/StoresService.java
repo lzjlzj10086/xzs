@@ -46,6 +46,10 @@ public class StoresService {
         if(countSoresInvite != 0){
             AppResponse.bizError("该邀请码已存在，请重新输入");
         }
+        int countBoss = storesDao.countBoss(stores);
+        if(countBoss != 0){
+            return AppResponse.bizError("该店长已经绑定门店,请重新输入");
+        }
         //设置门店信息
         stores.setStoresAcct(StoresUtils.getStoresAcct());
         stores.setStoresBossName(userDao.findUserById(stores.getStoresBossCode()).getUserName());

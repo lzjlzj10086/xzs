@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.menu.dao.MenuDao">
+    <!--校验菜单名是否存在-->
     <select id="countMenu" parameterType="com.demo.menu.entity.Menu" resultType="java.lang.Integer">
         select count(menu_name)
         from t_menu
@@ -13,6 +14,7 @@
             and menu_code = #{menuCode}
         </if>
     </select>
+    <!--添加菜单-->
     <insert id="addMenu" parameterType="com.demo.menu.entity.Menu">
         insert t_menu
         (

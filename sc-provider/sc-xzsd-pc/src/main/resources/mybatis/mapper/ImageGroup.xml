@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.imagegroup.dao.ImageGroupDao">
+    <!--查询排序是否存在-->
     <select id="countSort" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="java.lang.Integer">
         select count(*)
         from t_imagegroup
@@ -10,6 +11,7 @@
         and
         sort = #{sort}
     </select>
+    <!--查询该商品是否已经存在-->
     <select id="countGoods" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="java.lang.Integer">
         select count(*)
         from t_imagegroup
@@ -18,6 +20,7 @@
         and
         goods_code = #{goodsCode}
     </select>
+    <!--添加轮播图-->
     <insert id="addImageGroup" parameterType="com.demo.imagegroup.entity.ImageGroup">
         insert into t_imagegroup
         (
@@ -53,6 +56,7 @@
             title
         );
     </insert>
+    <!--轮播图商品选择列表查询-->
     <select id="listGoodsByPage" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
         select
         goods_code goodsCode,
@@ -72,7 +76,7 @@
             and goods_code = #{goodsCode}
         </if>
     </select>
-
+    <!--轮播图列表查询-->
     <select id="listImageGroupByPage" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="com.demo.imagegroup.entity.ImageGroup">
         select
             banner_code bannerCode,
@@ -88,7 +92,7 @@
         </if>
         order by sort asc
     </select>
-
+    <!--删除轮播图-->
     <delete id="deleteImageGroup" parameterType="com.demo.imagegroup.entity.ImageGroup">
         update t_imagegroup
         set
@@ -100,6 +104,7 @@
             #{item}
         </foreach>
     </delete>
+    <!--启用轮播图-->
     <delete id="startIamgeGroup" parameterType="com.demo.imagegroup.entity.ImageGroup">
         update t_imagegroup
         set
@@ -113,6 +118,7 @@
             #{item}
         </foreach>
     </delete>
+    <!--禁用轮播图-->
     <delete id="stopImageGroup" parameterType="com.demo.imagegroup.entity.ImageGroup">
         update t_imagegroup
         set

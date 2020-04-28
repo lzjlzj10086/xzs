@@ -63,9 +63,9 @@ public class GoodsController {
         }
     }
     @PostMapping("listSecondLevelAndGoods")
-    public AppResponse listSecondLevelAndGoods(String firstLevelCode){
+    public AppResponse listSecondLevelAndGoods(String levelCode){
         try {
-            AppResponse appResponse = goodsService.listSecondLevelAndGoods(firstLevelCode);
+            AppResponse appResponse = goodsService.listSecondLevelAndGoods(levelCode);
             return appResponse;
         } catch (Exception e) {
             logger.error("二级列表及商品失败", e);

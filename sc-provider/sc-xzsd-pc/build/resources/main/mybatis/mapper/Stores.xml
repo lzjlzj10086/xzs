@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.stores.dao.StoresDao">
+    <!--判断门店账号是否存在-->
     <select id="countStoresAcct" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
         select
             count(stores_code)
@@ -9,6 +10,7 @@
         where is_deleted = 0
         and stores_code = #{storesCode}
     </select>
+    <!--校验邀请码是否重复-->
     <select id="countStoresInviteCode" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
         select
             count(stores_invite_code)
@@ -16,7 +18,15 @@
         where is_deleted = 0
         and stores_invite_code = #{storesInviteCode}
     </select>
-
+    <!--校验绑定店长是否重复-->
+    <select id="countBoss" parameterType="com.demo.stores.entity.Stores" resultType="java.lang.Integer">
+        select
+            count(storesboss_code)
+        from t_stores
+        where is_deleted = 0
+        and storesboss_code = #{storesBossCode}
+    </select>
+    <!--添加门店-->
     <insert id="addStores" parameterType="com.demo.stores.entity.Stores">
         insert into t_stores
         (
@@ -67,6 +77,7 @@
             0
         )
     </insert>
+    <!--门店列表查询-->
     <select id="listStoresByPage" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
         select
             stores_code storesCode,
@@ -101,7 +112,7 @@
         </if>
         order by create_time desc
     </select>
-
+    <!--修改门店-->
     <update id="updateStores" parameterType="com.demo.stores.entity.Stores">
         update t_stores
         set
@@ -122,6 +133,7 @@
             version = version + 1
         where stores_code = #{storesCode}
     </update>
+    <!--删除门店-->
     <update id="deleteStores" parameterType="com.demo.stores.entity.Stores">
         update t_stores
         set
@@ -133,6 +145,7 @@
             #{item}
         </foreach>
     </update>
+    <!--门店详情-->
     <select id="findStoresById" parameterType="com.demo.stores.entity.Stores" resultType="com.demo.stores.entity.Stores">
         select
         stores_code storesCode,

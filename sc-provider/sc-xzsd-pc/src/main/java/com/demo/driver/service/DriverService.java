@@ -56,10 +56,6 @@ public class DriverService {
      * @return
      */
     public AppResponse listDriver(Driver driver){
-        //判断是否为店长
-        if(driver.getRole() == 2){
-            driver.setStoresBossCode(driver.getUserId());
-        }
         List<Driver> driverList = driverDao.listDriverByPage(driver);
         return AppResponse.success("分页查询成功",getPageInfo(driverList));
     }

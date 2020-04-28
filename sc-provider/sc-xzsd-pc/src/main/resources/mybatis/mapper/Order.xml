@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.demo.order.dao.OrderDao">
+    <!--订单列表查询-->
     <select id="listOrderByPage" parameterType="com.demo.order.entity.Order" resultType="com.demo.order.entity.Order">
         select
             order_code orderCode,
@@ -34,7 +35,7 @@
         </if>
         order by create_time desc
     </select>
-
+    <!--订单详情-->
     <select id="findOrderById" parameterType="java.lang.String" resultType="com.demo.order.entity.OrderNotes">
         select
             a.order_code orderCode,
@@ -48,7 +49,7 @@
         where a.order_code = b.order_code
         and b.order_code = #{orderCode}
     </select>
-
+    <!--修改订单状态-->
     <update id="updateOrderStatus" parameterType="com.demo.order.entity.OrderNotes">
         update t_sys_order
         set

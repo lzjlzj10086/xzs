@@ -97,6 +97,7 @@
             num number
         from t_hot_number
     </select>
+    <!--热门商品查询-->
     <select id="findHotGoodsById" parameterType="java.lang.String" resultType="com.demo.hotgoods.entity.HotGoods">
     select
     h.hot_code hotCode,

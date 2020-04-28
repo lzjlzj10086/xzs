@@ -11,6 +11,7 @@
         from t_user
         where user_code = #{userId}
     </select>
+    <!--司机所在门店和店长信息-->
     <select id="listDriverStores" parameterType="java.lang.String" resultType="com.xzsd.app.storesBoss.entity.Stores">
         select
         a.user_name storesBossName,
