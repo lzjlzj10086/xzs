@@ -28,16 +28,16 @@ public class IndexService {
         }
         return AppResponse.success("首页轮播图查询成功",imageGroupList);
     }
-
     /**
      * 首页热门商品查询
      * @return
      */
     public AppResponse hotGroupList(){
-        List<HotGoods> hotGoodsList = indexDao.hotGoodsListByPage();
+        int number = indexDao.getHotGoodsNumber();
+        List<HotGoods> hotGoodsList = indexDao.hotGoodsListByPage(number);
         if (hotGoodsList == null){
             return AppResponse.bizError("首页热门商品异常");
         }
-        return AppResponse.success("首页热门商品查询成功",getPageInfo(hotGoodsList));
+        return AppResponse.success("首页热门商品查询成功",hotGoodsList);
     }
 }

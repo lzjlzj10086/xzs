@@ -11,6 +11,7 @@
             g.price price,
             g.image goodsImage,
             g.writer writer,
+            g.judge_goods_level judgeGoodsLevel,
             g.goods_notes goodsNotes,
             s.stores_name storesName,
             s.stores_address storesAddress
@@ -36,7 +37,7 @@
         left join t_goods b
         on a.level_code = b.secondlevel_code
         where a.is_parent = 1 and a.is_deleted = 0 and a.parent_level_code = #{parentLevelCode}
-        and b.goods_status = 0
+        and b.goods_status = 1
     </select>
     <resultMap id="secondAndGoods" type="com.xzsd.app.goods.entity.GoodsLeveltwo" autoMapping="true">
         <result column="levelCode" property="levelCode"/>

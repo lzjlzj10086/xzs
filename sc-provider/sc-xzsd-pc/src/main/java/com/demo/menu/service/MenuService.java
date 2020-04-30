@@ -72,6 +72,16 @@ public class MenuService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateMenu(Menu menu){
+        //查询修改的菜单详情
+        Menu oldMenu = menuDao.findMenuById(menu.getMenuCode());
+        //判断是否修改的菜单名是否与原来的一致
+        if(!(oldMenu.getMenuName().equals(menu.getMenuName()))){
+            int countmenu = menuDao.countMenu(menu);
+            //校验是否存在该菜单呢
+            if(countmenu !=0){
+                return AppResponse.bizError("该菜单已存在，请重新输入");
+            }
+        }
         int count = menuDao.updateMenu(menu);
         if(count == 0){
             return AppResponse.bizError("数据发生变化，请重新输入");

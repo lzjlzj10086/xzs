@@ -59,12 +59,21 @@ public class MyService {
     }
 
     /**
-     * 获取当前用户详细信息
+     * 获取role统一信息
      * @param userAcct
      * @return
      */
     public AppResponse getUserOrDriver(String userAcct){
         ClientUser clientUser = myDao.getUserOrDriver(userAcct);
         return AppResponse.success("查询成功",clientUser);
+    }
+    /**
+     * 获取当前用户详细信息
+     * @param userId
+     * @return
+     */
+    public AppResponse getClientUser(String userId){
+        ClientUser clientUser = myDao.getClientUser(userId);
+        return AppResponse.success("个人信息查询成功",clientUser);
     }
 }

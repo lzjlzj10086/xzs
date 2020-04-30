@@ -97,6 +97,7 @@ public class Goods {
     private Date donwTime;
     private String storesName;
     private String storesAddress;
+    private double judgeGoodsLevel;
 
     /**
      * 删除标志 0存在 1删除
@@ -122,6 +123,14 @@ public class Goods {
      * 版本号
      */
     private String version;
+
+    public double getJudgeGoodsLevel() {
+        return judgeGoodsLevel;
+    }
+
+    public void setJudgeGoodsLevel(double judgeGoodsLevel) {
+        this.judgeGoodsLevel = judgeGoodsLevel;
+    }
 
     public String getStoresName() {
         return storesName;

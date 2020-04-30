@@ -46,6 +46,7 @@ public class StoresService {
         if(countSoresInvite != 0){
             AppResponse.bizError("该邀请码已存在，请重新输入");
         }
+        //校验是否存在该店长
         int countBoss = storesDao.countBoss(stores);
         if(countBoss != 0){
             return AppResponse.bizError("该店长已经绑定门店,请重新输入");
@@ -84,6 +85,16 @@ public class StoresService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateStores(Stores stores){
+        //查询修改的门店详情
+        Stores oldStores = storesDao.findStoresById(stores);
+        //判断店长是否与原来的一致
+        if(!(oldStores.getStoresBossCode().equals(stores.getStoresBossCode()))){
+            //检查是否存在该店长
+            int countBoss = storesDao.countBoss(stores);
+            if(countBoss != 0){
+                return AppResponse.bizError("该店长已经绑定门店,请重新输入");
+            }
+        }
         stores.setStoresBossName(userDao.findUserById(stores.getStoresBossCode()).getUserName());
         stores.setProvincesName(dictionaryDao.findprovincesName(stores.getProvincesNo()));
         stores.setCityName(dictionaryDao.findCityName(stores.getCityNo()));

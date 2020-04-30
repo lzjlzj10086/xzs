@@ -77,6 +77,24 @@ public class DriverService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateDriver(Driver driver){
+        //查询修改的司机详情
+        Driver oldDriver = driverDao.findDriverById(driver.getDriverCode());
+        //判断修改的司机账号是否和原来一样
+        if(!(oldDriver.getDriverAcct().equals(driver.getDriverAcct()))){
+            int countDriver = driverDao.countDriver(driver);
+            //校验账号是否存在
+            if(countDriver != 0){
+                return AppResponse.bizError("已存在该账号");
+            }
+        }
+        //判断修改的司机手机是否和原来一样
+        if(!(oldDriver.getPhone().equals(driver.getPhone()))){
+            //校验手机号是否存在
+            int countPhone = driverDao.countPhone(driver);
+            if(countPhone != 0){
+                return AppResponse.bizError("已有司机绑定该手机号，请重新输入");
+            }
+        }
         //设置司机省市区信息
         driver.setProvincesName(dictionaryDao.findprovincesName(driver.getProvincesNo()));
         driver.setCityName(dictionaryDao.findCityName(driver.getCityNo()));

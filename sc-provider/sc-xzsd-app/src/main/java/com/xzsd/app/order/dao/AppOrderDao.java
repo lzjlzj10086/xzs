@@ -110,7 +110,17 @@ public interface AppOrderDao {
      */
     List<OrderNotes> listGoodsToJudge(@Param("orderCode")String orderCode,@Param("userId") String userId);
 
-    int countGoodsSum(String goodsCode);
+    /**
+     * 查询一级评价的商品总数和总星级
+     * @param goodsCode
+     * @return
+     */
+    List<JudgeMgeList> countAllGoodsJudge(String goodsCode);
 
-    int countGoodsLevelSum(String goodsCode);
+    /**
+     * 更新商品星级
+     * @param goodsCode
+     * @return
+     */
+    int updateGoodsLevel(@Param("goodsCode") String goodsCode,@Param("judgeGoodsLevel") double judgeGoodsLevel);
 }

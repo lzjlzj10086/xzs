@@ -41,7 +41,7 @@ public class GoodsService {
         }
         //设置商品信息
         goods.setIsDelete(0);
-        goods.setGoodsStatus(0);
+        goods.setGoodsStatus(1);
         goods.setGoodsCode(StringUtil.getCommonCode(2));
         int countsave=goodsDao.saveGoods(goods);
         if(countsave == 0){
@@ -77,6 +77,16 @@ public class GoodsService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoods(Goods goods){
+        //查询修改的商品详情
+        GoodsVo oldGoods = goodsDao.findGoodsById(goods.getGoodsCode());
+        //判断修改商品输入的书号是否一样
+        if(!(oldGoods.getBookId().equals(goods.getBookId()))){
+            //校验商品是否存在
+            int count = goodsDao.countGoods(goods);
+            if(count != 0){
+                return AppResponse.bizError("商品已存在，请重新输入");
+            }
+        }
         int count =goodsDao.updateGoods(goods);
         if(count == 0){
             return AppResponse.bizError("数据发生变化，请重新输入");

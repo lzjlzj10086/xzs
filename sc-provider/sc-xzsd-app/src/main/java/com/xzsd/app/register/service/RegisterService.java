@@ -18,13 +18,20 @@ public class RegisterService {
 
     @Transactional(rollbackFor = Exception.class)
     public AppResponse clientRegister(ClientUser clientUser){
+        //检查账号是否存在
         int countAcct = registerDao.countAcct(clientUser);
         if(countAcct != 0){
             return AppResponse.bizError("该账号已存在");
         }
+        //检查输入的邀请码是否存在
         int countInvite = registerDao.countInvite(clientUser);
         if(countInvite == 0){
             return AppResponse.bizError("该店铺邀请码不存在，请重新输入");
+        }
+        //检查手机号是否存在
+        int countPhone = registerDao.countPhone(clientUser);
+        if(countPhone != 0){
+            return AppResponse.bizError("该手机号码已经被绑定，请重新输入");
         }
         clientUser.setUserCode(StringUtil.getCommonCode(2));
         clientUser.setIsDelete(0);

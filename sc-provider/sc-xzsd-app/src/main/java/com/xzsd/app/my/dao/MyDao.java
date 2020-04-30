@@ -24,8 +24,15 @@ public interface MyDao {
     int updateClientInvite(@Param("inviteCode") String inviteCode, @Param("userId") String userId);
 
     /**
-     * 查询个人信息接口
+     * 获取角色统一信息
      * @return
      */
     ClientUser getUserOrDriver(String userAcct);
+
+    /**
+     * 获取客户信息
+     * @param userId
+     * @return
+     */
+    ClientUser getClientUser(String userId);
 }

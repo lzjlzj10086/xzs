@@ -20,7 +20,7 @@
         b.stores_name storesName,
         b.stores_Address storesAddress
         from t_user a, t_stores b
-        where a.user_code = b.storesboss_code
+        where a.user_code = b.storesboss_code and b.is_deleted = 0
         and b.stores_county_no = (select county_no from t_user where user_code = #{userId})
     </select>
 </mapper>

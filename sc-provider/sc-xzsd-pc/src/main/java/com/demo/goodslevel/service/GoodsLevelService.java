@@ -93,6 +93,16 @@ public class GoodsLevelService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateGoodsLevel(GoodsLevel goodsLevel){
+        //查询修改的分类详情
+        GoodsLevelVo oldGoodsLevel = goodsLevelDao.findGoodsLevelById(goodsLevel.getLevelCode());
+        //判断修改的分类名称是否和原来的一致
+        if(!(oldGoodsLevel.getLevelName().equals(goodsLevel.getLevelName()))){
+            //校验分类名称是否存在
+            int countName=goodsLevelDao.countLevelName(goodsLevel);
+            if(countName!=0){
+                return AppResponse.bizError("分类名称已存在，请重新输入！");
+            }
+        }
         int countupdate=goodsLevelDao.updateGoodsLevel(goodsLevel);
         if (countupdate == 0){
             return AppResponse.bizError("数据发生变化，请重新输入");

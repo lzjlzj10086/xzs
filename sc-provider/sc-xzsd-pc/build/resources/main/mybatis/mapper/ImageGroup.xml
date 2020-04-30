@@ -59,21 +59,21 @@
     <!--轮播图商品选择列表查询-->
     <select id="listGoodsByPage" parameterType="com.demo.goods.entity.Goods" resultType="com.demo.goods.entity.GoodsVo">
         select
-        goods_code goodsCode,
-        goods_name goodsName,
-        firstlevel_name firstLevelName,
-        goods_status goodsStatus,
-        secondlevel_name secondLevelName,
-        price,
-        goods_notes goodsNotes
-        from t_goods
-        where is_deleted = 0
-        and goods_status = 0
+        g.goods_code goodsCode,
+        g.goods_name goodsName,
+        t.parent_level_name firstLevelName,
+        g.goods_status goodsStatus,
+        t.level_name secondLevelName,
+        g.price,
+        g.goods_notes goodsNotes
+        from t_goods g,t_goodslevel t
+        where g.secondlevel_code = t.level_code
+        and g.goods_status = 1 and g.is_deleted = 0
         <if test="goodsName != null and goodsName != ''">
-            and goods_name like concat('%', #{goodsName}, "%")
+            and g.goods_name like concat('%', #{goodsName}, "%")
         </if>
         <if test="goodsCode != null and goodsCode !=''">
-            and goods_code = #{goodsCode}
+            and g.goods_code = #{goodsCode}
         </if>
     </select>
     <!--轮播图列表查询-->

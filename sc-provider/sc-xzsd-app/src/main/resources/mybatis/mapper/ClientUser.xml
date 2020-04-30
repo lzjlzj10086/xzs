@@ -19,6 +19,13 @@
         where is_deleted = 0
         and stores_invite_code = #{inviteCode}
     </select>
+    <!--统计手机号个数-->
+    <select id="countPhone" parameterType="com.xzsd.app.register.entity.ClientUser" resultType="java.lang.Integer">
+        select count(phone)
+        from t_user
+        where is_deleted = 0
+        and phone = #{phone}
+    </select>
     <!--注册-->
     <insert id="clientRegister" parameterType="com.xzsd.app.register.entity.ClientUser">
         insert t_user

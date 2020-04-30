@@ -77,6 +77,24 @@ public class HotService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateHotGoods(HotGoods hotGoods){
+        //查询修改的热门商品详情
+        HotGoods oldHotGoods = hotDao.findHotGoodsById(hotGoods.getHotCode());
+        //判断序号是否与原来的一致
+        if(!(oldHotGoods.getHotSort().equals(hotGoods.getHotSort()))){
+            //检查是否存在该序号
+            int countSort = hotDao.countHotSort(hotGoods);
+            if(countSort != 0){
+                return AppResponse.bizError("该排序重复");
+            }
+        }
+        //判断商品是否与原来的一致
+        if(!(oldHotGoods.getGoodsCode().equals(hotGoods.getGoodsCode()))){
+            //检查是否存在改商品
+            int countGoods = hotDao.countHotGoods(hotGoods);
+            if(countGoods != 0){
+                return AppResponse.bizError("该商品已存在");
+            }
+        }
         int count = hotDao.updateHotGoods(hotGoods);
         if( count == 0){
             return AppResponse.bizError("修改失败");

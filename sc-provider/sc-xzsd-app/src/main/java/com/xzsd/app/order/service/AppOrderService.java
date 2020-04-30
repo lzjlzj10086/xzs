@@ -162,7 +162,20 @@ public class AppOrderService {
             }else if(judge.getJudgeMgeLists().get(i).getJudgeLevel() == 4 || judge.getJudgeMgeLists().get(i).getJudgeLevel() == 5){
                 judge.getJudgeMgeLists().get(i).setJudgeGoodsLevel(5);
             }
-            //计算商品评价的平均星级
+            //获取商品评价的总个数和总星级
+            List<JudgeMgeList> allGoodsJudge = appOrderDao.countAllGoodsJudge(judge.getJudgeMgeLists().get(i).getGoodsCode());
+            double sum = 0;
+            //计算总分（总星级)
+            for(int m = 0;m<allGoodsJudge.size();m++){
+                sum = sum+allGoodsJudge.get(m).getJudgeLevel();
+            }
+            //计算平均（评价平均分）星级
+            double goodsJudgeSum = sum/allGoodsJudge.size();
+            //更新商品星级
+            int countGoodsJudge = appOrderDao.updateGoodsLevel(judge.getJudgeMgeLists().get(i).getGoodsCode(),goodsJudgeSum);
+            if(countGoodsJudge == 0){
+                return AppResponse.bizError("更新评价星级失败");
+            }
         }
         //添加商品信息
         int addJudgeCount = appOrderDao.addJudge(judge);

@@ -183,7 +183,7 @@
     <update id="upGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
-            goods_status = 0,
+            goods_status = 1,
             update_time = now(),
             update_user = #{userId},
             version = version + 1
@@ -196,7 +196,7 @@
     <update id="downGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
-        goods_status = 1,
+        goods_status = 2,
         update_time = now(),
         update_user = #{userId},
         version = version + 1

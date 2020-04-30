@@ -30,7 +30,7 @@
         <if test="payTime != null and payTime !=''">
             and pay_time = #{payTime}
         </if>
-        <if test="storesBossCode !=null and storess != ''">
+        <if test="storesBossCode !=null and storesBossCode != ''">
             and stores_boss_code = #{storesBossCode}
         </if>
         order by create_time desc

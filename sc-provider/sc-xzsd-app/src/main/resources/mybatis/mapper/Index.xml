@@ -10,7 +10,7 @@
         where is_deleted = 0 and status = 1
         order by sort asc
     </select>
-    <select id="hotGoodsListByPage" resultType="com.xzsd.app.index.entity.HotGoods">
+    <select id="hotGoodsListByPage" parameterType="java.lang.Integer" resultType="com.xzsd.app.index.entity.HotGoods">
         select
             g.goods_code goodsCode,
             g.goods_name goodsName,
@@ -21,5 +21,10 @@
         where h.goods_code = g.goods_code
         and h.is_deleted = 0
         order by h.hot_sort asc
+        LIMIT 0,#{number}
+    </select>
+    <select id="getHotGoodsNumber" resultType="java.lang.Integer">
+        select num
+        from t_hot_number
     </select>
 </mapper>

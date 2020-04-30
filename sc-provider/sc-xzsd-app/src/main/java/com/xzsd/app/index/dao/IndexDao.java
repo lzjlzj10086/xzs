@@ -8,16 +8,19 @@ import java.util.List;
 
 @Mapper
 public interface IndexDao {
-
     /**
      * 首页轮播图查询
      * @return
      */
     List<ImageGroup> imageGroupList();
-
     /**
      * 首热门商品查询
      * @return
      */
-    List<HotGoods> hotGoodsListByPage();
+    List<HotGoods> hotGoodsListByPage(int number);
+    /**
+     * 获取展现热门商品的数量
+     * @return
+     */
+    int getHotGoodsNumber();
 }
