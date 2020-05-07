@@ -18,6 +18,14 @@ public class AppOrderController {
 
     @Resource
     private AppOrderService appOrderService;
+
+    /**
+     * 添加订单
+     * @param goodsCode
+     * @param amount
+     * @param userId
+     * @return
+     */
     @PostMapping("addOrder")
     public AppResponse addOrder(String goodsCode,String amount,String userId){
         try {
@@ -28,6 +36,13 @@ public class AppOrderController {
             throw e;
         }
     }
+
+    /**
+     * 订单列表查询
+     * @param orderStatus
+     * @param userId
+     * @return
+     */
     @PostMapping("listOrder")
     public AppResponse listOrder(Integer orderStatus,String userId){
         try {
@@ -38,6 +53,12 @@ public class AppOrderController {
             throw e;
         }
     }
+
+    /**
+     * 修改订单状态
+     * @param order
+     * @return
+     */
     @PostMapping("updateOrderStatus")
     public AppResponse updateOrderStatus(Order order){
         try {
@@ -48,6 +69,12 @@ public class AppOrderController {
             throw e;
         }
     }
+
+    /**
+     * 查看订单详情
+     * @param order
+     * @return
+     */
     @PostMapping("findOrderById")
     public AppResponse findOrderById(Order order){
         try {
@@ -58,6 +85,12 @@ public class AppOrderController {
             throw e;
         }
     }
+
+    /**
+     * 添加评价
+     * @param judge
+     * @return
+     */
     @PostMapping("addJudge")
     public AppResponse addJudge(@RequestBody Judge judge){
         try {
@@ -68,6 +101,13 @@ public class AppOrderController {
             throw e;
         }
     }
+
+    /**
+     * 查询需要评价的商品
+     * @param orderCode
+     * @param userId
+     * @return
+     */
     @PostMapping("listGoodsToJudge")
     public AppResponse listGoodsToJudge(String orderCode,String userId){
         try {

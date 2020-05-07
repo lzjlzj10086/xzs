@@ -85,6 +85,12 @@ public class MenuController {
         }
     }
 
+    /**
+     * 删除菜单
+     * @param menuCode
+     * @param userId
+     * @return
+     */
     @PostMapping("deleteMenu")
     public AppResponse deleteMenu(String menuCode,String userId){
         try {

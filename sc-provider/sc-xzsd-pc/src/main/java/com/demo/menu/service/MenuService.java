@@ -51,6 +51,9 @@ public class MenuService {
             List<MenuVo> listMenuTwo = menuDao.listMenuTwo(menu);
             return AppResponse.success("店长菜单列表权限查询",listMenuTwo);
         }
+        if(menu.getRole() == 3 || menu.getRole() == 4){
+            return AppResponse.success("由于不是管理员和店长账号，权限不够！");
+        }
         List<MenuVo> listMenu= menuDao.listMenu(menu);
         return AppResponse.success("列表查询成功",listMenu);
     }

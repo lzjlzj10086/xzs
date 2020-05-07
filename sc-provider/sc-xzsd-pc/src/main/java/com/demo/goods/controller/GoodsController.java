@@ -20,7 +20,11 @@ public class GoodsController {
 
     @Resource
     private GoodsService goodsService;
-
+    /**
+     * 添加商品
+     * @param goods
+     * @return
+     */
     @PostMapping("saveGoods")
     public AppResponse saveGoods(Goods goods){
         try{
@@ -31,6 +35,11 @@ public class GoodsController {
             throw e;
         }
     }
+    /**
+     * 商品分页列表
+     * @param goods
+     * @return
+     */
     @PostMapping("listGoods")
     public AppResponse listGoods(Goods goods){
         try {
@@ -41,7 +50,11 @@ public class GoodsController {
             throw e;
         }
     }
-
+    /**
+     * 商品详情
+     * @param goodsCode
+     * @return
+     */
     @PostMapping("findGoodsById")
     public AppResponse findGoodsById(String goodsCode){
         try{
@@ -52,6 +65,11 @@ public class GoodsController {
             throw e;
         }
     }
+    /**
+     * 修改商品
+     * @param goods
+     * @return
+     */
     @PostMapping("updateGoods")
     public AppResponse updateGoods(Goods goods){
         try {
@@ -62,6 +80,13 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 删除商品
+     * @param goodsCode
+     * @param userId
+     * @return
+     */
     @PostMapping("deleteGoods")
     public AppResponse deleteGoods(String goodsCode,String userId){
         try{
@@ -72,6 +97,13 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 商品上架
+     * @param goodsCode
+     * @param userId
+     * @return
+     */
     @PostMapping("upGoods")
     public AppResponse upGoods(String goodsCode,String userId){
         try{
@@ -82,6 +114,13 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 商品下架
+     * @param goodsCode
+     * @param userId
+     * @return
+     */
     @PostMapping("downGoods")
     public AppResponse downGoods(String goodsCode,String userId){
         try{
@@ -92,6 +131,11 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 一级下拉
+     * @return
+     */
     @PostMapping("findFirstLevel")
     public AppResponse findFirstLevel(){
         try {
@@ -102,6 +146,12 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 二级下拉
+     * @param firstLevelCode
+     * @return
+     */
     @PostMapping("findSecondLevel")
     public AppResponse findSecondLevel(String firstLevelCode){
         try {

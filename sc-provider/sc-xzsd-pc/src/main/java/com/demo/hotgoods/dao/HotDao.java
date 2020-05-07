@@ -58,6 +58,11 @@ public interface HotDao {
      */
     int updateHotGoodsNumber(String number);
 
+    /**
+     * 热门商品详情
+     * @param hotGoods
+     * @return
+     */
     HotGoods findHotGoodsById(String hotGoods);
 
     /**

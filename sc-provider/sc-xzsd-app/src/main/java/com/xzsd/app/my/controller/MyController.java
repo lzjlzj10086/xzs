@@ -15,6 +15,14 @@ import javax.annotation.Resource;
 public class MyController {
     @Resource
     private MyService myService;
+
+    /**
+     * 客户修改密码
+     * @param userId
+     * @param userPwd
+     * @param userNewPwd
+     * @return
+     */
     @PostMapping("updateUserPassword")
     public AppResponse updateUserPassword(String userId, String userPwd, String userNewPwd){
         try {
@@ -25,6 +33,12 @@ public class MyController {
             throw e;
         }
     }
+
+    /**
+     * 客户修改邀请码
+     * @param clientUser
+     * @return
+     */
     @PostMapping("updateClientInvite")
     public AppResponse updateClientInvite(ClientUser clientUser){
         try {
@@ -51,6 +65,12 @@ public class MyController {
             throw e;
         }
     }
+
+    /**
+     * 客户个人信息查询
+     * @param userId
+     * @return
+     */
     @PostMapping("getClientUser")
     public AppResponse getClientUser(String userId){
         try {

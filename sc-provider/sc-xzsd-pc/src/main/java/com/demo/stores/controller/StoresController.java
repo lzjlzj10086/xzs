@@ -21,6 +21,11 @@ public class StoresController {
     @Resource
     private StoresService storesService;
 
+    /**
+     * 门店添加
+     * @param stores
+     * @return
+     */
     @PostMapping("addStores")
     public AppResponse addStores(Stores stores){
         try {
@@ -31,6 +36,12 @@ public class StoresController {
             throw e;
         }
     }
+
+    /**
+     * 门店列表查询
+     * @param stores
+     * @return
+     */
     @PostMapping("listStores")
     public AppResponse listStores(Stores stores){
         try {
@@ -43,6 +54,12 @@ public class StoresController {
             throw e;
         }
     }
+
+    /**
+     * 修改门店信息
+     * @param stores
+     * @return
+     */
     @PostMapping("updateStores")
     public AppResponse updateStores(Stores stores){
         try {
@@ -55,6 +72,11 @@ public class StoresController {
         }
     }
 
+    /**
+     * 删除门店
+     * @param storesCode
+     * @return
+     */
     @PostMapping("deleteStores")
     public AppResponse deleteStores(String storesCode){
         try {

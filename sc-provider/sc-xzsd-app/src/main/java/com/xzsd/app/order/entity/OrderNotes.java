@@ -1,7 +1,12 @@
 package com.xzsd.app.order.entity;
 
 import java.util.Date;
-
+/**
+ * <p>订单明细实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class OrderNotes {
     /**
      * 页码
@@ -96,6 +101,26 @@ public class OrderNotes {
      * 版本号
      */
     private String version;
+
+    private int newAmount;
+
+    private double goodsLevel;
+
+    public int getNewAmount() {
+        return newAmount;
+    }
+
+    public void setNewAmount(int newAmount) {
+        this.newAmount = newAmount;
+    }
+
+    public double getGoodsLevel() {
+        return goodsLevel;
+    }
+
+    public void setGoodsLevel(double goodsLevel) {
+        this.goodsLevel = goodsLevel;
+    }
 
     public String getGoodsNotes() {
         return goodsNotes;

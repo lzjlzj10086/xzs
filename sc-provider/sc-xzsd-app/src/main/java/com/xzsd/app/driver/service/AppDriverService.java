@@ -27,6 +27,12 @@ public class AppDriverService {
         }
         return AppResponse.success("司机信息查询成功",driver);
     }
+
+    /**
+     * 司机负责门店查询
+     * @param userId
+     * @return
+     */
     public AppResponse listDriverStores(String userId){
         List<Stores> driverStoreslist = appDriver.listDriverStores(userId);
         return AppResponse.success("门店与店长信息查询成功",driverStoreslist);

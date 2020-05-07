@@ -22,6 +22,11 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
     @PostMapping("addUser")
     public AppResponse addUser(User user){
         try {
@@ -33,6 +38,12 @@ public class UserController {
             throw e;
         }
     }
+
+    /**
+     * 用户列表查询
+     * @param user
+     * @return
+     */
     @PostMapping("listUser")
     public AppResponse listUser(User user){
         try{
@@ -44,6 +55,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户详情
+     * @param userCode
+     * @return
+     */
     @PostMapping("findUserById")
     public AppResponse findUserById(String userCode){
         try{
@@ -55,6 +71,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
     @PostMapping("updateUser")
     public AppResponse updateUser(User user){
         try {
@@ -66,6 +87,12 @@ public class UserController {
         }
     }
 
+    /**
+     * 删除用户
+     * @param userCode
+     * @param userId
+     * @return
+     */
     @PostMapping("deleteUser")
     public AppResponse deleteUser(String userCode,String userId){
         try {

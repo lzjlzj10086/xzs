@@ -6,7 +6,11 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MyDao {
-
+    /**
+     * 客户个人信息查询
+     * @param userId
+     * @return
+     */
     ClientUser findUserById(String userId);
     /**
      * 修改密码

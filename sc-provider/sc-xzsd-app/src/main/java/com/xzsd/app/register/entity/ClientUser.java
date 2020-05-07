@@ -1,7 +1,12 @@
 package com.xzsd.app.register.entity;
 
 import java.util.Date;
-
+/**
+ * <p>客户实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class ClientUser {
 
     /**

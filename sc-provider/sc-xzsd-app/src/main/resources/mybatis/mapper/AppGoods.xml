@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.xzsd.app.goods.dao.GoodsDao">
+    <!--商品详情查询-->
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
         select
             g.goods_code goodsCode,
@@ -11,13 +12,14 @@
             g.price price,
             g.image goodsImage,
             g.writer writer,
-            g.judge_goods_level judgeGoodsLevel,
+            g.judge_goods_level goodsLevel,
             g.goods_notes goodsNotes,
             s.stores_name storesName,
             s.stores_address storesAddress
         from t_goods g,t_stores s
         where g.goods_code = #{goodsCode} and s.stores_invite_code = (SELECT invite_code FROM t_user WHERE user_code = #{userId})
     </select>
+    <!--一级分类列表查询-->
     <select id="listFirstLeveL" resultType="com.xzsd.app.goods.entity.GoodsLevel">
         select
             level_code levelCode,
@@ -25,6 +27,7 @@
         from t_goodslevel
         where is_deleted = 0 and is_parent = 0
     </select>
+    <!--二级分类列表与商品查询-->
     <select id="listSecondLevelAndGoodsByPage" resultMap="secondAndGoods">
         select
             a.level_code levelCode,
@@ -75,4 +78,22 @@
             <result column="imagePath" property="imagePath"/>
         </collection>
     </resultMap>
+    <!--邀请码查询-->
+    <select id="findinviteCode" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT invite_code FROM t_user WHERE user_code = #{userId}
+    </select>
+    <select id="findGoodsByIdTwo" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
+        select
+            g.goods_code goodsCode,
+            g.goods_Name goodsName,
+            g.book_id bookId,
+            g.goods_notes goodsNotes,
+            g.price price,
+            g.image goodsImage,
+            g.writer writer,
+            g.judge_goods_level goodsLevel,
+            g.goods_notes goodsNotes
+        from t_goods g
+        where g.goods_code = #{goodsCode}
+    </select>
 </mapper>

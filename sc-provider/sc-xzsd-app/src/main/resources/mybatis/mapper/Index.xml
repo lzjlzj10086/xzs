@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.xzsd.app.index.dao.IndexDao">
+    <!--首页轮播图查询-->
     <select id="imageGroupList" resultType="com.xzsd.app.index.entity.ImageGroup">
         select
             image_url imageUrl,
@@ -10,6 +11,7 @@
         where is_deleted = 0 and status = 1
         order by sort asc
     </select>
+    <!--首页热门列表查询-->
     <select id="hotGoodsListByPage" parameterType="java.lang.Integer" resultType="com.xzsd.app.index.entity.HotGoods">
         select
             g.goods_code goodsCode,
@@ -23,6 +25,7 @@
         order by h.hot_sort asc
         LIMIT 0,#{number}
     </select>
+    <!--得到展现热门商品数量-->
     <select id="getHotGoodsNumber" resultType="java.lang.Integer">
         select num
         from t_hot_number

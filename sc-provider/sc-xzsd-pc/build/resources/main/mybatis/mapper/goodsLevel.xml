@@ -9,9 +9,6 @@
         from t_goodslevel
         where is_deleted = 0
         and level_name = #{levelName}
-        <if test="levelCode != null and levelCode != ''">
-            and level_code != #{levelCode}
-        </if>
     </select>
     <!--调价热门商品-->
     <insert id="saveGoodsLevel" parameterType="com.demo.goodslevel.entity.GoodsLevel">

@@ -20,6 +20,10 @@ public class DictionaryController {
     @Resource
     private DictionaryService dictionaryService;
 
+    /**
+     * 省份集合查询
+     * @return
+     */
     @PostMapping("findProvinces")
     public AppResponse findProvinces(){
         try {
@@ -31,6 +35,11 @@ public class DictionaryController {
         }
     }
 
+    /**
+     * 市集合查询
+     * @param provincesNo
+     * @return
+     */
     @PostMapping("findCity")
     public AppResponse findCity(String provincesNo){
         try {
@@ -42,6 +51,11 @@ public class DictionaryController {
         }
     }
 
+    /**
+     * 区集合查询
+     * @param cityNo
+     * @return
+     */
     @PostMapping("findCounty")
     public AppResponse findCounty(String cityNo){
         try {

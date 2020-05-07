@@ -9,11 +9,7 @@
         from t_user
         where is_deleted = 0
         and user_acct = #{userAcct}
-        <if test="userCode != null and userCode != ''">
-            and user_code != #{userCode}
-        </if>
     </select>
-
     <!--新增用户-->
     <insert id="addUser" parameterType="com.demo.user.entity.User">
         insert t_user
@@ -52,7 +48,6 @@
             #{userId},
             0)
     </insert>
-
     <!--用户列表查询-->
     <select id="listUserByPage" parameterType="com.demo.user.entity.User" resultType="com.demo.user.entity.UserVo">
         select
@@ -88,6 +83,7 @@
         a.sex sex,
         a.phone,
         a.email,
+        a.image image,
         a.role
         from t_user a
         where a.user_code = #{userCode}
@@ -104,6 +100,7 @@
          role = #{role},
          phone = #{phone},
          email = #{email},
+         image = #{image},
          update_time = now(),
          update_user = #{userId},
          version = version + 1
@@ -121,6 +118,5 @@
         <foreach collection="userCode" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
-
     </delete>
 </mapper>

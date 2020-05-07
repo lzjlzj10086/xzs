@@ -101,28 +101,34 @@
         <if test="advertisement != null and advertisement !=''">
             and a.advertisement like concat('%', #{advertisement}, '%')
         </if>
+        <if test="goodsCode != null and goodsCode !=''">
+            and a.goods_code like concat('%', #{goodsCode}, '%')
+        </if>
         order by a.create_time desc
     </select>
     <!--商品详情-->
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.demo.goods.entity.GoodsVo">
         select
-            goods_name goodsName,
-            cost_price costPrice,
-            price price,
-            firstlevel_name firstLevelName,
-            secondlevel_name secondLevelName,
-            advertisement advertisement,
-            goods_notes goodsNotes,
-            goods_status goodsStatus,
-            up_time upTime,
-            shop_name shopName,
-            stock stock,
-            book_id bookId,
-            image image
-        from t_goods
-        where
-            goods_code = #{goodsCode}
+            a.goods_name goodsName,
+            a.cost_price costPrice,
+            a.price price,
+            a.firstlevel_code firstLevelCode,
+            a.secondlevel_code secondLevelCode,
+            b.parent_level_name firstLevelName,
+            b.level_name secondLevelName,
+            a.advertisement advertisement,
+            a.goods_notes goodsNotes,
+            a.goods_status goodsStatus,
+            a.up_time upTime,
+            a.shop_name shopName,
+            a.stock stock,
+            a.book_id bookId,
+            a.image image
+        from t_goods a,t_goodslevel b
+        where a.is_deleted = 0 and a.secondlevel_code = b.level_code
+              and a.goods_code = #{goodsCode}
     </select>
+    <!--修改商品-->
     <update id="updateGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
@@ -155,6 +161,7 @@
             #{item}
         </foreach>
     </delete>
+    <!--删除轮播图-->
     <delete id="deleteImageGroup" parameterType="com.demo.goods.entity.Goods">
         update t_imagegroup
         set
@@ -167,6 +174,7 @@
             #{item}
         </foreach>
     </delete>
+    <!--删除热门商品-->
     <delete id="deleteHotGoods" parameterType="com.demo.goods.entity.Goods">
         update t_goods
         set
@@ -205,6 +213,7 @@
             #{item}
         </foreach>
     </update>
+    <!--一级下拉查询-->
     <select id="findFirstLevel" resultType="com.demo.goodslevel.entity.GoodsLevel">
         select
             level_code levelCode,
@@ -212,7 +221,7 @@
         from t_goodslevel
         where is_parent = 0 and is_deleted = 0
     </select>
-
+    <!--二级下拉查询-->
     <select id="findSecondLevel" parameterType="java.lang.String" resultType="com.demo.goodslevel.entity.GoodsLevel">
         select
             level_code levelCode,
@@ -221,5 +230,4 @@
         where parent_level_code = #{firstLevelCode}
         and is_parent = 1 and is_deleted = 0
     </select>
-
 </mapper>

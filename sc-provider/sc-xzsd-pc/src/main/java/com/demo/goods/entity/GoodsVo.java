@@ -1,7 +1,12 @@
 package com.demo.goods.entity;
 
 import java.util.Date;
-
+/**
+ * <p>商品实体类返回类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class GoodsVo {
 
     /**
@@ -16,6 +21,14 @@ public class GoodsVo {
      * 书号
      */
     private String bookId;
+    /**
+     * 一级编号
+     */
+    private String firstLevelCode;
+    /**
+     * 二级编号
+     */
+    private String secondLevelCode;
     /**
      * 一级名称
      */
@@ -58,6 +71,22 @@ public class GoodsVo {
      * 上架时间
      */
     private Date upTime;
+
+    public String getFirstLevelCode() {
+        return firstLevelCode;
+    }
+
+    public void setFirstLevelCode(String firstLevelCode) {
+        this.firstLevelCode = firstLevelCode;
+    }
+
+    public String getSecondLevelCode() {
+        return secondLevelCode;
+    }
+
+    public void setSecondLevelCode(String secondLevelCode) {
+        this.secondLevelCode = secondLevelCode;
+    }
 
     public String getImage() {
         return image;

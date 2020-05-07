@@ -22,6 +22,11 @@ public class DriverController {
     @Resource
     private DriverService driverService;
 
+    /**
+     * 添加司机
+     * @param driver
+     * @return
+     */
     @PostMapping("addDriver")
     public AppResponse addDriver(Driver driver){
         try{
@@ -32,6 +37,12 @@ public class DriverController {
             throw e;
         }
     }
+
+    /**
+     * 司机列表分页查询
+     * @param driver
+     * @return
+     */
     @PostMapping("listDriver")
     public AppResponse listDriver(Driver driver){
         try{
@@ -42,6 +53,12 @@ public class DriverController {
             throw e;
         }
     }
+
+    /**
+     * 司机详情查询
+     * @param driverCode
+     * @return
+     */
     @PostMapping("findDriverById")
     public AppResponse findDriverById(String driverCode){
         try{
@@ -52,6 +69,12 @@ public class DriverController {
             throw e;
         }
     }
+
+    /**
+     * 修改司机信息
+     * @param driver
+     * @return
+     */
     @PostMapping("updateDriver")
     public AppResponse updateDriver(Driver driver){
         try{
@@ -62,6 +85,13 @@ public class DriverController {
             throw e;
         }
     }
+
+    /**
+     * 删除司机
+     * @param driverCode
+     * @param userId
+     * @return
+     */
     @PostMapping("deleteDriver")
     public AppResponse deleteDriver(String driverCode,String userId){
         try{

@@ -19,6 +19,10 @@ public class IndexCotroller {
     @Resource
     private IndexService indexService;
 
+    /**
+     * 首页轮播图查询
+     * @return
+     */
     @PostMapping("listImageGroup")
     public AppResponse listImageGroup(){
         try {
@@ -30,6 +34,11 @@ public class IndexCotroller {
             throw e;
         }
     }
+
+    /**
+     * 首页热门商品查询
+     * @return
+     */
     @PostMapping("listHotGoods")
     public AppResponse listHotGoods(){
         try {

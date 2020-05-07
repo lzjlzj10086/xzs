@@ -8,14 +8,12 @@
         select count(user_acct)
         from t_user
         where user_acct = #{driverAcct} and is_deleted = 0
-        or user_code = #{driverCode}
     </select>
     <!--查询司机电话个数-->
     <select id="countPhone" parameterType="com.demo.driver.entity.Driver" resultType="java.lang.Integer">
-        select count(user_acct)
+        select count(phone)
         from t_user
         where phone = #{phone} and is_deleted = 0
-        or user_code = #{driverCode}
     </select>
     <!--添加司机-->
     <insert id="addDriver" parameterType="com.demo.driver.entity.Driver">
@@ -103,6 +101,7 @@
             user_pwd driverPwd,
             phone phone,
             id_card idCard,
+            image image,
             provinces_no provincesNo,
             city_no cityNo,
             county_no countyNo,

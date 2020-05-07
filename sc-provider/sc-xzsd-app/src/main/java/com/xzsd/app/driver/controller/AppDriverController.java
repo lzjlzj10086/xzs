@@ -15,6 +15,11 @@ public class AppDriverController {
     @Resource
     private AppDriverService appDriverService;
 
+    /**
+     * 司机个人信息查询
+     * @param userId
+     * @return
+     */
     @PostMapping("getUser")
     public AppResponse getUser(String userId){
         try {
@@ -25,6 +30,12 @@ public class AppDriverController {
             throw e;
         }
     }
+
+    /**
+     * 司机负责门店集合查询
+     * @param userId
+     * @return
+     */
     @PostMapping("listDriverStores")
     public AppResponse listDriverStores(String userId){
         try {

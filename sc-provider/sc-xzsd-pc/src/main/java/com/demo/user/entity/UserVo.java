@@ -1,5 +1,10 @@
 package com.demo.user.entity;
-
+/**
+ * <p>用户实体类返回类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class UserVo {
     /**
      * 页码
@@ -41,6 +46,16 @@ public class UserVo {
      *邮箱
      */
     private String email;
+
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getUserCode() {
         return userCode;

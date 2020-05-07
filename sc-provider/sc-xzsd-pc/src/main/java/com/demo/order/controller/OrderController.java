@@ -21,6 +21,11 @@ public class OrderController {
     @Resource
     private OrderService orderService;
 
+    /**
+     * 订单列表分页
+     * @param order
+     * @return
+     */
     @PostMapping("listOrder")
     public AppResponse listOder(Order order){
         try {
@@ -31,6 +36,12 @@ public class OrderController {
             throw e;
         }
     }
+
+    /**
+     * 订单详情
+     * @param orderCode
+     * @return
+     */
     @PostMapping("findOrderById")
     public AppResponse listOder(String orderCode){
         try {
@@ -42,6 +53,13 @@ public class OrderController {
         }
     }
 
+    /**
+     * 修改订单状态
+     * @param orderCode
+     * @param orderStatus
+     * @param userId
+     * @return
+     */
     @PostMapping("updateOrderStatus")
     public AppResponse updateOrderStatus(String orderCode,String orderStatus,String userId){
         try {

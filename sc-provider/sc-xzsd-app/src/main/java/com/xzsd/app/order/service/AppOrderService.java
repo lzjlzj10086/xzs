@@ -1,6 +1,5 @@
 package com.xzsd.app.order.service;
 
-import com.github.pagehelper.PageHelper;
 import com.neusoft.core.restful.AppResponse;
 import com.neusoft.util.StringUtil;
 import com.xzsd.app.goods.entity.Goods;
@@ -8,7 +7,6 @@ import com.xzsd.app.order.dao.AppOrderDao;
 import com.xzsd.app.order.entity.*;
 import com.xzsd.app.register.entity.ClientUser;
 import com.xzsd.app.shopcar.dao.ShopCarDao;
-import com.xzsd.app.shopcar.entity.ShopCar;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +34,7 @@ public class AppOrderService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addOrder(String goodsCode,String amount,String userId){
         String inviteCode = appOrderDao.countInviteCode(userId);
-        if (inviteCode.length() == 0) {
+        if (inviteCode == null || inviteCode == "") {
             return AppResponse.success("请先去根据邀请码绑定门店");
         }
         List<String> goodsCodeList = Arrays.asList(goodsCode.split(","));
@@ -120,9 +118,23 @@ public class AppOrderService {
         if(count == 0){
             return AppResponse.bizError("修改失败");
         }
+        //判断修改订单状态是否为取消订单
+        if(order.getOrderStatus() == 5){
+            List<OrderNotes> orderNotesList = new ArrayList<OrderNotes>();
+            Order oldOrder = appOrderDao.findOrderById(order);
+            for(int i = 0;i<oldOrder.getOrderNotesList().size();i++){
+                OrderNotes orderNotes = new OrderNotes();
+                orderNotes.setNewAmount(Integer.parseInt(oldOrder.getOrderNotesList().get(i).getAmount()));
+                orderNotes.setGoodsCode(oldOrder.getOrderNotesList().get(i).getGoodsCode());
+                orderNotesList.add(orderNotes);
+            }
+            int countaddStock = appOrderDao.addGoodsStock(orderNotesList);
+            if( countaddStock == 0){
+                return AppResponse.bizError("修改失败，库存更新失败");
+            }
+        }
         return AppResponse.success("修改成功");
     }
-
     /**
      * 查看订单详情
      * @param ordercode
@@ -143,17 +155,9 @@ public class AppOrderService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addJudge(Judge judge){
-        //设置照片集合
-        List<JudgeImage> judgeImageList = new ArrayList<>();
         for(int i = 0;i<judge.getJudgeMgeLists().size();i++){
             judge.getJudgeMgeLists().get(i).setJudgeCode(StringUtil.getCommonCode(2));
             JudgeMgeList judgeMge =judge.getJudgeMgeLists().get(i);
-            for(int j = 0;j<judgeMge.getJudgeImages().size();j++){
-                JudgeImage judgeImage = judgeMge.getJudgeImages().get(j);
-                judgeImage.setImageCode(StringUtil.getCommonCode(2));
-                judgeImage.setJudgeCode(judgeMge.getJudgeCode());
-                judgeImageList.add(judgeImage);
-            }
             //设置差中好评标志
             if(judge.getJudgeMgeLists().get(i).getJudgeLevel() == 1){
                 judge.getJudgeMgeLists().get(i).setJudgeGoodsLevel(1);
@@ -164,13 +168,13 @@ public class AppOrderService {
             }
             //获取商品评价的总个数和总星级
             List<JudgeMgeList> allGoodsJudge = appOrderDao.countAllGoodsJudge(judge.getJudgeMgeLists().get(i).getGoodsCode());
-            double sum = 0;
+            double sum = judge.getJudgeMgeLists().get(i).getJudgeLevel();
             //计算总分（总星级)
             for(int m = 0;m<allGoodsJudge.size();m++){
                 sum = sum+allGoodsJudge.get(m).getJudgeLevel();
             }
             //计算平均（评价平均分）星级
-            double goodsJudgeSum = sum/allGoodsJudge.size();
+            double goodsJudgeSum = sum/(allGoodsJudge.size()+1);
             //更新商品星级
             int countGoodsJudge = appOrderDao.updateGoodsLevel(judge.getJudgeMgeLists().get(i).getGoodsCode(),goodsJudgeSum);
             if(countGoodsJudge == 0){
@@ -181,11 +185,6 @@ public class AppOrderService {
         int addJudgeCount = appOrderDao.addJudge(judge);
         if(addJudgeCount != judge.getJudgeMgeLists().size()){
             return AppResponse.bizError("评价失败1");
-        }
-        //添加图片
-        int addImageCount = appOrderDao.addJudgeImage(judgeImageList);
-        if(addImageCount != judgeImageList.size()){
-            return AppResponse.bizError("评价失败2");
         }
         //修改评价后商品状态
         Order order = new Order();
@@ -206,7 +205,7 @@ public class AppOrderService {
      * @return
      */
     public AppResponse listGoodsToJudge(String orderCode,String userId){
-        List<OrderNotes> orderNotesList = appOrderDao.listGoodsToJudge(orderCode,userId);
-        return AppResponse.success("查询订单评价商品信息列表成功",orderNotesList);
+        List<OrderNotes> goodsList = appOrderDao.listGoodsToJudge(orderCode,userId);
+        return AppResponse.success("查询订单评价商品信息列表成功",goodsList);
     }
 }

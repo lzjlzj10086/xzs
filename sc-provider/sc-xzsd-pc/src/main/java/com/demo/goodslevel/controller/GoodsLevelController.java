@@ -63,6 +63,12 @@ public class GoodsLevelController {
         }
     }
 
+    /**
+     * 删除商品分类
+     * @param levelCode
+     * @param userId
+     * @return
+     */
     @PostMapping("deleteGoodsLevel")
     public AppResponse deleteGoodsLevel(String levelCode, String userId){
         try {

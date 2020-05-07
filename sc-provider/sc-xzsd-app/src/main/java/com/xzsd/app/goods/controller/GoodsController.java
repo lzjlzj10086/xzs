@@ -23,6 +23,13 @@ public class GoodsController {
     private static final Logger logger2 = LoggerFactory.getLogger(GoodsLevel.class);
     @Resource
     private GoodsService goodsService;
+
+    /**
+     * 商品详情
+     * @param goodsCode
+     * @param userId
+     * @return
+     */
     @PostMapping("findGoodsById")
     public AppResponse findGoodsById(String goodsCode,String userId){
         try {
@@ -51,6 +58,11 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 一级分类列表查询
+     * @return
+     */
     @PostMapping("listFirstLeveL")
     public AppResponse listFirstLeveL(){
         try {
@@ -62,6 +74,12 @@ public class GoodsController {
             throw e;
         }
     }
+
+    /**
+     * 二级分类列表查询及以下商品
+     * @param levelCode
+     * @return
+     */
     @PostMapping("listSecondLevelAndGoods")
     public AppResponse listSecondLevelAndGoods(String levelCode){
         try {

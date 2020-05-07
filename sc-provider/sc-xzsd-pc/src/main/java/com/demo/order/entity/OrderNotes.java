@@ -1,7 +1,12 @@
 package com.demo.order.entity;
 
 import java.util.Date;
-
+/**
+ * <p>订单明细实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class OrderNotes {
     /**
      * 页码

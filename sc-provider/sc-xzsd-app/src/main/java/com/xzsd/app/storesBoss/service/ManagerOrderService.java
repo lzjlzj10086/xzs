@@ -64,6 +64,11 @@ public class ManagerOrderService {
         List<Driver> driverList = managerOrdersDao.listManangerDrivers(userId);
         return AppResponse.success("司机信息查询成功",driverList);
     }
+    /**
+     * 店长个人信息查询
+     * @param userId
+     * @return
+     */
     public AppResponse getUser(String userId){
         Stores mananger = managerOrdersDao.getUser(userId);
         if(mananger == null){

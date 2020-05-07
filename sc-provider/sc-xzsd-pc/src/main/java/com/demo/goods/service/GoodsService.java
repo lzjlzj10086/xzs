@@ -87,7 +87,7 @@ public class GoodsService {
                 return AppResponse.bizError("商品已存在，请重新输入");
             }
         }
-        int count =goodsDao.updateGoods(goods);
+        int count = goodsDao.updateGoods(goods);
         if(count == 0){
             return AppResponse.bizError("数据发生变化，请重新输入");
         }

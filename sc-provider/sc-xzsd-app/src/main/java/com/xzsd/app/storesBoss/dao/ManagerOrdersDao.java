@@ -12,10 +12,10 @@ import java.util.List;
 public interface ManagerOrdersDao {
     /**
      * 店长端订单列表
-     * @param orderStatue
+     * @param orderStatus,userId
      * @return
      */
-    List<Order> listManagerOrdersByPage(@Param("orderStatue") Integer orderStatue,@Param("userId") String userId);
+    List<Order> listManagerOrdersByPage(@Param("orderStatus") Integer orderStatus,@Param("userId") String userId);
     /**
      * 修改订单状态
      * @param order
@@ -37,5 +37,10 @@ public interface ManagerOrdersDao {
      */
     List<Driver> listManangerDrivers(String userId);
 
+    /**
+     * 获取门店信息
+     * @param userId
+     * @return
+     */
     Stores getUser(String userId);
 }

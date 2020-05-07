@@ -26,6 +26,11 @@ public class ClientUserController {
     @Resource
     private TopDao topDao;
 
+    /**
+     * 客户列表分页查询
+     * @param clientUser
+     * @return
+     */
     @PostMapping("listClient")
     public AppResponse listClient(ClientUser clientUser){
         try {

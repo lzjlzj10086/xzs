@@ -22,13 +22,13 @@
             and order_code like concat('%', #{orderCode}, '%')
         </if>
         <if test="clientUserPhone != null and clientUserPhone !=''">
-            and order_clientuser_phone like concat('%', #{clirntUserName}, '%')
+            and order_clientuser_phone like concat('%', #{clientUserPhone}, '%')
         </if>
         <if test="orderStatus != null and orderStatus !=''">
-            and pay_status = #{orderStatus}
+            and order_status = #{orderStatus}
         </if>
         <if test="payTime != null and payTime !=''">
-            and pay_time = #{payTime}
+            and pay_time like concat('%', #{payTime}, '%')
         </if>
         <if test="storesBossCode !=null and storesBossCode != ''">
             and stores_boss_code = #{storesBossCode}

@@ -39,4 +39,8 @@ public interface GoodsDao {
      * @return
      */
     List<JudgeMgeList> listGoodsJudgeByPage(JudgeMgeList judgeMgeList);
+
+    String findinviteCode(String userId);
+
+    Goods findGoodsByIdTwo(String goodsCode);
 }

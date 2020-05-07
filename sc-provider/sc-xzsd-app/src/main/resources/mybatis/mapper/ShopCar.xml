@@ -2,18 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.xzsd.app.shopcar.dao.ShopCarDao">
+    <!--统计加入购物车商品数量-->
     <select id="countShopCarGoods" parameterType="com.xzsd.app.shopcar.entity.ShopCar" resultType="java.lang.Integer">
         select count(*)
         from t_sys_shopcar
         where is_deleted = 0
-        and goods_code = #{goodsCode}
+        and goods_code = #{goodsCode} and user_code = #{userId}
     </select>
+    <!--添加购物车-->
     <insert id="addShopCar" parameterType="com.xzsd.app.shopcar.entity.ShopCar">
         insert into t_sys_shopcar
         (
             shopcar_code,
             goods_code,
             amout,
+            user_code,
             is_deleted,
             create_time,
             update_time,
@@ -24,13 +27,15 @@
             #{shopCarCode},
             #{goodsCode},
             #{carGoodsCount},
+            #{userId},
             #{isDelete},
             now(),
             now(),
             0
         )
     </insert>
-    <select id="listShopCarByPage" parameterType="com.xzsd.app.shopcar.entity.ShopCar" resultType="com.xzsd.app.shopcar.entity.ShopCar">
+    <!--购物车列表查询-->
+    <select id="listShopCarByPage" parameterType="java.lang.String" resultType="com.xzsd.app.shopcar.entity.ShopCar">
         select
             sc.goods_code goodsCode,
             g.goods_name goodsName,
@@ -39,10 +44,11 @@
             sc.amout carGoodsCount,
             sc.shopcar_code shopCarCode
         from t_sys_shopcar sc,t_goods g
-        where sc.goods_code = g.goods_code
+        where sc.goods_code = g.goods_code and sc.user_code = #{userId}
         and sc.is_deleted = 0
         order by sc.create_time desc
     </select>
+    <!--修改购物车-->
     <update id="updateShopCar" parameterType="com.xzsd.app.shopcar.entity.ShopCar">
         update t_sys_shopcar
         set
@@ -52,6 +58,7 @@
         where shopcar_code = #{shopCarCode}
         and is_deleted = 0
     </update>
+    <!--删除购物车-->
     <update id="deleteShopCar" parameterType="com.xzsd.app.shopcar.entity.ShopCar">
         update t_sys_shopcar
         set

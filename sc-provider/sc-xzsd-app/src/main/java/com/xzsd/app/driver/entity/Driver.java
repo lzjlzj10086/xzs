@@ -1,7 +1,12 @@
 package com.xzsd.app.driver.entity;
 
 import java.util.Date;
-
+/**
+ * <p>app司机实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class Driver {
     /**
      * 页码

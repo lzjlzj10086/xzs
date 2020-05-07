@@ -25,8 +25,11 @@ public class MyService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updatePwd(String userId,String userPwd,String userNewPwd){
+        //判断输入原密码是否和新密码是否一致
         if(userPwd != null && !"".equals(userNewPwd)){
+            //获取客户原密码
             ClientUser clientUser = myDao.findUserById(userId);
+            //判断输入原密码和数据库原密码是否一致
             boolean pwd = PasswordUtils.Password(userPwd,clientUser.getUserPwd());
             if(!pwd){
                 return AppResponse.bizError("原密码不匹配，请重新输入");
@@ -47,6 +50,7 @@ public class MyService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateClientInvite(ClientUser clientUser){
+        //判断输入邀请码是否存在
         int countInvite = registerDao.countInvite(clientUser);
         if(countInvite == 0){
             return AppResponse.bizError("该店铺邀请码不存在，请重新输入");

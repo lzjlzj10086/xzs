@@ -1,7 +1,12 @@
 package com.demo.menu.entity;
 
 import java.util.Date;
-
+/**
+ * <p>菜单实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class Menu {
 
     /**

@@ -20,6 +20,11 @@ public class TopController {
     @Resource
     private TopService topService;
 
+    /**
+     * 顶部栏信息查询
+     * @param userAccount
+     * @return
+     */
     @PostMapping("getTop")
     public AppResponse getTop(String userAccount){
         try{

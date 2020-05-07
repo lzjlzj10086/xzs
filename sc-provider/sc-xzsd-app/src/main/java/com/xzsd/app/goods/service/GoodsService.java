@@ -20,13 +20,21 @@ public class GoodsService {
     @Resource
     private GoodsDao goodsDao;
 
+
     /**
      * 查询商品信息详情接口
      * @param goodsCode
      * @return
      */
     public AppResponse findGoodsById(String goodsCode,String userId){
-        Goods goods = goodsDao.findGoodsById(goodsCode,userId);
+        String inviteCode = goodsDao.findinviteCode(userId);
+        Goods goods = new Goods();
+        if(inviteCode != null && inviteCode !=""){
+            goods = goodsDao.findGoodsById(goodsCode,userId);
+        }
+        if(inviteCode == null || inviteCode == ""){
+            goods = goodsDao.findGoodsByIdTwo(goodsCode);
+        }
         if(goods == null){
             return AppResponse.bizError("商品详情查询异常");
         }

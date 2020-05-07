@@ -72,7 +72,6 @@ public interface AppOrderDao {
      * @return
      */
     List<Order> listOrderByPage(@Param("orderStatus") Integer orderStatus, @Param("userId") String userId);
-
     /**
      * 修改订单状态
      * @param order
@@ -123,4 +122,11 @@ public interface AppOrderDao {
      * @return
      */
     int updateGoodsLevel(@Param("goodsCode") String goodsCode,@Param("judgeGoodsLevel") double judgeGoodsLevel);
+
+    /**
+     * 取消订单后，修改库存
+     * @param orderNotesList
+     * @return
+     */
+    int addGoodsStock(@Param("orderNotesList") List<OrderNotes> orderNotesList);
 }

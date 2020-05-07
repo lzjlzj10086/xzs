@@ -22,6 +22,11 @@ public class ImageGroupController {
     @Resource
     private ImageGroupService imageGroupService;
 
+    /**
+     * 添加轮播图
+     * @param imageGroup
+     * @return
+     */
     @PostMapping("addImageGroup")
     public AppResponse addImageGroup(ImageGroup imageGroup){
         try {
@@ -33,6 +38,11 @@ public class ImageGroupController {
         }
     }
 
+    /**
+     * 选择商品列表
+     * @param goods
+     * @return
+     */
     @PostMapping("listGoods")
     public AppResponse listGoods(Goods goods){
         try {
@@ -44,6 +54,11 @@ public class ImageGroupController {
         }
     }
 
+    /**
+     * 轮播图列表的查询
+     * @param imageGroup
+     * @return
+     */
     @PostMapping("listImageGroup")
     public AppResponse listGoods(ImageGroup imageGroup){
         try {
@@ -55,6 +70,11 @@ public class ImageGroupController {
         }
     }
 
+    /**
+     * 删除轮播图
+     * @param bannerCode
+     * @return
+     */
     @PostMapping("deleteImageGroup")
     public AppResponse deleteImageGroup(String bannerCode){
         try {
@@ -66,6 +86,11 @@ public class ImageGroupController {
         }
     }
 
+    /**
+     * 启用轮播图
+     * @param bannerCode
+     * @return
+     */
     @PostMapping("startImageGroup")
     public AppResponse startIamgeGroup(String bannerCode){
         try {
@@ -77,6 +102,11 @@ public class ImageGroupController {
         }
     }
 
+    /**
+     * 禁用轮播图
+     * @param bannerCode
+     * @return
+     */
     @PostMapping("stopImageGroup")
     public AppResponse stopImageGroup(String bannerCode){
         try {

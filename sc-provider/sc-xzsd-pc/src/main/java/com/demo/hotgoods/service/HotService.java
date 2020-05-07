@@ -38,9 +38,11 @@ public class HotService {
     public AppResponse addHotGoods(HotGoods hotGoods){
         int countSort = hotDao.countHotSort(hotGoods);
         int countGoods = hotDao.countHotGoods(hotGoods);
+        //校验序号是否存在
         if(countSort != 0){
             return AppResponse.bizError("该排序重复");
         }
+        //校验商品是否存在
         if(countGoods != 0){
             return AppResponse.bizError("该商品已存在");
         }

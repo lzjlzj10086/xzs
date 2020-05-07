@@ -33,6 +33,7 @@ public class IndexService {
      * @return
      */
     public AppResponse hotGroupList(){
+        //得到首页展现热门商品的数量
         int number = indexDao.getHotGoodsNumber();
         List<HotGoods> hotGoodsList = indexDao.hotGoodsListByPage(number);
         if (hotGoodsList == null){

@@ -20,6 +20,11 @@ public class ShopCarController {
     @Resource
     private ShopCarService shopCarService;
 
+    /**
+     * 加入购物车
+     * @param shopCar
+     * @return
+     */
     @PostMapping("addShopCar")
     public AppResponse addShopCar(ShopCar shopCar){
         try {
@@ -31,10 +36,15 @@ public class ShopCarController {
             throw e;
         }
     }
+
+    /**
+     * 购物车查询
+     * @return
+     */
     @PostMapping("listShopCar")
-    public AppResponse listShopCar(){
+    public AppResponse listShopCar(String userId){
         try {
-            AppResponse appResponse = shopCarService.listShopCar();
+            AppResponse appResponse = shopCarService.listShopCar(userId);
             return appResponse;
         } catch (Exception e) {
             logger.error("购物车列表失败", e);
@@ -42,6 +52,12 @@ public class ShopCarController {
             throw e;
         }
     }
+
+    /**
+     * 修改购物车数量
+     * @param shopCar
+     * @return
+     */
     @PostMapping("updateShopCar")
     public AppResponse updateShopCar(ShopCar shopCar){
         try {
@@ -53,6 +69,12 @@ public class ShopCarController {
             throw e;
         }
     }
+
+    /**
+     * 删除购物车
+     * @param shopCarCode
+     * @return
+     */
     @PostMapping("deleteShopCar")
     public AppResponse deleteShopCar(String shopCarCode){
         try {

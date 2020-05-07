@@ -2,7 +2,12 @@ package com.xzsd.app.goods.entity;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ * <p>商品分类实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class GoodsLeveltwo {
     /**
      * 页码

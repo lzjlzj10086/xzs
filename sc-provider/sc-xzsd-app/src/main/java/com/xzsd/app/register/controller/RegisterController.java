@@ -19,6 +19,11 @@ public class RegisterController {
     @Resource
     private RegisterService registerService;
 
+    /**
+     * 客户注册
+     * @param clientUser
+     * @return
+     */
     @PostMapping("clientRegister")
     public AppResponse clientRegister(ClientUser clientUser){
         try {

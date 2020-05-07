@@ -8,6 +8,7 @@
         from t_user
         where user_code = #{userId}
     </select>
+    <!--门店详情查询-->
     <select id="findStoresByUserId" parameterType="java.lang.String" resultType="com.xzsd.app.order.entity.Stores">
         select
             stores_provinces_name provincesName,
@@ -20,6 +21,7 @@
         from t_stores
         where stores_invite_code =(select invite_code from t_user where user_code = #{userId})
     </select>
+    <!--客户电话和名称查询-->
     <select id="findClientUserById" parameterType="java.lang.String" resultType="com.xzsd.app.register.entity.ClientUser">
         select
             user_name userName,
@@ -27,6 +29,7 @@
         from t_user
         where user_code = #{userId}
     </select>
+    <!--订单商品详情查询-->
     <select id="findGoodsById" parameterType="java.lang.String" resultType="com.xzsd.app.goods.entity.Goods">
         select
             goods_name goodsName,
@@ -37,11 +40,13 @@
         from t_goods
         where goods_code = #{goodsCode}
     </select>
+    <!--修改商品库存-->
     <update id="updateGoodsStock">
         update t_goods
         set stock = stock - #{stock}
         where goods_code = #{goodsCode}
     </update>
+    <!--删除已下单购物车中商品-->
     <update id="deleteShopCar" parameterType="java.lang.String">
         update t_sys_shopcar
         set
@@ -53,6 +58,7 @@
             #{item}
         </foreach>
     </update>
+    <!--添加订单详情-->
     <insert id="addOrderNotes" parameterType="com.xzsd.app.order.entity.OrderNotes">
         insert into t_sys_order_detaile
         (
@@ -87,6 +93,7 @@
             0
         )
     </insert>
+    <!--添加订单-->
     <insert id="addOrder" parameterType="com.xzsd.app.order.entity.Order">
         insert into t_sys_order
         (
@@ -146,7 +153,12 @@
         on a.order_code = b.order_code
         where a.order_clientuser_code = #{userId}
         <if test="orderStatus != null and orderStatus !=''">
-            and a.order_status = #{orderStatus}
+            <if test="orderStatus!=4">
+                and a.order_status = #{orderStatus}
+            </if>
+            <if test="orderStatus == 4">
+                and (a.order_status = #{orderStatus} - 1 or a.order_status = #{orderStatus})
+            </if>
         </if>
         order by a.create_time desc
     </select>
@@ -163,6 +175,7 @@
             <result column="goodsCode" property="goodsCode"/>
         </collection>
     </resultMap>
+    <!--修改订单状态-->
     <update id="updateOrderStatus" parameterType="com.xzsd.app.order.entity.Order">
         update t_sys_order
         set
@@ -172,6 +185,15 @@
             version = version + 1
         where order_code = #{orderCode}
     </update>
+    <!--订单取消是，重新叫上库存-->
+    <update id="addGoodsStock" parameterType="com.xzsd.app.order.entity.OrderNotes">
+        <foreach collection="orderNotesList" item="item" index="index" open="" separator=";" close="">
+            update t_goods
+            set stock = stock + #{item.newAmount}
+            where goods_code = #{item.goodsCode}
+        </foreach>
+    </update>
+    <!--订单详情-->
     <select id="findOrderById" resultMap="order">
         select
         a.order_status orderStatus,
@@ -207,8 +229,10 @@
             <result column="price" property="price"/>
             <result column="amount" property="amount"/>
             <result column="goodsCode" property="goodsCode"/>
+            <result column="goodsLevel" property="goodsLevel"/>
         </collection>
     </resultMap>
+    <!--添加评价-->
     <insert id="addJudge" parameterType="com.xzsd.app.order.entity.Judge">
         insert into t_sys_judge
         (
@@ -266,12 +290,13 @@
         </foreach>
     </insert>
     <!--查询订单评价商品信息-->
-    <select id="listGoodsToJudge" resultMap="order">
+    <select id="listGoodsToJudge" parameterType="java.lang.String" resultType="com.xzsd.app.order.entity.OrderNotes">
         select
         b.goods_code goodsCode,
-        b.imagePath ImagePath
+        b.imagePath ImagePath,
+        b.goods_name goodsName
         from t_sys_order a,t_sys_order_detaile b
-        where a.order_code = b.order_code and a.order_status = 4 and a.order_clientuser_code = #{userId}
+        where a.order_code = b.order_code and a.order_clientuser_code = #{userId}
         and a.order_code = #{orderCode}
         order by a.create_time desc
     </select>

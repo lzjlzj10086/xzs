@@ -75,6 +75,7 @@
         <if test="goodsCode != null and goodsCode !=''">
             and g.goods_code = #{goodsCode}
         </if>
+        order by g.create_time desc
     </select>
     <!--轮播图列表查询-->
     <select id="listImageGroupByPage" parameterType="com.demo.imagegroup.entity.ImageGroup" resultType="com.demo.imagegroup.entity.ImageGroup">

@@ -25,7 +25,7 @@ public interface ShopCarDao {
      * 查询购物车列表
      * @return
      */
-    List<ShopCar> listShopCarByPage();
+    List<ShopCar> listShopCarByPage(String userId);
 
     /**
      * 修改商品购物车数量

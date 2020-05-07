@@ -30,6 +30,11 @@ public class StoresService {
     @Resource
     private DictionaryDao dictionaryDao;
 
+    /**
+     * 门店添加
+     * @param stores
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addStores(Stores stores){
         //设置门店随机编号

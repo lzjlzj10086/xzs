@@ -23,6 +23,11 @@ public class StoresUtils {
         String storesAcct = code+String.valueOf((int)((Math.random()*9+1)*1000));
         return storesAcct;
     }
+
+    /**
+     * 得到门店编号
+     * @return
+     */
     public static String getStoresCode(){
         String code = "XZS";
         String storesCode = code+String.valueOf((int)((Math.random()*9+1)*1000));

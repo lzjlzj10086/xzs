@@ -25,8 +25,14 @@ public class DriverService {
     @Resource
     private DictionaryDao dictionaryDao;
 
+    /**
+     * 添加司机
+     * @param driver
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addDriver(Driver driver){
+        //设置司机编码
         driver.setDriverCode(StoresUtils.getDriverCode());
         int countDriver = driverDao.countDriver(driver);
         //校验账号是否存在
@@ -94,6 +100,10 @@ public class DriverService {
             if(countPhone != 0){
                 return AppResponse.bizError("已有司机绑定该手机号，请重新输入");
             }
+        }
+        //判断输入密码和数据库原密码是否一致
+        if(!driver.getDriverPwd().equals(oldDriver.getDriverPwd())){
+            driver.setDriverPwd(PasswordUtils.generatePassword(driver.getDriverPwd()));
         }
         //设置司机省市区信息
         driver.setProvincesName(dictionaryDao.findprovincesName(driver.getProvincesNo()));

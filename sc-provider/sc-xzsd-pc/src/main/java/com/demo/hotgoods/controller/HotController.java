@@ -22,6 +22,11 @@ public class HotController {
 
     private static final Logger logger = LoggerFactory.getLogger(HotGoods.class);
 
+    /**
+     * 添加热门商品
+     * @param hotGoods
+     * @return
+     */
     @PostMapping("addHotGoods")
     public AppResponse addHotGoods(HotGoods hotGoods) {
         try {
@@ -34,6 +39,11 @@ public class HotController {
         }
     }
 
+    /**
+     * 热门商品列表分页查询
+     * @param hotGoods
+     * @return
+     */
     @PostMapping("listHotGoods")
     public AppResponse listHotHotGoods(HotGoods hotGoods){
         try {
@@ -47,6 +57,11 @@ public class HotController {
         }
     }
 
+    /**
+     * 商品选择列表
+     * @param goods
+     * @return
+     */
     @PostMapping("listGoods")
     public AppResponse getHotService(Goods goods) {
         try {
@@ -59,6 +74,11 @@ public class HotController {
         }
     }
 
+    /**
+     * 修改热门商品
+     * @param hotGoods
+     * @return
+     */
     @PostMapping("updateHotGoods")
     public AppResponse updateHotGoods(HotGoods hotGoods){
         try {
@@ -71,6 +91,11 @@ public class HotController {
         }
     }
 
+    /**
+     * 删除热门商品
+     * @param hotCode
+     * @return
+     */
     @PostMapping("deleteHotGoods")
     public AppResponse deleteHotGoods(String hotCode){
         try {
@@ -82,6 +107,12 @@ public class HotController {
             throw e;
         }
     }
+
+    /**
+     * 设置展现热门商品数量
+     * @param number
+     * @return
+     */
     @PostMapping("updateHotGoodsNumber")
     public AppResponse updateHotGoodsNumber(String number){
         try {
@@ -93,10 +124,14 @@ public class HotController {
             throw e;
         }
     }
+
+    /**
+     * 展现热门商品数量查询
+     * @return
+     */
     @PostMapping("findNum")
     public AppResponse findNum(){
         try {
-            //hotGoods.setUserId("123456");
             return hotService.findNum();
         }catch (Exception e) {
             logger.error("设置查询成功", e);
@@ -104,11 +139,15 @@ public class HotController {
             throw e;
         }
     }
+
+    /**
+     * 热门商品详情
+     * @param hotCode
+     * @return
+     */
     @PostMapping("findHotGoodsById")
     public AppResponse findHotGoodsById(String hotCode){
         try {
-            //hotGoods.setUserId("123456");
-            //hotGoods.setRole(2);
             return hotService.findHotGoodsById(hotCode);
         }catch (Exception e) {
             logger.error("查询失败", e);

@@ -8,9 +8,6 @@
         from t_user
         where is_deleted = 0
         and user_acct = #{userAcct}
-        <if test="userCode != null and userCode != ''">
-            and user_code != #{userCode}
-        </if>
     </select>
     <!--统计邀请码-->
     <select id="countInvite" parameterType="com.xzsd.app.register.entity.ClientUser" resultType="java.lang.Integer">

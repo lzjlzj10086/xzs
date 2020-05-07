@@ -2,7 +2,12 @@ package com.xzsd.app.order.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * <p>评价图片实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class JudgeImage {
     /**
      * 评价编码

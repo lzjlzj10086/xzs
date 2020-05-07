@@ -1,7 +1,12 @@
 package com.xzsd.app.goods.entity;
 
 import java.util.Date;
-
+/**
+ * <p>商品实体类</p>
+ * <p>创建日期：2020-05-05</p>
+ *
+ * @author 梁子杰
+ */
 public class Goods {
     /**
      * 页码
@@ -97,6 +102,7 @@ public class Goods {
     private Date donwTime;
     private String storesName;
     private String storesAddress;
+    private double goodsLevel;
     private double judgeGoodsLevel;
 
     /**
@@ -130,6 +136,14 @@ public class Goods {
 
     public void setJudgeGoodsLevel(double judgeGoodsLevel) {
         this.judgeGoodsLevel = judgeGoodsLevel;
+    }
+
+    public double getGoodsLevel() {
+        return goodsLevel;
+    }
+
+    public void setGoodsLevel(double goodsLevel) {
+        this.goodsLevel = goodsLevel;
     }
 
     public String getStoresName() {

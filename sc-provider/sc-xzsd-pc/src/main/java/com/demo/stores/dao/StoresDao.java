@@ -58,5 +58,10 @@ public interface StoresDao {
      */
     int deleteStores(@Param("storesCode") List<String> storesCode);
 
+    /**
+     * 门店详情
+     * @param stores
+     * @return
+     */
     Stores findStoresById(Stores stores);
 }
